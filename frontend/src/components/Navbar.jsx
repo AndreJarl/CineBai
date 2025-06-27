@@ -6,11 +6,11 @@ import { useState } from 'react';
 
 function Navbar() {
 
-      let user = true;
+      let user = false;
      const [iconClicked, setIconClicked] = useState(false);
   return (
-    <div className='flex flex-row  justify-center h-20 items-center'>
-      <div className='fixed flex flex-row justify-around  lg:gap-72 gap-5  h-20 items-center'>
+    <div className='flex flex-row bg-transparent  z-50 justify-center h-20 items-center text-white'>
+      <div className='fixed flex flex-row justify-around z-50 lg:gap-96 gap-5 h-20 items-center'>
           <Link to="/"><p className='lg:text-3xl text-2xl font-bold text-yellow-500'><span className='text-red-600'>Cine</span>Bai</p></Link>
           <div>
             <ul className='flex lg:gap-20 gap-4 font-medium text-sm lg:text-base items-center'>
