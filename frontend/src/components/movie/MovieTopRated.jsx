@@ -11,7 +11,6 @@ function MovieTopRated() {
       try {
         const res = await axios.get('api/movie/topRatedMovies?page=1');
         setTrendingMovies(res.data.content.results || []);
-        console.log(res.data.content.results);
       } catch (error) {
         console.error('Error fetching trending movies:', error);
       }
