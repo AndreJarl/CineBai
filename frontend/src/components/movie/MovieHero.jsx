@@ -1,17 +1,28 @@
-import { Star, SquarePlus, Play, Plus} from 'lucide-react';
-import React from 'react'
+import { Star} from 'lucide-react';
+import AddToListButton from '../AddToListButton';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Hero() {
-    const movie = {
-  title: "How to Train Your Dragon",
-  overview: "On the rugged isle of Berk, where Vikings and dragons have been bitter enemies for generations, Hiccup stands apart, defying centuries of tradition when he befriends Toothless, a feared Night Fury dragon. Their unlikely bond reveals the true nature of dragons, challenging the very foundations of Viking society.",
-  backdrop_path: "/7HqLLVjdjhXS0Qoz1SgZofhkIpE.jpg",
-  genres: ["Fantasy", "Family", "Action"],
-  vote: 7.9,
-  duration: 102
-};
+    
+     const [trendingMovie, setTrendingMovie ] = useState([]);
 
-const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+         useEffect(()=>{
+               const getTrendingMovie = async () =>{
+                      try {
+                          const res = await axios.get(`/api/movie/trendingMovie`);
+                           setTrendingMovie(res.data.content)
+                           console.log(res.data.content);
+
+                      } catch (error) {
+                        console.error('Error fetching trending movie:', error);
+                      }
+               }
+
+               getTrendingMovie();
+         }, []);
+
+const backdropUrl = `https://image.tmdb.org/t/p/original${trendingMovie.backdrop_path}`;
 
 function covertedDuration (minutes){
      const hours = Math.floor(minutes/60);
@@ -33,21 +44,20 @@ function covertedDuration (minutes){
   {/* Optional overlay */}
   <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-start">
     <div className=" text-white px-4 ml-28 flex flex-col gap-5 mt-24">
-      <p className='text-sm opacity-75'>Duration: {covertedDuration(movie.duration)}</p>
+      <p className='text-sm opacity-75'>Duration: {trendingMovie.runtime ? covertedDuration(trendingMovie.runtime) : ''}</p>
       <div className='flex flex-row items-center gap-4'>
-           <p className='flex items-center gap-2 text-lg font-medium'><Star color='yellow' />{movie.vote}</p>
+           <p className='flex items-center gap-2 text-lg font-medium'><Star color='yellow' />{trendingMovie.vote_average?.toFixed(1)}</p>
             <div className='flex flex-row items-center gap-3'>
-             {movie.genres.map((genre, index)=>{
-               return <p className='text-sm opacity-75' key={index}>{genre}  {index !== movie.genres.length - 1 && '|'}</p>
-             })}
+           {trendingMovie.genres?.map((genre, index) => (
+              <p className="text-sm opacity-75" key={index}>
+                {genre.name} {index !== trendingMovie.genres.length - 1 && '|'}
+              </p>
+            ))}
             </div>
       </div>
-      <h1 className="text-6xl font-semibold mb-4">{movie.title}</h1>
-      <p className="max-w-2xl text-base font-normal">{movie.overview}</p>
-      <div className='flex flex-row items-center gap-5 mt-5'>
-          <button className='bg-red-800 px-6 py-3 rounded-3xl flex flex-row text-center gap-2 '><Play/>WATCH NOW</button>
-          <button className=' px-6 py-3 rounded-3xl backdrop-blur-lg border-2 border-gray-200 flex flex-row text-center gap-2'><Plus />ADD LIST</button>
-      </div>
+      <h1 className="text-6xl font-semibold mb-4">{trendingMovie.title}</h1>
+      <p className="max-w-2xl text-base font-normal">{trendingMovie.overview}</p>
+      <AddToListButton/>
     </div>
   </div>
 </div>
