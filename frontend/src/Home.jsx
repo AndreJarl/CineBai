@@ -2,14 +2,18 @@ import React from 'react'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import MovieHero from './components/movie/MovieHero'
-import Popular from './components/movie/MoviePopular'
+import MovieTrending from './components/movie/MovieTreding'
+import MoviePopular from './components/movie/MoviePopular'
+import MovieTopRated from './components/movie/MovieTopRated'
 
 function Home() {
   return (
     <>
        <Navbar />
        <MovieHero/>
-       <Popular/>
+       <MovieTrending/>
+       <MoviePopular/>
+       <MovieTopRated/>
     </>
   )
 }
