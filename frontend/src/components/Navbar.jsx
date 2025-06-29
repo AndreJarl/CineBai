@@ -11,10 +11,10 @@ function Navbar() {
      const [iconClicked, setIconClicked] = useState(false);
   return (
     <div className='flex flex-row bg-transparent  z-50 justify-center h-20 items-center text-white'>
-      <div className=' flex flex-row justify-center z-50 lg:gap-96 md:gap-40 gap-2 h-20 items-center'>
+      <div className=' flex flex-row justify-center z-50 lg:gap-96 md:gap-40 gap-3 h-20 items-center'>
           <Link to="/"><p className='lg:text-3xl text-2xl font-bold text-yellow-500'><span className='text-red-600'>Cine</span>Bai</p></Link>
           <div>
-            <ul className='flex lg:gap-10 md:gap-10 gap-1 font-medium text-sm lg:text-base items-center'>
+            <ul className='flex lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
               <Link to="/"><li>MOVIES</li></Link>
               <Link to="/"><li>SERIES</li></Link>
             </ul>

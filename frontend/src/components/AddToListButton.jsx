@@ -21,7 +21,7 @@ function AddToListButton() {
     <div
       className={`absolute ${buttonClicked ? 'flex' : 'hidden'} right-0 top-full mt-2 z-50 shadow-2xl border-2 border-white backdrop-blur-xl rounded-lg`}
     >
-      <ul className="flex flex-col gap-5 p-4 text-white text-sm">
+      <ul className="flex flex-col gap-5 p-4 text-white lg:text-base text-xs">
         <li className="hover:text-red-600 cursor-pointer">Favorites</li>
         <li className="hover:text-red-600 cursor-pointer">Watch Later</li>
       </ul>
