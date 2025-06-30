@@ -2,13 +2,20 @@ import {Search} from 'lucide-react'
 import { Link } from "react-router";
 import person from "../assets/person.jpg"
 import { useState } from 'react';
+import { userAuthStore } from '../store/authUser';
+import { Toaster } from 'react-hot-toast';
 
 function Navbar() {
    
 
-      let user = false;
+      const {user, logout} = userAuthStore();
       
      const [iconClicked, setIconClicked] = useState(false);
+       
+     const handleClicked =() =>{
+           setIconClicked(!iconClicked);
+           logout();
+     }
   return (
     <div className='flex flex-row bg-transparent  z-50 justify-center h-20 items-center text-white'>
       <div className=' flex flex-row justify-center z-50 lg:gap-96 md:gap-40 gap-3 h-20 items-center'>
@@ -31,12 +38,13 @@ function Navbar() {
                  <ul className='flex flex-col lg:gap-5 gap-3  lg:p-4 p-3 lg:text-base text-xs'>
                   <li className='hover:text-red-600 '>My Profile</li>
                   <li className='hover:text-red-600'>My List</li>
-                  <li className='hover:text-red-600'>Log Out</li>
+                  <li onClick={handleClicked} className='hover:text-red-600 cursor-pointer'>Log Out</li>
 
                  </ul>
              </div>
           </div>
       </div>
+       <Toaster position="top-center" reverseOrder={false} />
     </div>
   )
 }
