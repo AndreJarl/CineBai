@@ -17,7 +17,7 @@ export async function myProfile(req, res) {
 export async function addToList(req, res) {
      
         const {type} = req.params;
-        const {id, mediaType} = req.body;
+        const {id, mediaType, title, poster_path} = req.body;
         if(!["favorites", "watchLater"].includes(type)){
             return res.status(400).json({success:false, message:"Invalid list type"});
         }
@@ -26,15 +26,15 @@ export async function addToList(req, res) {
         }
       try {
         const user = await User.findById(req.user._id);
-        const alreadyExists = user[type].some((item) => item.id === id && item.mediaType === mediaType);
+        const alreadyExists = user[type].some((item) => String(item.id)=== String(id) && item.mediaType === mediaType);
         if(alreadyExists){
               return res.status(409).json({success:false, message:"Already in the list"});
         }
 
-        user[type].push({id, mediaType});
+        user[type].push({id, mediaType, title, poster_path});
         await user.save();
 
-        res.json({success:true, content: user});
+        res.json({success:true, favorites: user.favorites, watchLater: user.watchLater});
 
 
       } catch (error) {

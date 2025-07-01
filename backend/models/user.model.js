@@ -23,7 +23,9 @@ const userShcema = mongoose.Schema({
         type: [
             {
                 id: String,
-                mediaType: String
+                mediaType: String,
+                title: String,
+                poster_path: String,
             }
         ],
         default: []
@@ -32,8 +34,9 @@ const userShcema = mongoose.Schema({
         type: [
             {
                 id: String,
-                mediaType: String
-
+                mediaType: String,
+                 title: String,
+                poster_path: String,
             }
         ],
         default: []

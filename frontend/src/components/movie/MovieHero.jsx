@@ -56,7 +56,7 @@ function covertedDuration (minutes){
       </div>
       <h1 className="lg:text-6xl md:text-6xl text-3xl font-semibold mb-4">{trendingMovie.title}</h1>
       <p className="max-w-2xl text-xs lg:text-base md:text-xl  font-normal">{trendingMovie.overview}</p>
-      <AddToListButton/>
+      <AddToListButton movie={trendingMovie} mediaType="movie"/>
     </div>
   </div>
 </div>
