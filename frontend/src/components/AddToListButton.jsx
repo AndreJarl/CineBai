@@ -27,10 +27,11 @@ function AddToListButton({movie, mediaType}) {
                const res = await axios.post(`/api/user/list/${type}`,{ id:movie.id, mediaType, title:movie.title, poster_path: movie.poster_path});
                console.log(res.data);
                setButtonClicked(false);
-               toast.success(`${movie.title} addded to ${type}`)
+               toast.success(`${movie.title} addded to ${type == 'favorites' ? 'favorites' : 'watch later'}`)
            } catch (error) {
                  if (error.response?.status === 409) {
                         toast.error("Already in the list.");
+                        setButtonClicked(false);
                     } else {
                         console.error(error);
                     }

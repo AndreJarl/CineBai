@@ -43,7 +43,7 @@ function MovieCard({trendingMovies}) {
         <div className="flex gap-5 justify-center overflow-hidden px-14">
          
           {visibleMovies.map((movie, index) => (
-             <Link to={`/movie-details/${movie.id}`}><div key={index} className='flex flex-col text-white gap-2'>
+             <Link to={`/movie-details/${movie.id}`}><div key={index} className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
              
             <p className='text-white px-1 font-bold w-[180px] truncate'>{movie.title}</p>
