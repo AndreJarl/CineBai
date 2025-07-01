@@ -23,7 +23,7 @@ function Navbar() {
           <div>
             <ul className='flex lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
               <Link to="/"><li>MOVIES</li></Link>
-              <Link to="/"><li>SERIES</li></Link>
+              <Link to="/tv"><li>SERIES</li></Link>
             </ul>
           </div>
           <div className=' relative flex lg:gap-10 gap-2 items-center'>
@@ -37,7 +37,6 @@ function Navbar() {
              <div className={`${iconClicked ? 'absolute' : 'hidden'} lg:top-11 lg:right-1 top-11 right-1 shadow-2xl border-2 border-gray-500 rounded-lg w-[90px] lg:w-[120px]`}>
                  <ul className='flex flex-col lg:gap-5 gap-3  lg:p-4 p-3 lg:text-base text-xs'>
                   <li className='hover:text-red-600 '>My Profile</li>
-                  <li className='hover:text-red-600'>My List</li>
                   <li onClick={handleClicked} className='hover:text-red-600 cursor-pointer'>Log Out</li>
 
                  </ul>

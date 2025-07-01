@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from '../../components/Navbar'
 
 function Movies() {
   return (
-    <div>Movies</div>
+   
+    <div>
+      < Navbar/>
+      <p>dfdfdsfdfsf</p>
+    </div>
   )
 }
 

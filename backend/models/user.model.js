@@ -33,6 +33,7 @@ const userShcema = mongoose.Schema({
             {
                 id: String,
                 mediaType: String
+
             }
         ],
         default: []

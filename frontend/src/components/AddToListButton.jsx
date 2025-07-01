@@ -6,7 +6,7 @@ function AddToListButton() {
     const [buttonClicked, setButtonClicked] = useState(false);
 
   return (
-  <div className="flex flex-row items-center gap-5 mt-5">
+  <div className="flex flex-row items-center z-50 gap-5 mt-5">
   <button className="bg-red-800 px-4 py-2 lg:px-6 lg:py-3 lg:text-base rounded-3xl font-medium flex flex-row text-xs items-center text-center gap-1">
     <Play /> WATCH NOW
   </button>

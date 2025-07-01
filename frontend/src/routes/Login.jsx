@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import signin from "../assets/signin3d.png";
 import { Link } from "react-router-dom";
 import { userAuthStore } from "../store/authUser";
+import { Toaster } from "react-hot-toast";
 
 function Login() {   
         const [email, setEmail] = useState("");
@@ -35,7 +36,7 @@ function Login() {
   }}
   className='h-screen w-screen bg-center flex justify-center items-center'
     >
-        <div  className='backdrop-blur border border-white rounded-xl flex flex-col justify-center items-center p-10 -mt-20'>
+        <div  className='backdrop-blur border border-white rounded-xl flex flex-col justify-center items-center p-10 '>
           <div className='flex flex-col gap-2 mb-4'>
               <p className='text-center text-red-600 font-bold text-4xl'>Welcome Back!</p>
               <p className='text-center text-white'>Log In to <span className='text-red-600'>Cine</span><span className='text-yellow-500'>Bai</span></p>
@@ -84,6 +85,7 @@ function Login() {
 					</form>
           <p className='mt-3 text-white text-sm'>Don't have an account? <Link to="/signin"><span className='text-blue-500'> Sign Up</span></Link></p>
         </div>
+         <Toaster position="top-center" reverseOrder={false} />
     </div>
   )
 }

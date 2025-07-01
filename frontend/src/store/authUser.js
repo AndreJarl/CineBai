@@ -2,13 +2,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
-
 export const userAuthStore = create((set)=>({
     user: null,
     isSigningUp : false,
     isLoggingIn :false,
     isLoggingOut : false,
-
+    isCheckingAuth : false,
     signin: async (credentials) =>{
          set({isSigningUp: true});
          try{
@@ -44,5 +43,15 @@ export const userAuthStore = create((set)=>({
                 set({isLoggingOut:false});
                 toast.error(error.response.data.message);
              }
+    },
+
+    authCheck: async () =>{
+          set({isCheckingAuth:true});
+          try {
+            const response = await axios.get("/api/auth/authCheck");
+            set({user : response.data.user, isCheckingAuth:false});
+          } catch (error) {
+              set({isCheckingAuth:false, user:null});
+          }
     }
 }))

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {ChevronLeft, ChevronRight } from 'lucide-react';
 import {Star} from 'lucide-react';
+import { Link } from "react-router-dom";
 
 function MovieCard({trendingMovies}) {
 
@@ -42,17 +43,18 @@ function MovieCard({trendingMovies}) {
         <div className="flex gap-5 justify-center overflow-hidden px-14">
          
           {visibleMovies.map((movie, index) => (
-             <div className='flex flex-col text-white gap-2'>
-            <img key={index} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
+             <Link to={`/movie-details/${movie.id}`}><div key={index} className='flex flex-col text-white gap-2'>
+            <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
              
             <p className='text-white px-1 font-bold w-[180px] truncate'>{movie.title}</p>
             <div className='flex flex-row justify-between mx-2'> 
-               <p className='text-xs'>📅 {movie.release_date?.slice(0, 4)}</p>
+              📅 {movie.release_date ? movie.release_date.slice(0, 4) : 'N/A'}
               <p className='text-white flex items-center text-xs gap-2'>⭐ {movie.vote_average?.toFixed(1)}</p>
              
             </div>
            
                </div>
+               </Link>
           ))}
         </div>
         {/* Right Arrow */}

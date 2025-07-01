@@ -40,7 +40,7 @@ function SignIn() {
   }}
   className='h-screen w-screen bg-center flex justify-center items-center'
     >
-        <div  className='backdrop-blur border border-white rounded-xl flex flex-col justify-center items-center p-10 -mt-20'>
+        <div  className='backdrop-blur border border-white rounded-xl flex flex-col justify-center items-center p-10 '>
           <div className='flex flex-col gap-2 mb-4'>
               <p className='text-center text-red-600 font-bold text-4xl'>Create an Account!</p>
               <p className='text-center text-white'>Sign Up to <span className='text-red-600'>Cine</span><span className='text-yellow-500'>Bai</span></p>
