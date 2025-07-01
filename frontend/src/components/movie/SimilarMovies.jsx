@@ -22,7 +22,15 @@ function SimilarMovies({id}) {
           getMovieRecom();
     }, [id])
 
-
+       if(movieRecom.length == 0){
+             return(
+                <>
+                <div className='h-[190px] mt-20'>
+                  <p className='text-left text-4xl font-medium'> No Similar Movies :(</p>
+                </div>
+                </>
+             )
+       }
  
   
   return (
