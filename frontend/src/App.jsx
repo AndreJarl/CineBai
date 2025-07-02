@@ -5,6 +5,7 @@ import SignIn from "./routes/SignIn"
 import { userAuthStore } from "./store/authUser"
 import { useEffect } from "react"
 import MovieDetails from "./routes/movie/MovieDetails"
+import MyProfile from "./routes/MyProfile"
 
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
@@ -26,10 +27,12 @@ function App() {
   return (
     <>
     <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
+       <Route path="/" element={<Home/>} />
+       <Route path="/login" element={<Login/>} />
        <Route path="/signin" element={<SignIn/>} />
-         <Route path="/movie-details/:id" element={<MovieDetails/>} />
+       <Route path="/movie-details/:id" element={<MovieDetails/>} />
+       <Route path="/myprofile" element={<MyProfile/>} />
+
     </Routes>
     </>
   )
