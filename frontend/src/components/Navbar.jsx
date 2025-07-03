@@ -4,12 +4,15 @@ import person from "../assets/person.jpg"
 import { useState } from 'react';
 import { userAuthStore } from '../store/authUser';
 import { Toaster } from 'react-hot-toast';
+import { useContentStore } from '../store/contentType';
+
 
 function Navbar() {
    
 
       const {user, logout} = userAuthStore();
-      
+      const {setContentType} = useContentStore();
+
      const [iconClicked, setIconClicked] = useState(false);
        
      const handleClicked =() =>{
@@ -22,8 +25,8 @@ function Navbar() {
           <Link to="/"><p className='lg:text-3xl text-2xl font-bold text-yellow-500'><span className='text-red-600'>Cine</span>Bai</p></Link>
           <div>
             <ul className='flex lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
-              <Link to="/"><li>MOVIES</li></Link>
-              <Link to="/tv"><li>SERIES</li></Link>
+              <Link to="/"><li onClick={()=>setContentType("movie")}>MOVIES</li></Link>
+              <li className='cursor-pointer' onClick={()=>setContentType("tv")}>SERIES</li>
             </ul>
           </div>
           <div className=' relative flex lg:gap-10 gap-2 items-center'>

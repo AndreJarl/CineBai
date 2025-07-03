@@ -3,10 +3,20 @@ import { fetchFromTMDB } from "../services/tmdb.services.js";
 
 export async function trendingTV(req,res){
      try {
-        const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/tv/day?language=en-US");
-        const randomMovie = data.results[Math.floor(Math.random() * data.results?.length)];
+   //      const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/tv/day?language=en-US");
+   //      const randomMovie = data.results[Math.floor(Math.random() * data.results?.length)];
 
-        res.json({success:true, content: randomMovie});
+   //      res.json({success:true, content: randomMovie});
+   //   } catch (error) {
+   //      req.status(500).json({success:false, message:" Internal Server Error"});
+
+     const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/tv/day?language=en-US");
+        const randomTV = data.results[Math.floor(Math.random() * data.results?.length)];
+        const randomTVID = randomTV.id;
+
+        const response = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${randomTVID}?language=en-US`);;
+       
+        res.json({success:true, content: response});
      } catch (error) {
         req.status(500).json({success:false, message:" Internal Server Error"});
      }
