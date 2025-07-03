@@ -25,7 +25,7 @@ export const userAuthStore = create((set)=>({
             try {
                 const response = await axios.post("/api/auth/login", credentials);
                 set({user:response.data.user, isLoggingIn:false});
-                toast.success("Logged in successfully!");
+                toast.success(`Welcome back ${response.data.user.username}!`);
 
             } catch (error) {
                   set({isLoggingIn:false, user:null});

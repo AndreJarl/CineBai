@@ -12,7 +12,7 @@ import { ArrowLeft } from 'lucide-react';
 function MyProfile() {
 
     const [profile, setProfile] = useState([]);
-        const {user} = userAuthStore();
+        const {user, logout} = userAuthStore();
         const navigate = useNavigate();
 
       useEffect(()=>{
@@ -20,9 +20,8 @@ function MyProfile() {
               try {
                 if(!user){
                     setTimeout(()=>{
-                        navigate('/login');
+                        navigate('/');
                     },1000);
-                    toast.error("Please login.")
                 }
 
                 const res = await axios.get("/api/user/myProfile");
@@ -34,7 +33,7 @@ function MyProfile() {
               }
         }
         getMyProfile();
-      }, []);
+      }, [user]);
  
 
   return (
@@ -44,11 +43,12 @@ function MyProfile() {
          <div className='flex flex-row justify-around gap-60 items-center mb-16'>
        
          
-        <div className='flex  items-center gap-4  text-white'>
-                <img className='h-24 rounded-full' src={person} alt="" srcset="" />
+        <div className='flex justify-start  items-center gap-4  text-white'>
+                <img className='h-28  rounded-full' src={person} alt="" srcset="" />
                 <div className='flex flex-col gap-1'>
                     <p className='text-5xl font-medium'>{profile.username}</p>
                     <p className='text-slate-400'>📧 {profile.email} </p>
+                    <button onClick={logout} className='text-red-600 text-sm w-fit'>Log out</button>
                 </div>
             
         </div>
