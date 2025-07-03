@@ -40,14 +40,15 @@ function MyProfile() {
   return (
     <>
     <div className='flex flex-col justify-center items-center bg-black/90 gap-10 pt-20  '>
-    <div className='flex flex-row justify-around gap-60 items-center mb-16'>
+
+         <div className='flex flex-row justify-around gap-60 items-center mb-16'>
        
          
         <div className='flex  items-center gap-4  text-white'>
                 <img className='h-24 rounded-full' src={person} alt="" srcset="" />
                 <div className='flex flex-col gap-1'>
                     <p className='text-5xl font-medium'>{profile.username}</p>
-                    <p className='text-slate-400'>{profile.email}</p>
+                    <p className='text-slate-400'>📧 {profile.email} </p>
                 </div>
             
         </div>
@@ -56,7 +57,8 @@ function MyProfile() {
             <Link to="/"><button className='text-white text-3xl flex items-center gap-3 border-2 border-gray-700 px-4 py-2 rounded-xl'><ArrowLeft />Home</button></Link>
          </div>
 
-    </div>
+         </div>
+
           <div className=''>
 
              <p className='text-white text-5xl font-normal mb-5'>❤️ Favorites</p>
@@ -77,7 +79,7 @@ function MyProfile() {
 
             
         </div>
-    </div>
+           </div>
 
 
           <div className='mb-20 mt-16'>
