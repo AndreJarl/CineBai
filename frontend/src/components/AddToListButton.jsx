@@ -5,7 +5,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { set } from 'mongoose';
-
+import { Link } from 'react-router-dom';
 
 function AddToListButton({movie, mediaType}) {
 
@@ -42,14 +42,14 @@ function AddToListButton({movie, mediaType}) {
 
   return (
   <div className="flex  flex-row z-50 items-center gap-5 mt-5">
-  <button className="bg-red-800 px-4 py-2 lg:px-6 lg:py-3 lg:text-base rounded-3xl font-medium flex flex-row text-xs items-center text-center gap-1">
+  <Link to={`/watch-movie/${movie.id}`}> <button className="bg-red-800 px-4 py-2 lg:px-6 lg:py-3 lg:text-base cursor-pointer rounded-3xl font-medium flex flex-row text-xs items-center text-center gap-1">
     <Play /> WATCH NOW
-  </button>
+  </button></Link> 
 
   <div className="relative z-[1000]">
-    <button
+   <button
       onClick={() => setButtonClicked(!buttonClicked)}
-      className="px-4 text-xs lg:text-base py-2 lg:px-6 lg:py-3 rounded-3xl backdrop-blur-lg border-2 border-gray-200 flex flex-row items-center text-center gap-1"
+      className="px-4 text-xs lg:text-base py-2 lg:px-6 lg:py-3  rounded-3xl backdrop-blur-lg border-2 border-gray-200 flex flex-row items-center text-center gap-1"
     >
       <Plus /> ADD LIST
     </button>

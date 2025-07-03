@@ -26,7 +26,7 @@ function Navbar() {
           <div>
             <ul className='flex lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
               <Link to="/"><li onClick={()=>setContentType("movie")}>MOVIES</li></Link>
-              <li className='cursor-pointer' onClick={()=>setContentType("tv")}>SERIES</li>
+               <Link to="/"><li className='cursor-pointer' onClick={()=>setContentType("tv")}>SERIES</li></Link>
             </ul>
           </div>
           <div className=' relative flex lg:gap-10 gap-2 items-center'>
