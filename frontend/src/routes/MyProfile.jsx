@@ -67,7 +67,7 @@ function MyProfile() {
                 </div>
 
              <div className='grid grid-cols-5 gap-6'>
-          {profile.favorites?.slice(0,5).map((favorite, index) =>(
+          {profile.favorites?.slice().reverse().slice(0,5).map((favorite, index) =>(
              <Link to={`/movie-details/${favorite.id}`}>
             <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img  src={`https://image.tmdb.org/t/p/w500${favorite.poster_path}`} alt={favorite.title}  className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
@@ -88,7 +88,7 @@ function MyProfile() {
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
                 </div>
              <div className='grid grid-cols-5 gap-5'>
-          {profile.watchLater?.slice(0,5).map((favorite, index) =>(
+          {profile.watchLater?.slice().reverse().slice(0,5).map((favorite, index) =>(
              <Link to={`/movie-details/${favorite.id}`}>
             <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img  src={`https://image.tmdb.org/t/p/w500${favorite.poster_path}`} alt={favorite.title}  className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>

@@ -11,7 +11,7 @@ function Navbar() {
    
 
       const {user, logout} = userAuthStore();
-      const {setContentType} = useContentStore();
+      const {setContentType, contentType} = useContentStore();
 
      const [iconClicked, setIconClicked] = useState(false);
        
@@ -25,8 +25,8 @@ function Navbar() {
           <Link to="/"><p className='lg:text-3xl text-2xl font-bold text-yellow-500'><span className='text-red-600'>Cine</span>Bai</p></Link>
           <div>
             <ul className='flex lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
-              <Link to="/"><li onClick={()=>setContentType("movie")}>MOVIES</li></Link>
-               <Link to="/"><li className='cursor-pointer' onClick={()=>setContentType("tv")}>SERIES</li></Link>
+              <Link to="/"><li className={`cursor-pointer ${contentType === "movie" ? 'text-red-600' : 'text-white'}`} onClick={()=>setContentType("movie")}>MOVIES</li></Link>
+               <Link to="/"><li className={`cursor-pointer ${contentType === "tv" ? 'text-red-600' : 'text-white'}`} onClick={()=>setContentType("tv")}>SERIES</li></Link>
             </ul>
           </div>
           <div className=' relative flex lg:gap-10 gap-2 items-center'>
