@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import MovieDetails from "./routes/movie/MovieDetails"
 import MyProfile from "./routes/MyProfile"
 import MovieWatch from "./routes/movie/MovieWatch"
+import TVDetails from "./routes/tv/TVDetails"
 
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
@@ -34,6 +35,8 @@ function App() {
        <Route path="/movie-details/:id" element={<MovieDetails/>} />
        <Route path="/myprofile" element={<MyProfile/>} />
        <Route path="/watch-movie/:id" element={<MovieWatch />} />
+      <Route path="/tv-details/:id" element={<TVDetails />} />
+
     </Routes>
     </>
   )

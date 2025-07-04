@@ -35,7 +35,7 @@ function SimilarMovies({id}) {
   
   return (
     <>
-   <div className="flex flex-col justify-center items-center  pt-24 mb-20">
+   <div className="flex flex-col justify-center items-center pt-24 mb-20">
       <p className="text-white text-4xl font-semibold mb-8 w-full z-50 text-left">Similar Movies</p>
   <div className="grid lg:grid-cols-5 grid-cols-1 gap-10 justify-items-center  ">
     {movieRecom.slice(0,5).map((movie, index) => (

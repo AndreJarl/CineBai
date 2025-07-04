@@ -1,7 +1,7 @@
 import { Star} from 'lucide-react';
-import AddToListButton from '../AddToListButton';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import AddToListButtonTV from './AddToListButtonTV';
 
 function TVHero() {
     
@@ -57,7 +57,7 @@ function covertedDuration (minutes){
       </div>
       <h1 className="lg:text-6xl md:text-6xl text-3xl font-semibold mb-4">{trendingTV.name}</h1>
       <p className="max-w-2xl text-xs lg:text-base md:text-xl  font-normal">{trendingTV.overview}</p>
-      <AddToListButton movie={trendingTV} mediaType="movie"/>
+      <AddToListButtonTV tv={trendingTV} mediaType="tv"/>
     </div>
   </div>
 </div>

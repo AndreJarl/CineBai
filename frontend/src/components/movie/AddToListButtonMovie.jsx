@@ -1,13 +1,13 @@
 import { Play, Plus} from 'lucide-react';
 import { useState } from 'react';
-import { userAuthStore } from '../store/authUser';
+import { userAuthStore } from '../../store/authUser';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { set } from 'mongoose';
 import { Link } from 'react-router-dom';
 
-function AddToListButton({movie, mediaType}) {
+function AddToListButtonMovie({movie, mediaType}) {
 
     const navigate = useNavigate();
 
@@ -68,4 +68,4 @@ function AddToListButton({movie, mediaType}) {
   )
 }
 
-export default AddToListButton
+export default AddToListButtonMovie

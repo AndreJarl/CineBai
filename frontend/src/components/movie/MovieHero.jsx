@@ -1,5 +1,5 @@
 import { Star} from 'lucide-react';
-import AddToListButton from '../AddToListButton';
+import AddToListButton from './AddToListButtonMovie';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
