@@ -38,10 +38,11 @@ function AddToListButtonTV({tv, mediaType}) {
     }
 
 
+  const seasonNum = 0;
 
   return (
   <div className="flex  flex-row z-50 items-center gap-5 mt-5">
-  <Link to={`/watch-movie/${tv.id}`}> <button className="bg-red-800 px-4 py-2 lg:px-6 lg:py-3 lg:text-base cursor-pointer rounded-3xl font-medium flex flex-row text-xs items-center text-center gap-1">
+  <Link to={`/tv-watch/${tv.id}/${seasonNum}`}> <button className="bg-red-800 px-4 py-2 lg:px-6 lg:py-3 lg:text-base cursor-pointer rounded-3xl font-medium flex flex-row text-xs items-center text-center gap-1">
     <Play /> WATCH NOW
   </button></Link> 
 

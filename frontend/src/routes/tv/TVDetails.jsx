@@ -70,7 +70,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${tv.backdrop_path}`;
          
        </div>
        <div className=''>
-          <TVSeasons tv={tv.seasons}/>
+          <TVSeasons tv={tv.seasons} tvss={tv}/>
       
     </div>
     </div>

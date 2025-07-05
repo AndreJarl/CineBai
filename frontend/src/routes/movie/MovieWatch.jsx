@@ -43,7 +43,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
   }}
  >
   {/* Video Container with relative position */}
-  <div className="relative w-11/12 lg:w-4/5 aspect-video border-4 border-white rounded-xl overflow-hidden">
+  <div className="relative w-11/12 lg:w-4/5 aspect-video border-2 border-white rounded-xl overflow-hidden">
     {/* The iframe */}
     <iframe
       className="w-full h-full"

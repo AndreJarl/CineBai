@@ -8,6 +8,8 @@ import MovieDetails from "./routes/movie/MovieDetails"
 import MyProfile from "./routes/MyProfile"
 import MovieWatch from "./routes/movie/MovieWatch"
 import TVDetails from "./routes/tv/TVDetails"
+import TVWatch from "./routes/tv/TVWatch"
+
 
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
@@ -35,7 +37,9 @@ function App() {
        <Route path="/movie-details/:id" element={<MovieDetails/>} />
        <Route path="/myprofile" element={<MyProfile/>} />
        <Route path="/watch-movie/:id" element={<MovieWatch />} />
-      <Route path="/tv-details/:id" element={<TVDetails />} />
+       <Route path="/tv-details/:id" element={<TVDetails />} />
+       <Route path="/tv-watch/:id/:season_number" element={<TVWatch />} />
+
 
     </Routes>
     </>
