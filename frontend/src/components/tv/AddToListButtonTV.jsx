@@ -38,7 +38,7 @@ function AddToListButtonTV({tv, mediaType}) {
     }
 
 
-  const seasonNum = 0;
+  const seasonNum = 1;
 
   return (
   <div className="flex  flex-row z-50 items-center gap-5 mt-5">

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-
+import noimg from "../../assets/404.png"
 function TVWatch() {
    
     const {id, season_number} = useParams();
@@ -66,7 +66,7 @@ function TVWatch() {
   </div>
 
 <div className='mt-5 flex flex-col justify-center items-center'>
-            <p className='text-xl font-medium'>You are watching Season {season.season_number+1} Episode {episodesPlaying}.</p>
+            <p className='text-2xl font-medium'><span className='text-gray-300'>You are watching</span> Season {season.season_number} Episode {episodesPlaying}.</p>
 </div>
 
 <div className="w-full px-10 mt-10">
@@ -81,9 +81,13 @@ function TVWatch() {
         }}
         className="cursor-pointer"
         >         
-         <img className='w-[250px] rounded-2xl' src={`https://image.tmdb.org/t/p/original${ep.still_path}`} alt="" srcset="" />
-            <div className='flex justify-between mx-1 mt-1'>
-            <p>Episode {ep.episode_number}</p>
+         <img className={`w-[250px] rounded-2xl hover:scale-110 ${episodesPlaying == ep.episode_number ? ' border-2 border-red-600 brightness-50' : ''}`} src={`https://image.tmdb.org/t/p/original${ep.still_path}`}  
+                    onError={(e) => {
+                e.target.onerror = null; // Prevent infinite loop if fallback also fails
+                e.target.src = {noimg}; // Your fallback image path (can be local or hosted)
+            }} alt="" srcset="" />
+            <div className='flex justify-between mx-2 mt-1'>
+            <p className={`${episodesPlaying == ep.episode_number ? 'text-yellow-500' : ''} hover:text-yellow-500`}>Episode {ep.episode_number}</p>
             <p className='text-sm'>⭐ {ep.vote_average}</p>
             </div>
          </div>
