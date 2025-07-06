@@ -5,8 +5,9 @@ import {
         popularTV,
         topRatedTV,
         TVDetails,
-        TVRecommendations
-     } from '../controllers/TV.controller.js';
+        TVRecommendations,
+        TVSeasonDetails
+     } from '../controllers/tv.controller.js';
 
 const router = express.Router();
 
@@ -17,6 +18,6 @@ router.get("/topRatedTV", topRatedTV);
 
 router.get("/:id/TVDetails", TVDetails);
 router.get("/:id/TVRecommendations", TVRecommendations);
-
+router.get("/:id/season/:season_number", TVSeasonDetails);
 
 export default router;

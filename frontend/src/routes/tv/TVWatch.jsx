@@ -1,22 +1,23 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 function TVWatch() {
    
-    const {id} = useParams();
-    const {season_number} = useParams();
+    const {id, season_number} = useParams();
 
-    const [season, setSeason] = useState({});
-    const [ep, setEp] = useState(0);
-    
+    const [season, setSeason] = useState([]);
+    const [episodesPlaying, setEpisodePlaying] = useState(1);
+    const[episodes, setEpisodes] = useState([]);
+
    useEffect(()=>{
         const getSeasonDetails = async ()=>{
              try {
-                const res = await axios.get(`/api/tv/${id}/TVDetails`);
-                console.log(res.data.content.seasons[season_number]);
-                setSeason(res.data.content.seasons[season_number]);
-                setEp(res.data.content.season[season_number].episode_count)
+                const res = await axios.get(`/api/tv/${id}/season/${season_number}`);
+                console.log(res.data.content);
+                setSeason(res.data.content);
+                setEpisodes(res.data.content.episodes);
              } catch (error) {
                 console.error("Error fetching seasons", error);
              }
@@ -30,6 +31,7 @@ function TVWatch() {
 
 
   return (
+    <>
       <div
    style={{
     backgroundImage: `
@@ -40,23 +42,59 @@ function TVWatch() {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
   }}
-    className="bg-cover bg-center h-screen w-full relative flex flex-col justify-center items-center text-white"
+    className="bg-cover bg-center w-full relative flex flex-col pt-10 items-center text-white"
   >
-    
-      <div>
-        <iframe src={`https://autoembed.co/tv/tmdb/${id}-${season.season_number}-${ep}`} width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-      </div>
 
-     <div>
-      {ep.map((eps, index)=>(
-             <button>{index+1}</button>
-        ))}  
-     </div>
 
+  <div className="relative w-11/12 lg:w-4/5 aspect-video border-2 border-white rounded-xl overflow-hidden">
+    {/* The iframe */}
+    <iframe
+      className="w-full h-full"
+     src={`https://autoembed.co/tv/tmdb/${id}-${season.season_number}-${episodesPlaying}`}
+      allowFullScreen
+      allow="autoplay; fullscreen"
+      scrolling='no'
+    ></iframe>
+
+    {/* Logo overlay inside the video */}
+    <Link
+      to="/"
+      className="absolute top-5 left-10 z-50 text-yellow-500 text-base lg:text-3xl font-bold  px-2 py-1 rounded-md"
+    >
+      <span className="text-red-600">Cine</span>Bai
+    </Link>
+  </div>
+
+<div className='mt-5 flex flex-col justify-center items-center'>
+            <p className='text-xl font-medium'>You are watching Season {season.season_number+1} Episode {episodesPlaying}.</p>
+</div>
+
+<div className="w-full px-10 mt-10">
+  <p className="text-left text-6xl font-medium ml-28">Episodes</p>
+</div>
+  <div className='grid grid-cols-4 gap-10 mt-10 mb-10'>
+     {episodes.map((ep,index)=>(
+        <div
+        onClick={() => {
+            setEpisodePlaying(index + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        className="cursor-pointer"
+        >         
+         <img className='w-[250px] rounded-2xl' src={`https://image.tmdb.org/t/p/original${ep.still_path}`} alt="" srcset="" />
+            <div className='flex justify-between mx-1 mt-1'>
+            <p>Episode {ep.episode_number}</p>
+            <p className='text-sm'>⭐ {ep.vote_average}</p>
+            </div>
+         </div>
+     ))}
+   
+  </div>
     </div>
-
+ </>
 
   )
+ 
 }
 
 export default TVWatch

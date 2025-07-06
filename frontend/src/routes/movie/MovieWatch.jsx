@@ -50,6 +50,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
       src={`https://autoembed.co/movie/tmdb/${id}`}
       allowFullScreen
       allow="autoplay; fullscreen"
+      scrolling='no'
     ></iframe>
 
     {/* Logo overlay inside the video */}
