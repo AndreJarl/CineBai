@@ -60,11 +60,11 @@ function SearchContent() {
 
                         <p className="text-4xl mt-10">
                         {search.length > 0
-                            ? `Results for "${query}" (${search.length})`
-                            : ""}
+                            ? `Results for "${query}" (${search.length}) 🔍`
+                            : "Results here 🔍"}
                        </p>
 
-                <div className='grid grid-cols-5 gap-5 mt-20 mx-20'>
+                <div className='grid grid-cols-5 gap-4 mt-20 mx-28 mb-20'>
                     {search.map((s, index)=>(
 
                   <Link to={contentType === "movie" ? `/movie-details/${s.id}` : `/tv-details/${s.id}`}>
