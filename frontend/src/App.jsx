@@ -9,6 +9,7 @@ import MyProfile from "./routes/MyProfile"
 import MovieWatch from "./routes/movie/MovieWatch"
 import TVDetails from "./routes/tv/TVDetails"
 import TVWatch from "./routes/tv/TVWatch"
+import Search from "./routes/search/Search"
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
        <Route path="/watch-movie/:id" element={<MovieWatch />} />
        <Route path="/tv-details/:id" element={<TVDetails />} />
        <Route path="/tv-watch/:id/:season_number" element={<TVWatch />} />
-
+       <Route path="/search" element={<Search/>} />
 
     </Routes>
     </>

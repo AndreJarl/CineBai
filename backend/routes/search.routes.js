@@ -1,10 +1,10 @@
 import express from 'express';
-import { searchMovie } from '../controllers/search.controller.js';
+import { searchContent } from '../controllers/search.controller.js';
 
 
 const router = express.Router();
 
-router.get("/movie/:query", searchMovie);
+router.get("/:content/:query", searchContent);
 // router.get("/tv/:query", searchTV);
 
 

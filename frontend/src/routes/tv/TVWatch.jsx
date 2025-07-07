@@ -66,13 +66,13 @@ function TVWatch() {
   </div>
 
 <div className='mt-5 flex flex-col justify-center items-center'>
-            <p className='text-2xl font-medium'><span className='text-gray-300'>You are watching</span> Season {season.season_number} Episode {episodesPlaying}.</p>
+            <p className='text-2xl text-center font-medium'><span className='text-gray-300'>You are watching</span> Season {season.season_number} Episode {episodesPlaying}.</p>
 </div>
 
 <div className="w-full px-10 mt-10">
-  <p className="text-left text-6xl font-medium ml-28">Episodes</p>
+  <p className="text-left text-6xl font-medium lg:ml-28">Episodes</p>
 </div>
-  <div className='grid grid-cols-4 gap-10 mt-10 mb-10'>
+  <div className='grid lg:grid-cols-4 md:grid-cols-2 gap-10 mt-10 mb-10'>
      {episodes.map((ep,index)=>(
         <div
         onClick={() => {
