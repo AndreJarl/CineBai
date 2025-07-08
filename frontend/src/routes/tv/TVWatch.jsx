@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import noimg from "../../assets/404.png"
+import noimg from "../../assets/ep404.png"
 function TVWatch() {
    
     const {id, season_number} = useParams();
@@ -51,6 +51,7 @@ function TVWatch() {
     <iframe
       className="w-full h-full"
      src={`https://autoembed.co/tv/tmdb/${id}-${season.season_number}-${episodesPlaying}`}
+        // src={`https://vidsrc.to/embed/tv/${id}/${season_number}/${episodesPlaying}`}
       allowFullScreen
       allow="autoplay; fullscreen"
       scrolling='no'
@@ -72,28 +73,48 @@ function TVWatch() {
 <div className="w-full px-10 mt-10">
   <p className="text-left text-6xl font-medium lg:ml-28">Episodes</p>
 </div>
-  <div className='grid lg:grid-cols-4 md:grid-cols-2 gap-10 mt-10 mb-10'>
-     {episodes.map((ep,index)=>(
-        <div
-        onClick={() => {
-            setEpisodePlaying(index + 1);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+ <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-10 mt-10 mb-10">
+  {episodes.map((ep, index) => (
+    <div
+      key={index}
+      onClick={() => {
+        setEpisodePlaying(ep.episode_number);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+      className="cursor-pointer"
+    >
+      <img
+        className={`w-[250px] rounded-2xl hover:scale-110 transition-transform duration-300 ${
+          episodesPlaying === ep.episode_number
+            ? 'border-2 border-red-600 brightness-50'
+            : ''
+        }`}
+        src={
+          ep.still_path
+            ? `https://image.tmdb.org/t/p/original${ep.still_path}`
+            : noimg
+        }
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = noimg;
         }}
-        className="cursor-pointer"
-        >         
-         <img className={`w-[250px] rounded-2xl hover:scale-110 ${episodesPlaying == ep.episode_number ? ' border-2 border-red-600 brightness-50' : ''}`} src={`https://image.tmdb.org/t/p/original${ep.still_path}`}  
-                    onError={(e) => {
-                e.target.onerror = null; // Prevent infinite loop if fallback also fails
-                e.target.src = {noimg}; // Your fallback image path (can be local or hosted)
-            }} alt="" srcset="" />
-            <div className='flex justify-between mx-2 mt-1'>
-            <p className={`${episodesPlaying == ep.episode_number ? 'text-yellow-500' : ''} hover:text-yellow-500`}>Episode {ep.episode_number}</p>
-            <p className='text-sm'>⭐ {ep.vote_average}</p>
-            </div>
-         </div>
-     ))}
-   
-  </div>
+        alt={`Episode ${ep.episode_number}`}
+      />
+      <div className="flex justify-between mx-2 mt-1">
+        <p
+          className={`${
+            episodesPlaying === ep.episode_number ? 'text-yellow-500' : ''
+          } hover:text-yellow-500`}
+        >
+          Episode {ep.episode_number}
+        </p>
+        <p className="text-sm">⭐ {ep.vote_average}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
     </div>
  </>
 
