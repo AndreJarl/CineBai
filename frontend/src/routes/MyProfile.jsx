@@ -18,8 +18,8 @@ function MyProfile() {
         const {contentType} = useContentStore();
         
 
-        const [favoriteFilter, setFavoriteFilter] = useState(`${contentType}`);
-        const [watchLaterFilter, setWatchLaterFilter] = useState(`${contentType}`);
+        const [favoriteFilter, setFavoriteFilter] = useState(`${contentType}` || "movies");
+        const [watchLaterFilter, setWatchLaterFilter] = useState(`${contentType}` || "movies");
 
         const filteredFavorites = profile.favorites?.filter(item => item.mediaType === favoriteFilter) || [];
 
@@ -48,7 +48,8 @@ function MyProfile() {
 
   return (
     <>
-    <div className='flex flex-col justify-center items-center bg-black/90 gap-10 pt-20  '>
+    <Navbar />
+    <div className='flex flex-col justify-center items-center bg-black/90 gap-10 pt-40 -mt-20  '>
 
          <div className='flex flex-row justify-around gap-60 items-center mb-16'>
        
@@ -71,21 +72,8 @@ function MyProfile() {
 
           <div className=''>
                 <div className='flex flex-row items-center gap-10'>
-                     <p className='text-white text-5xl font-normal mb-5'>❤️ Favorites</p>
-                     <div className='flex flex-row items-center gap-5'>
-                         <button
-                          onClick={() => setFavoriteFilter("movie")}
-                          className={`px-4 py-1 rounded-lg ${favoriteFilter === "movie" ? "bg-red-700 text-white" : "bg-gray-700 text-white"}`}
-                        >
-                          Movies
-                        </button>
-                        <button
-                          onClick={() => setFavoriteFilter("tv")}
-                          className={`px-4 py-1 rounded-lg ${favoriteFilter === "tv" ? "bg-yellow-600 text-white" : "bg-gray-700 text-white"}`}
-                        >
-                          Series
-                </button>
-                     </div>
+                     <p className='text-white text-5xl font-normal mb-5'>❤️ Favorites {contentType === "movie" ? 'Movies' : 'Series'}</p>
+                   
                </div>
                 <div className="flex justify-center items-center">
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
@@ -115,22 +103,7 @@ function MyProfile() {
 
           <div className='mb-20 mt-16'>
                   <div className='flex flex-row items-center gap-10'>
-                     <p className='text-white text-5xl font-normal mb-5'>🔖 Watch Later</p>
-                 <div className='flex flex-row items-center gap-5'>
-                    <button
-                          onClick={() => setWatchLaterFilter("movie")}
-                          className={`px-4 py-1 rounded-lg ${watchLaterFilter === "movie" ? "bg-red-700 text-white" : "bg-gray-700 text-white"}`}
-                        >
-                          Movies
-                        </button>
-                        <button
-                          onClick={() => setWatchLaterFilter("tv")}
-                          className={`px-4 py-1 rounded-lg ${watchLaterFilter === "tv" ? "bg-yellow-600 text-white" : "bg-gray-700 text-white"}`}
-                        >
-                          Series
-                </button>
-
-                     </div>
+                     <p className='text-white text-5xl font-normal mb-5'>🔖 Watch Later {contentType === "tv" ? 'Series' : 'Movies'}</p>
                </div>
                  <div className="flex justify-center items-center">
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
