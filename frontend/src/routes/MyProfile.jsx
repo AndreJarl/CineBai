@@ -91,7 +91,10 @@ function MyProfile() {
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
                 </div>
 
-             <div className='grid grid-cols-5 gap-6'>
+   
+        { filteredFavorites.length === 0 ?
+        ( <p className="text-gray-400 col-span-5 text-center">No favorite {favoriteFilter === "movie" ? "movies" : "series"} found.</p>)
+        : (  <div className='grid grid-cols-5 gap-6'>
           {filteredFavorites.slice().reverse().slice(0,5).map((favorite, index) =>(
              <Link to={`/${favorite.mediaType}-details/${favorite.id}`}>
             <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
@@ -104,6 +107,9 @@ function MyProfile() {
 
             
         </div>
+        )}
+
+
            </div>
 
 
@@ -129,7 +135,13 @@ function MyProfile() {
                  <div className="flex justify-center items-center">
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
                 </div>
-             <div className='grid grid-cols-5 gap-5'>
+
+                
+     {   filteredWatchLater.length === 0 ?
+      
+        ( <p className="text-gray-400 col-span-5 text-center">No watch later {watchLaterFilter === "movie" ? "movies" : "series"} found.</p>)
+      
+     : (    <div className='grid grid-cols-5 gap-5'>
           {filteredWatchLater.slice().reverse().slice(0,5).map((later, index) =>(
              <Link to={`/${later.mediaType}-details/${later.id}`}>
             <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
@@ -139,7 +151,7 @@ function MyProfile() {
                </div>
                </Link>
           ))}
-        </div>
+        </div>)}
 
           </div>
         
