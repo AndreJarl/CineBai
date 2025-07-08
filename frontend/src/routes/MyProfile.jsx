@@ -7,6 +7,7 @@ import person from '../assets/person.jpg';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { useContentStore } from '../store/contentType';
 
 
 function MyProfile() {
@@ -14,6 +15,15 @@ function MyProfile() {
     const [profile, setProfile] = useState([]);
         const {user, logout} = userAuthStore();
         const navigate = useNavigate();
+        const {contentType} = useContentStore();
+        
+
+        const [favoriteFilter, setFavoriteFilter] = useState(`${contentType}`);
+        const [watchLaterFilter, setWatchLaterFilter] = useState(`${contentType}`);
+
+        const filteredFavorites = profile.favorites?.filter(item => item.mediaType === favoriteFilter) || [];
+
+        const filteredWatchLater = profile.watchLater?.filter(item => item.mediaType === watchLaterFilter) || [];
 
       useEffect(()=>{
                 const getMyProfile = async () =>{
@@ -60,19 +70,34 @@ function MyProfile() {
          </div>
 
           <div className=''>
-
-             <p className='text-white text-5xl font-normal mb-5'>❤️ Favorites</p>
+                <div className='flex flex-row items-center gap-10'>
+                     <p className='text-white text-5xl font-normal mb-5'>❤️ Favorites</p>
+                     <div className='flex flex-row items-center gap-5'>
+                         <button
+                          onClick={() => setFavoriteFilter("movie")}
+                          className={`px-4 py-1 rounded-lg ${favoriteFilter === "movie" ? "bg-red-700 text-white" : "bg-gray-700 text-white"}`}
+                        >
+                          Movies
+                        </button>
+                        <button
+                          onClick={() => setFavoriteFilter("tv")}
+                          className={`px-4 py-1 rounded-lg ${favoriteFilter === "tv" ? "bg-yellow-600 text-white" : "bg-gray-700 text-white"}`}
+                        >
+                          Series
+                </button>
+                     </div>
+               </div>
                 <div className="flex justify-center items-center">
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
                 </div>
 
              <div className='grid grid-cols-5 gap-6'>
-          {profile.favorites?.slice().reverse().slice(0,5).map((favorite, index) =>(
-             <Link to={`/movie-details/${favorite.id}`}>
+          {filteredFavorites.slice().reverse().slice(0,5).map((favorite, index) =>(
+             <Link to={`/${favorite.mediaType}-details/${favorite.id}`}>
             <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img  src={`https://image.tmdb.org/t/p/w500${favorite.poster_path}`} alt={favorite.title}  className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
+            <img  src={`https://image.tmdb.org/t/p/w500${favorite.poster_path}`}   className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
              
-            <p className='text-white px-1 font-bold w-[180px] truncate'>{favorite.title}</p>
+            <p className='text-white px-1 font-bold w-[180px] truncate'>{favorite.title || favorite.name}</p>
                </div>
                </Link>
           ))}
@@ -83,17 +108,34 @@ function MyProfile() {
 
 
           <div className='mb-20 mt-16'>
-               <p className='text-white text-5xl font-normal mb-5'>🔖 Watch Later</p>
+                  <div className='flex flex-row items-center gap-10'>
+                     <p className='text-white text-5xl font-normal mb-5'>🔖 Watch Later</p>
+                 <div className='flex flex-row items-center gap-5'>
+                    <button
+                          onClick={() => setWatchLaterFilter("movie")}
+                          className={`px-4 py-1 rounded-lg ${watchLaterFilter === "movie" ? "bg-red-700 text-white" : "bg-gray-700 text-white"}`}
+                        >
+                          Movies
+                        </button>
+                        <button
+                          onClick={() => setWatchLaterFilter("tv")}
+                          className={`px-4 py-1 rounded-lg ${watchLaterFilter === "tv" ? "bg-yellow-600 text-white" : "bg-gray-700 text-white"}`}
+                        >
+                          Series
+                </button>
+
+                     </div>
+               </div>
                  <div className="flex justify-center items-center">
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
                 </div>
              <div className='grid grid-cols-5 gap-5'>
-          {profile.watchLater?.slice().reverse().slice(0,5).map((favorite, index) =>(
-             <Link to={`/movie-details/${favorite.id}`}>
+          {filteredWatchLater.slice().reverse().slice(0,5).map((later, index) =>(
+             <Link to={`/${later.mediaType}-details/${later.id}`}>
             <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img  src={`https://image.tmdb.org/t/p/w500${favorite.poster_path}`} alt={favorite.title}  className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
+            <img  src={`https://image.tmdb.org/t/p/w500${later.poster_path}`}   className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
              
-            <p className='text-white px-1 font-bold w-[180px] truncate'>{favorite.title}</p>
+            <p className='text-white px-1 font-bold w-[180px] truncate'>{later.title || later.name}</p>
                </div>
                </Link>
           ))}

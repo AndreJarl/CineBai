@@ -44,7 +44,7 @@ function covertedDuration (minutes){
   {/* Optional overlay */}
   <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-start">
     <div className=" text-white px-4 lg:mx-28 mx-4 md:mx-10 flex flex-col gap-5 mt-24">
-      <p className='text-sm opacity-75'>Season {trendingTV.number_of_seasons}</p>
+      <p className='text-sm opacity-75'>📺 Season {trendingTV.number_of_seasons}</p>
       <div className='flex flex-row items-center gap-4'>
            <p className='flex items-center gap-2 lg:text-lg text-sm font-medium'>⭐ {trendingTV.vote_average?.toFixed(1)}</p>
             <div className='flex flex-row items-center gap-3'>
