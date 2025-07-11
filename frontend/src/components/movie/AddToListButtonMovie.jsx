@@ -23,11 +23,22 @@ function AddToListButtonMovie({movie, mediaType}) {
                   },1000);
                   toast.error("Please login to add to list.")
                }
+                const res = await toast.promise(
+                axios.post(`/api/user/list/${type}`, {
+                  id: movie.id,
+                  mediaType,
+                  title: movie.title,
+                  poster_path: movie.poster_path
+                }),
+                {
+                  loading: `Adding ${movie.title} to ${type === 'favorites' ? 'favorites' : 'watch later'}...`,
+                  success: `${movie.title} added to ${type === 'favorites' ? 'favorites' : 'watch later'}!`,
+                  error: `Failed to add ${movie.title}.`
+                }
+              );
 
-               const res = await axios.post(`/api/user/list/${type}`,{ id:movie.id, mediaType, title:movie.title, poster_path: movie.poster_path});
-               console.log(res.data);
-               setButtonClicked(false);
-               toast.success(`${movie.title} addded to ${type == 'favorites' ? 'favorites' : 'watch later'}`)
+              console.log(res.data);
+              setButtonClicked(false);
            } catch (error) {
                  if (error.response?.status === 409) {
                         toast.error("Already in the list.");

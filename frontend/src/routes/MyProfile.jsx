@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useContentStore } from '../store/contentType';
-
+import { Trash } from 'lucide-react';
 
 function MyProfile() {
 
@@ -17,10 +17,11 @@ function MyProfile() {
         const navigate = useNavigate();
         const {contentType} = useContentStore();
         
+        
 
         const [favoriteFilter, setFavoriteFilter] = useState(`${contentType}` || "movies");
         const [watchLaterFilter, setWatchLaterFilter] = useState(`${contentType}` || "movies");
-
+        const [isDeleting, setIsDeleting] = useState(false);
         const filteredFavorites = profile.favorites?.filter(item => item.mediaType === favoriteFilter) || [];
 
         const filteredWatchLater = profile.watchLater?.filter(item => item.mediaType === watchLaterFilter) || [];
@@ -45,21 +46,42 @@ function MyProfile() {
         getMyProfile();
       }, [user]);
  
+        const deleteFromList = async (item, type) =>{
+          setIsDeleting(true);
+              try {
+                    await toast.promise(
+                    axios.delete(`/api/user/list/${type}`, {
+                      data: { id: item.id, mediaType: item.mediaType }
+                    }),
+                    {
+                      loading: `Removing ${item.title || item.name}...`,
+                      success: `${item.title || item.name} removed from ${type === 'favorites' ? 'Favorites' : 'Watch Later'}`,
+                      error: 'Failed to remove item.'
+                    }
+              );
+                  
+                  const res2 = await axios.get("/api/user/myProfile");
+                  setProfile(res2.data.user);
+              } catch (error) {
+                 toast.error("Failed to remove item.");
+                 console.error(error);
+              }
+        }
 
   return (
     <>
     <Navbar />
-    <div className='flex flex-col justify-center items-center bg-black/90 gap-10 pt-40 -mt-20  '>
+    <div className='flex flex-col justify-center items-center bg-black/90 gap-10 pt-40 -mt-20   '>
 
-         <div className='flex flex-row justify-around gap-60 items-center mb-16'>
+         <div className='flex lg:flex-row md:flex-row flex-col justify-around lg:gap-60 gap-10 items-center mx-3 mb-16'>
        
          
-        <div className='flex justify-start  items-center gap-4  text-white'>
+        <div className='flex lg:flex-row md:flex-row flex-col lg:justify-start justify-center  items-center gap-4  text-white'>
                 <img className='h-28  rounded-full' src={person} alt="" srcset="" />
                 <div className='flex flex-col gap-1'>
-                    <p className='text-5xl font-medium'>{profile.username}</p>
-                    <p className='text-slate-400'>📧 {profile.email} </p>
-                    <button onClick={logout} className='text-red-600 text-sm w-fit'>Log out</button>
+                    <p className='text-5xl md:text-4xl text-center font-medium'>{profile.username}</p>
+                    <p className='text-slate-400 text-center md:text-left lg:text-left'>📧 {profile.email} </p>
+                    <button onClick={logout} className='text-red-600 text-sm md:w-fit lg:w-fit'>Log out</button>
                 </div>
             
         </div>
@@ -72,7 +94,7 @@ function MyProfile() {
 
           <div className=''>
                 <div className='flex flex-row items-center gap-10'>
-                     <p className='text-white text-5xl font-normal mb-5'>❤️ Favorites {contentType === "movie" ? 'Movies' : 'Series'}</p>
+                     <p className='text-white lg:text-5xl text-4xl text-center font-normal mb-5'>❤️ Favorites {contentType === "movie" ? 'Movies' : 'Series'}</p>
                    
                </div>
                 <div className="flex justify-center items-center">
@@ -82,13 +104,17 @@ function MyProfile() {
    
         { filteredFavorites.length === 0 ?
         ( <p className="text-gray-400 col-span-5 text-center">No favorite {favoriteFilter === "movie" ? "movies" : "series"} found.</p>)
-        : (  <div className='grid grid-cols-5 gap-6'>
+        : (  <div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-center items-center lg:gap-6 gap-2 mx-2 '>
           {filteredFavorites.slice().reverse().slice(0,5).map((favorite, index) =>(
              <Link to={`/${favorite.mediaType}-details/${favorite.id}`}>
-            <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img  src={`https://image.tmdb.org/t/p/w500${favorite.poster_path}`}   className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
-             
-            <p className='text-white px-1 font-bold w-[180px] truncate'>{favorite.title || favorite.name}</p>
+            <div key={index} className='flex flex-col text-white gap-2 items-center relative'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img  src={`https://image.tmdb.org/t/p/w500${favorite.poster_path}`}   className="lg:h-[300px]  z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
+            <button  onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          deleteFromList(favorite, "favorites");
+                        }} className='absolute z-50 right-3 bg-red-600 rounded-full p-2 top-7'><Trash/></button>
+            <p className='text-white px-1 font-bold lg:w-[180px] md:w-[180px] w-[110px] truncate'>{favorite.title || favorite.name}</p>
                </div>
                </Link>
           ))}
@@ -103,7 +129,7 @@ function MyProfile() {
 
           <div className='mb-20 mt-16'>
                   <div className='flex flex-row items-center gap-10'>
-                     <p className='text-white text-5xl font-normal mb-5'>🔖 Watch Later {contentType === "tv" ? 'Series' : 'Movies'}</p>
+                     <p className='text-white lg:text-5xl text-3xl text-center font-normal mb-5'>🔖 Watch Later {contentType === "tv" ? 'Series' : 'Movies'}</p>
                </div>
                  <div className="flex justify-center items-center">
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
@@ -114,13 +140,17 @@ function MyProfile() {
       
         ( <p className="text-gray-400 col-span-5 text-center">No watch later {watchLaterFilter === "movie" ? "movies" : "series"} found.</p>)
       
-     : (    <div className='grid grid-cols-5 gap-5'>
+     : (    <div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-center items-center lg:gap-6 gap-2 mx-2 '>
           {filteredWatchLater.slice().reverse().slice(0,5).map((later, index) =>(
              <Link to={`/${later.mediaType}-details/${later.id}`}>
-            <div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img  src={`https://image.tmdb.org/t/p/w500${later.poster_path}`}   className="h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
-             
-            <p className='text-white px-1 font-bold w-[180px] truncate'>{later.title || later.name}</p>
+            <div key={index} className='flex flex-col text-white gap-2 relative'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img  src={`https://image.tmdb.org/t/p/w500${later.poster_path}`}   className="lg:h-[300px] z-50 hover:scale-110 mt-5 transition-transform duration-300 w-[200px] object-cover rounded-lg shadow-md"/>
+              <button  onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          deleteFromList(later, "watchLater");
+                        }} className='absolute z-50 right-3 bg-red-600 rounded-full p-2 top-7'><Trash/></button>
+            <p className='text-white px-1 font-bold lg:w-[180px] w-[110px] truncate'>{later.title || later.name}</p>
                </div>
                </Link>
           ))}

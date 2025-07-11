@@ -22,11 +22,22 @@ function AddToListButtonTV({tv, mediaType}) {
                   },1000);
                   toast.error("Please login to add to list.")
                }
+            const res = await toast.promise(
+            axios.post(`/api/user/list/${type}`, {
+              id: tv.id,
+              mediaType,
+              title: tv.name,
+              poster_path: tv.poster_path
+            }),
+            {
+              loading: `Adding ${tv.name}...`,
+              success: `${tv.name} added to ${type === 'favorites' ? 'favorites' : 'watch later'}!`,
+              error: `Failed to add ${tv.name}.`
+            }
+          );
 
-               const res = await axios.post(`/api/user/list/${type}`,{ id:tv.id, mediaType, title:tv.name, poster_path: tv.poster_path});
-               console.log(res.data);
-               setButtonClicked(false);
-               toast.success(`${tv.name} addded to ${type == 'favorites' ? 'favorites' : 'watch later'}`)
+          console.log(res.data);
+          setButtonClicked(false);
            } catch (error) {
                  if (error.response?.status === 409) {
                         toast.error("Already in the list.");

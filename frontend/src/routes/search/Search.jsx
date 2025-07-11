@@ -78,7 +78,7 @@ function SearchContent() {
                 <img className='lg:w-[700px] w-[350px] mx-4' src={noimg} alt="" srcset="" />
             </div>
             ) : (
-            <div className="grid lg:grid-cols-5 grid-cols-2 gap-4 mt-20 lg:mx-28 mx-5 mb-20">
+            <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-4 mt-20 lg:mx-28 mx-5 mb-20">
                 {search.map((s, index) => (
                 <Link
                     to={
@@ -88,10 +88,10 @@ function SearchContent() {
                     }
                     key={s.id} // Use unique key here
                 >
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 md:items-center">
                     <img
                         src={`https://image.tmdb.org/t/p/w500${s.poster_path}`}
-                        className="z-50 h-[300px] w-[250px] hover:scale-110 mt-5 transition-transform duration-300 rounded-lg shadow-md"
+                        className="z-50 lg:h-[300px] w-[250px] hover:scale-110 mt-5 transition-transform duration-300 rounded-lg shadow-md"
                         alt={contentType === "movie" ? s.title : s.name}
                     />
                     <div className="flex flex-row items-center justify-between mx-1">
