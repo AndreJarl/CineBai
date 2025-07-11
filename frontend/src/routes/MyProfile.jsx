@@ -71,7 +71,7 @@ function MyProfile() {
   return (
     <>
     <Navbar />
-    <div className='flex flex-col justify-center items-center bg-black/90 gap-10 pt-40 -mt-20   '>
+    <div className='flex flex-col justify-center items-center bg-black/80 gap-10 pt-40 -mt-20   '>
 
          <div className='flex lg:flex-row md:flex-row flex-col justify-around lg:gap-60 gap-10 items-center mx-3 mb-16'>
        

@@ -57,13 +57,13 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${tv.backdrop_path}`;
                <p className='lg:text-5xl text-4xl max-w-xl font-semibold'>{tv.name}</p>
                <div className='flex flex-row  gap-2 items-center'>
                {tv.genres?.map((genre, index) => (
-              <p className="lg:text-sm text-xs opacity-75" key={index}>
+              <p className="lg:text-sm md:text-base text-xs opacity-75" key={index}>
                  {genre.name} {index !== tv.genres.length - 1 && '|'}
               </p>
             ))}
                </div>
                <p className="max-w-xl text-xs lg:text-base md:text-xl  font-normal">{tv.overview}</p>
-               <p className='text-white flex justify-center items-center lg:text-base text-[12px] gap-2'>⭐ {tv.vote_average?.toFixed(1)} <span className='lg:text-sm text-[10px] opacity-75'>({tv.vote_count} votes) </span>| 📺 Season {tv.number_of_seasons} |  📅  {tv.last_air_date ? tv.last_air_date.slice(0, 4) : 'N/A'} </p>
+               <p className='text-white flex justify-center items-center lg:text-base md:text-base text-[12px] gap-2'>⭐ {tv.vote_average?.toFixed(1)} <span className='lg:text-sm md:text-sm text-[10px] opacity-75'>({tv.vote_count} votes) </span>| 📺 Season {tv.number_of_seasons} |  📅  {tv.last_air_date ? tv.last_air_date.slice(0, 4) : 'N/A'} </p>
                <AddToListButtonTV tv={tv} mediaType="tv" />
              
            </div>

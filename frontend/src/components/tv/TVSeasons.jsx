@@ -9,7 +9,7 @@ function TVSeasons({tv, tvss}) {
     <div className="flex flex-col justify-center items-center mx-20 pt-10 mb-20">
             <p className="text-white text-6xl font-semibold mb-8 w-full  text-left">Seasons</p>
 
-          <div className="grid lg:grid-cols-6 grid-cols-1 gap-5 justify-items-center ">
+          <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-1 gap-5 justify-items-center ">
               {tv.map((tvs, index) => (
            <Link to={`/tv-watch/${tvss.id}/${tvs.season_number}`}><div key={index} className='flex flex-col gap-2'>
               <img src={tvs.poster_path ?
