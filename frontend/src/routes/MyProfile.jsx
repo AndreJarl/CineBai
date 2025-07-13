@@ -123,11 +123,11 @@ function MyProfile() {
         </div>
         )}
 
-
            </div>
 
+                       <Link to={`/favorites/${contentType}`}><button className='text-white text-center flex justify-center items-center mt-3 bg-red-700 px-3 py-1 rounded-md shadow shadow-red-300'>View All Favorites</button></Link> 
 
-          <div className='mb-20 mt-16'>
+          <div className='mb-20 mt-10'>
                   <div className='flex flex-row items-center gap-10'>
                      <p className='text-white lg:text-5xl text-3xl text-center font-normal mb-5'>🔖 Watch Later {contentType === "tv" ? 'Series' : 'Movies'}</p>
                </div>
@@ -158,7 +158,8 @@ function MyProfile() {
 
           </div>
         
-       
+          <button className='text-white text-center flex justify-center items-center mt-3 bg-red-700 px-3 py-1 rounded-md shadow shadow-red-300 mb-10'>View All Watch Laters</button>
+
        
     </div>
     </>

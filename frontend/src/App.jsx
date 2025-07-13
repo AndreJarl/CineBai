@@ -10,7 +10,8 @@ import MovieWatch from "./routes/movie/MovieWatch"
 import TVDetails from "./routes/tv/TVDetails"
 import TVWatch from "./routes/tv/TVWatch"
 import SearchContent from "./routes/search/Search"
-
+import WatchLater from './routes/WatchLater'
+import Favorites from './routes/Favorites'
 
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
@@ -41,6 +42,8 @@ function App() {
        <Route path="/tv-details/:id" element={<TVDetails />} />
        <Route path="/tv-watch/:id/:season_number" element={<TVWatch />} />
        <Route path="/search" element={<SearchContent/>} />
+       <Route path="/watchlater" element={<WatchLater/>} />
+       <Route path="/favorites/:contentType" element={<Favorites/>} />
 
     </Routes>
     </>
