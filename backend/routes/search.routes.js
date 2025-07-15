@@ -4,7 +4,7 @@ import { searchContent } from '../controllers/search.controller.js';
 
 const router = express.Router();
 
-router.get("/:content/:query", searchContent);
+router.get("/content/:content/:query", searchContent);
 // router.get("/tv/:query", searchTV);
 
 

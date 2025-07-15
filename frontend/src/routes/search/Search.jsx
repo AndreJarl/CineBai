@@ -20,7 +20,7 @@ function SearchContent() {
 
          const getSearch = async () =>{
             try {
-                const res = await axios.get(`/api/search/${contentType}/${query}`);
+                const res = await axios.get(`/api/search/content/${contentType}/${query}`);
                 setSearch(res.data.content);
                 console.log(res.data.content)
          ;
