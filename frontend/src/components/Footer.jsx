@@ -1,6 +1,4 @@
 import { Github, Linkedin } from 'lucide-react'
-import React from 'react'
-import { FaTiktok } from "react-icons/fa";
 
 function Footer() {
   return (
@@ -19,7 +17,6 @@ function Footer() {
         <div className='flex items-center gap-5 text-white'>
            <a href="https://github.com/AndreJarl"><Github color='white' /></a>
            <a href="https://www.linkedin.com/in/andre-jarl-aniana-135588244/"><Linkedin color='white' /></a>
-           <a href="https://www.tiktok.com/@hustlingdre"><FaTiktok  color='white'/></a>
         </div>
 
     </div>
