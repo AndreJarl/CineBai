@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import noimg from "../../assets/ep404.png"
+import Navbar from '../../components/Navbar';
+
 function TVWatch() {
    
     const {id, season_number} = useParams();
@@ -32,6 +34,7 @@ function TVWatch() {
 
   return (
     <>
+    <Navbar/>
       <div
    style={{
     backgroundImage: `
@@ -67,7 +70,7 @@ function TVWatch() {
   </div>
 
 <div className='mt-5 flex flex-col justify-center items-center'>
-            <p className='text-2xl text-center font-medium'><span className='text-gray-300'>You are watching</span> Season {season.season_number} Episode {episodesPlaying}.</p>
+            <p className='lg:text-2xl md:text-2xl text-xl  text-center font-medium'><span className='text-gray-300'>You are watching</span> Season {season.season_number} Episode {episodesPlaying}.</p>
 </div>
 
 <div className="w-full px-10 mt-10">

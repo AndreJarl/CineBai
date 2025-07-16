@@ -71,7 +71,7 @@ function MyProfile() {
   return (
     <>
     <Navbar />
-    <div className='flex flex-col justify-center items-center bg-black/80 gap-10 pt-40 -mt-20   '>
+    <div className='flex flex-col justify-center items-center bg-black/80 gap-10 lg:pt-40 md:pt-40 pt-28 -mt-20   '>
 
          <div className='flex lg:flex-row md:flex-row flex-col justify-around lg:gap-60 gap-10 items-center mx-3 mb-16'>
        
@@ -79,8 +79,8 @@ function MyProfile() {
         <div className='flex lg:flex-row md:flex-row flex-col lg:justify-start justify-center  items-center gap-4  text-white'>
                 <img className='h-28  rounded-full' src={person} alt="" srcset="" />
                 <div className='flex flex-col gap-1'>
-                    <p className='text-5xl md:text-4xl text-center font-medium'>{profile.username}</p>
-                    <p className='text-slate-400 text-center md:text-left lg:text-left'>📧 {profile.email} </p>
+                    <p className='lg:text-5xl text-3xl md:text-4xl text-center font-medium'>{profile.username}</p>
+                    <p className='text-slate-400 text-center  md:text-left lg:text-left'>📧 {profile.email} </p>
                     <button onClick={logout} className='text-red-600 text-sm md:w-fit lg:w-fit'>Log out</button>
                 </div>
             
@@ -94,7 +94,7 @@ function MyProfile() {
 
           <div className=''>
                 <div className='flex flex-row items-center gap-10'>
-                     <p className='text-white lg:text-5xl text-4xl text-center font-normal mb-5'>❤️ Favorites {contentType === "movie" ? 'Movies' : 'Series'}</p>
+                     <p className='text-white lg:text-5xl md:text-4xl text-4xl text-center font-normal mb-5'>❤️ Favorites {contentType === "movie" ? 'Movies' : 'Series'}</p>
                    
                </div>
                 <div className="flex justify-center items-center">

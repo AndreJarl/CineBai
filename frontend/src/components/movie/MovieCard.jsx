@@ -29,7 +29,9 @@ function MovieCard({trendingMovies}) {
   );
 
   return (
-  <div className=" flex justify-center items-center  mt-10 px-5">
+    <>
+    {/* PC VERSION */}
+  <div className=" lg:flex md:flex hidden justify-center items-center  mt-10 px-5">
       <div className=" flex relative lg:w-[1040px]   w-screen justify-center items-center mt-10 px-5">
         {/* Left Arrow */}
         <button
@@ -44,7 +46,7 @@ function MovieCard({trendingMovies}) {
          
           {visibleMovies.map((movie, index) => (
              <Link to={`/movie-details/${movie.id}`}><div key={index} className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
+            <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="lg:h-[300px] md:h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
              
             <p className='text-white px-1 font-bold w-[180px] truncate'>{movie.title}</p>
             <div className='flex flex-row justify-between mx-2'> 
@@ -66,6 +68,34 @@ function MovieCard({trendingMovies}) {
         </button>
       </div>
        </div>
+
+       {/* MOBILE VERSION */}
+
+       <div className="lg:hidden md:hidden flex justify-center items-center  mt-10 px-5">
+      <div className=" flex relative lg:w-[1040px]   w-screen justify-center items-center  ">
+ 
+    
+        {/* Movie posters */}
+        <div className="grid grid-cols-2 gap-5 justify-center overflow-hidden ">
+         
+          {visibleMovies.map((movie, index) => (
+             <Link to={`/movie-details/${movie.id}`}><div key={index} className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="lg:h-[300px] h-[260px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
+             
+            <p className='text-white text-sm px-1 font-bold w-[180px] truncate'>{movie.title}</p>
+            <div className='flex flex-row text-sm justify-between mx-2'> 
+              📅 {movie.release_date ? movie.release_date.slice(0, 4) : 'N/A'}
+              <p className='text-white flex items-center text-xs gap-2'>⭐ {movie.vote_average?.toFixed(1)}</p>
+             
+            </div>
+           
+               </div>
+               </Link>
+          ))}
+        </div>
+      </div>
+       </div>
+   </>     
   )
 }
 

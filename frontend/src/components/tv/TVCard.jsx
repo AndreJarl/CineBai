@@ -29,7 +29,9 @@ function TVCard({trendingTV}) {
   );
 
   return (
-  <div className=" flex justify-center items-center  mt-10 px-5">
+    <>
+    {/* PC VERSION */}
+  <div className="  lg:flex md:flex hidden justify-center items-center  mt-10 px-5">
       <div className=" flex relative lg:w-[1040px]   w-screen justify-center items-center mt-10 px-5">
         {/* Left Arrow */}
         <button
@@ -44,7 +46,7 @@ function TVCard({trendingTV}) {
          
           {visibleTVs.map((tv, index) => (
              <Link to={`/tv-details/${tv.id}`}><div key={index} className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img  src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`} alt={tv.title}  className="h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
+            <img  src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`} alt={tv.title}  className="lg:h-[300px] h-[260px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
              
             <p className='text-white px-1 font-bold w-[180px] truncate'>{tv.name}</p>
             <div className='flex flex-row justify-between mx-2 '> 
@@ -66,6 +68,35 @@ function TVCard({trendingTV}) {
         </button>
       </div>
        </div>
+
+    {/* MOBILE VERSION */}
+
+      <div className="  lg:hidden md:hidden flex justify-center items-center  mt-10 px-5">
+      <div className=" flex relative lg:w-[1040px]   w-screen justify-center items-center">
+     
+    
+        {/* Movie posters */}
+        <div className="grid grid-cols-2 gap-5 justify-center overflow-hidden">
+         
+          {visibleTVs.map((tv, index) => (
+             <Link to={`/tv-details/${tv.id}`}><div key={index} className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img  src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`} alt={tv.title}  className="lg:h-[300px] h-[260px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
+             
+            <p className='text-white px-1 font-bold w-[180px] truncate'>{tv.name}</p>
+            <div className='flex flex-row justify-between mx-2 '> 
+            📅 {tv.first_air_date ? tv.first_air_date.slice(0, 4) : 'N/A'}
+              <p className='text-white flex items-center text-xs gap-2'>⭐ {tv.vote_average?.toFixed(1)}</p>
+             
+            </div>
+           
+               </div>
+               </Link>
+          ))}
+        </div>
+     
+      </div>
+       </div>
+       </>
   )
 }
 

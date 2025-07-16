@@ -31,7 +31,8 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
   return (
     <>
   <>
- <div className="flex flex-col justify-center items-center py-5 bg-black  pt-14"
+  <Navbar />
+ <div className="flex flex-col justify-center items-center py-5 bg-black  pt-10"
     style={{
     backgroundImage: `
       radial-gradient(circle, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.95)),
@@ -63,8 +64,9 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
   </div>
 
   {/* Title and similar movies below */}
-  <p className="text-white text-4xl lg:text-5xl font-medium text-center mt-10">{movie.title}</p>
-    <p className="text-white  font-light text-center mt-2">"{movie.tagline ? movie.tagline : " "}"</p>
+  <p className='text-yellow-500 text-sm lg:text-xl mt-10 mb-2'>You are watching</p>
+  <p className="text-white text-4xl lg:text-5xl font-medium text-center ">{movie.title}</p>
+    <p className="text-red-700  font-normal text-center mt-2">"{movie.tagline ? movie.tagline : " "}"</p>
 
   <SimilarMovies id={id} />
 </div>

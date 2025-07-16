@@ -25,7 +25,7 @@ function MoviePopular() {
 
   return (
     <div style={{ backgroundColor: '#0a0a0a' }} className="min-h-[600px] pt-10 relative">
-      <p className="flex text-white items-center gap-4 justify-start lg:ml-40 font-medium ml-10 lg:text-5xl text-4xl">
+      <p className="flex text-white items-center lg:gap-4 gap-2 justify-start lg:ml-40 font-medium ml-10 lg:text-5xl text-3xl">
         <TrendingUp color="#d4ff00" size={60} /> Popular Movies
       </p>
       <div className="flex justify-center items-center">

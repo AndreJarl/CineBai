@@ -10,7 +10,7 @@ import TVHero from './components/tv/TVHero'
 import TVTrending from './components/tv/TVTrending'
 import TVPopular from './components/tv/TVPopular'
 import TVTopRated from './components/tv/TVTopRated'
-
+import Footerr from './components/Footer'
 
 function Home() {
 
@@ -24,6 +24,7 @@ function Home() {
        <TVTrending/>
        <TVPopular />
        <TVTopRated />
+       <Footerr />
     </>
   )
   }
@@ -35,6 +36,7 @@ function Home() {
        <MovieTrending/>
        <MoviePopular/>
        <MovieTopRated/>
+        <Footerr />
     </>
   )
 }
