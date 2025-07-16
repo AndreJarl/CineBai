@@ -158,7 +158,7 @@ function MyProfile() {
 
           </div>
         
-          <button className='text-white text-center flex justify-center items-center mt-3 bg-red-700 px-3 py-1 rounded-md shadow shadow-red-300 mb-10'>View All Watch Laters</button>
+          <Link to={`/watchLater/${contentType}`}><button className='text-white text-center flex justify-center items-center mt-3 bg-red-700 px-3 py-1 rounded-md shadow shadow-red-300 mb-10'>View All Watch Laters</button></Link>
 
        
     </div>

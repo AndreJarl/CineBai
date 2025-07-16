@@ -42,7 +42,7 @@ function App() {
        <Route path="/tv-details/:id" element={<TVDetails />} />
        <Route path="/tv-watch/:id/:season_number" element={<TVWatch />} />
        <Route path="/search" element={<SearchContent/>} />
-       <Route path="/watchlater" element={<WatchLater/>} />
+       <Route path="/watchlater/:contentType" element={<WatchLater/>} />
        <Route path="/favorites/:contentType" element={<Favorites/>} />
 
     </Routes>
