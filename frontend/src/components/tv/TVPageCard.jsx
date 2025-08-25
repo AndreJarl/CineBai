@@ -13,7 +13,7 @@ function TVPageCard({trendingTV}) {
              
             <p className='text-white px-1 font-bold w-[180px] truncate'>{movie.name}</p>
             <div className='flex flex-row justify-between mx-2'> 
-              📅 {movie.release_date ? movie.release_date.slice(0, 4) : 'N/A'}
+              📅 {movie.first_air_date ? movie.first_air_date.slice(0, 4) : 'N/A'}
               <p className='text-white flex items-center text-xs gap-2'>⭐ {movie.vote_average?.toFixed(1)}</p>
              
             </div>
