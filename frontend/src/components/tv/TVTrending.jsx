@@ -2,10 +2,12 @@ import axios from 'axios';
 import { Flame, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import TVCard from './TVCard';
+import { Link } from 'react-router-dom';
 
 function TVTrending() {
   const [trendingTV, setTrendingTV] = useState([]);
-  
+  const seriesType = "trending";
+
   useEffect(() => {
     const getTrendingTV = async () => {
       try {
@@ -25,9 +27,12 @@ function TVTrending() {
 
   return (
     <div style={{ backgroundColor: '#0a0a0a' }} className="min-h-[600px] pt-10 relative">
-    <p className="flex text-white items-center lg:gap-4 gap-2 justify-start lg:ml-40 font-medium ml-10 lg:text-5xl text-3xl">
+    <div className='flex justify-around lg:gap-32 items-center px-8'>
+            <p className="flex text-white items-center lg:gap-4 gap-2 justify-start  font-medium  lg:text-5xl text-3xl">
         <Flame color="#ff3705" size={60} /> Trending Series
       </p>
+      <Link to={`tv-page/${seriesType}`}><button className='bg-red-700  text-white rounded py-1 lg:px-3 md:px-3 text-xs md:text-base lg:text-base flex items-center'>View All <ChevronRight/></button></Link>
+      </div>
       <div className="flex justify-center items-center">
         <div className="w-[78%] h-[1px] bg-gray-400 opacity-60 mt-5"></div>
       </div>
