@@ -2,7 +2,7 @@
   "name": "cinebai",
   "version": "1.0.0",
   "main": "backend/server.js",
- "scripts": {
+  "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon backend/server.js",
     "build": "npm instal && npm install --prefix frontend && npm run build --prefix frontend",
     "start": "cross-env NODE_ENV=production node backend/server.js"
@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/genai": "^1.23.0",
     "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
@@ -20,6 +21,7 @@
     "express": "4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
+    "openai": "^6.2.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

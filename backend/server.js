@@ -5,6 +5,7 @@ import movieRoutes from "./routes/movie.route.js";
 import TVRoutes from "./routes/tv.route.js";
 import userRouter from "./routes/user.routes.js";
 import searchRoute from "./routes/search.routes.js";
+import AIRouter from "./routes/ai.routes.js";
 import { ENV_VARS } from './config/envVars.js';
 import { connectDB } from './config/db.js';
 import path from "path";
@@ -23,6 +24,8 @@ app.use("/api/movie", movieRoutes);
 app.use("/api/tv", TVRoutes);
 app.use("/api/user", userRouter);
 app.use("/api/search", searchRoute);
+app.use("/api/ai", AIRouter);
+
 
 app.use((req, res, next) => {
   console.log("Incoming request:", req.url);
