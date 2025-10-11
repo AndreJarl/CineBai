@@ -20,14 +20,14 @@ function Navbar() {
            logout();
      }
   return (
-    <div className='flex flex-row bg-transparent  z-50 justify-around h-20 items-center text-white'>
-      <div className=' flex flex-row justify-around z-50 md:gap-48 gap-10 h-20 items-center'>
+    <div className='flex  flex-row bg-transparent  z-50 justify-around h-20 items-center text-white'>
+      <div className=' flex fixed flex-row justify-around z-50 md:gap-48 gap-10 h-20 items-center'>
           <Link to="/"><p className='lg:text-3xl text-2xl font-bold text-yellow-500'><span className='text-red-600'>CineB</span>AI</p></Link>
           <div>
-            <ul className='flex lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
-              <Link to="/"><li className={`cursor-pointer ${contentType === "movie" ? 'text-red-600' : 'text-white'}`} onClick={()=>setContentType("movie")}>MOVIES</li></Link>
-               <Link to="/"><li className={`cursor-pointer ${contentType === "tv" ? 'text-red-600' : 'text-white'}`} onClick={()=>setContentType("tv")}>SERIES</li></Link>
-               <Link to="/"><li className={`cursor-pointer text-white}`}>Use AI</li></Link>
+            <ul className='flex bg-white/10 backdrop-blur-lg px-12 py-2 shadow-2xl justify-center rounded-full lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
+              <Link to="/"><li className={`cursor-pointer rounded-s-full ${contentType === "movie" ? 'text-red-700 font-semibold bg-white/40 backdrop-blur px-4 py-1 shadow-2xl rounded-full' : 'text-white'}`} onClick={()=>setContentType("movie")}>MOVIES</li></Link>
+               <Link to="/"><li className={`cursor-pointer ${contentType === "tv" ? 'text-red-700 font-semibold bg-white/40 backdrop-blur px-4 py-1 shadow-2xl rounded-full' : 'text-white'}`} onClick={()=>setContentType("tv")}>SERIES</li></Link>
+               <Link to="/ai-recommendation"><li className={`cursor-pointer text-white}`}>Ask AI 🤖</li></Link>
 
             </ul>
           </div>

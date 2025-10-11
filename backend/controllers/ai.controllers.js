@@ -23,10 +23,10 @@ export async function AIRecommendation(req, res) {
           parts: [
             {
               text: `You are a ${content} expert. 
-Please do two things based on this description: "${prompt}":
-1. Write a short, friendly AI message introducing ${content} recommendations.
-2. Recommend exactly 10 real ${content} titles, one per line, no years or extra text.
-Separate the message and the list clearly.`
+                Please do two things based on this description: "${prompt}":
+                1. Write a short, friendly AI message introducing ${content} recommendations.
+                2. Recommend exactly 10 real ${content} titles, one per line, no years or extra text.
+                Separate the message and the list clearly.`
             },
           ],
         },
