@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 function AIRecommendation() {
   return (
-    <div>AIRecommendation</div>
+    <>
+    <Navbar/>
+     <div>AIRecommendation</div>
+    </>
+   
   )
 }
 
