@@ -22,11 +22,11 @@ export async function AIRecommendation(req, res) {
           role: "user",
           parts: [
             {
-             text: `You are a ${content} expert.
-              Based on the user's input "${prompt}", which may include a character name, theme, description, or keywords that its related:
-              1. Write a short, friendly AI message introducing relevant ${content} recommendations.
-              2. Recommend real infinite ${content} titles that best match or relate to the user's input — one per line, no years or extra text.
-              Separate the message and the list clearly.`
+             text: `You are a ${content} expert.  
+                  Based on the user's input "${prompt}", which may include a character name, theme, description, or keywords that it’s related to:  
+                  1. Write a short, friendly AI message introducing relevant ${content} recommendations.  
+                  2. Search the web (and your internal knowledge) to find at least 20 real ${content} titles that best match or relate to the user's input — list one per line, with no years or extra text.  
+                  Separate the message and the list clearly.`
 
             },
           ],
