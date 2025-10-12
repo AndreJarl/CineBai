@@ -45,7 +45,7 @@ function TVWatch() {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
   }}
-    className="bg-cover bg-center w-full relative flex flex-col pt-10 items-center text-white"
+    className="bg-cover bg-center w-full relative flex flex-col pt-20 -mt-20 items-center text-white"
   >
 
 

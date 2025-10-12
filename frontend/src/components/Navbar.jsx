@@ -42,7 +42,7 @@ function Navbar() {
               : 
                  <Link to='/signin'><button className='bg-red-600 lg:px-3 lg:py-1 rounded text-white text-sm lg:text-base py-1 px-2 hover:bg-red-700'>Sign In</button></Link>
              }
-             <div className={`${iconClicked ? 'absolute' : 'hidden'} lg:top-11 lg:right-1 top-11 right-1 shadow-2xl border-2 border-gray-500 rounded-lg w-[90px] lg:w-[120px]`}>
+             <div className={`${iconClicked ? 'absolute' : 'hidden'} lg:top-11 lg:right-1 top-11 right-1 z-[200] shadow-2xl border-2 border-gray-500 rounded-lg w-[90px] lg:w-[120px]`}>
                  <ul className='flex flex-col lg:gap-5 gap-3  lg:p-4 p-3 lg:text-base text-xs'>
                   <Link to="/myprofile"><li className='hover:text-red-600 '>My Profile</li></Link> 
                   <li onClick={handleClicked} className='hover:text-red-600 cursor-pointer'>Log Out</li>
@@ -52,7 +52,7 @@ function Navbar() {
           </div>
       </div>
       {/* mobile */}
-      <div className='  fixed flex-row justify-around z-[1000] lg:hidden md:hidden md:gap-48   h-20 items-center'>
+      <div className='  fixed flex-row justify-around z-[100] lg:hidden md:hidden md:gap-48   h-20 items-center'>
         <div className='flex flex-row pt-4 pb-5 justify-around gap-10'>
           <Link to="/"><p className='lg:text-3xl text-2xl font-bold text-yellow-500'><span className='text-red-600'>CineB</span>AI</p></Link>
           
@@ -64,7 +64,7 @@ function Navbar() {
               : 
                  <Link to='/signin'><button className='bg-red-600 lg:px-3 lg:py-1 rounded text-white text-sm lg:text-base py-1 px-2 hover:bg-red-700'>Sign In</button></Link>
              }
-             <div className={`${iconClicked ? 'absolute' : 'hidden'} lg:top-11 lg:right-1 top-11 right-1 shadow-2xl border-2 border-gray-500 rounded-lg w-[90px] lg:w-[120px]`}>
+             <div className={`${iconClicked ? 'absolute' : 'hidden'} lg:top-11 lg:right-1 top-11 z-[200] backdrop-blur-3xl right-1 shadow-2xl border border-gray-200 rounded-lg w-[90px] lg:w-[120px]`}>
                  <ul className='flex flex-col lg:gap-5 gap-3  lg:p-4 p-3 lg:text-base text-xs'>
                   <Link to="/myprofile"><li className='hover:text-red-600 '>My Profile</li></Link> 
                   <li onClick={handleClicked} className='hover:text-red-600 cursor-pointer'>Log Out</li>
