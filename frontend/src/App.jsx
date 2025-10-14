@@ -15,6 +15,7 @@ import Favorites from './routes/Favorites'
 import MoviePage from "./routes/movie/MoviePage"
 import TVPage from "./routes/tv/TVPage"
 import AIRecommendation from "./routes/AIRecommendation"
+
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
 

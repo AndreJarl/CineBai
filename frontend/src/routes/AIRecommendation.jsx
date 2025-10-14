@@ -5,18 +5,28 @@ import axios from 'axios';
 import bot from "../assets/bot.png"
 import { useContentStore } from '../store/contentType';
 import { Sparkles, Film, Tv, Search, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { userAuthStore } from '../store/authUser';
+import toast from 'react-hot-toast';
 
 function AIRecommendation() {
    
-  const {contentType, setContentType} = useContentStore();
+  const navigate = useNavigate();
 
+
+  const {contentType, setContentType} = useContentStore();
+ 
   const [prompt, setPrompt] = useState("");
   const [AIRecommdations, setAIRecommendations] = useState([]);
   const [aiMessage, setAIMessage] = useState("");
   const [loading, isLoading] = useState(false);
+  const {user} = userAuthStore();
 
   const getAiRecos = async () =>{
+    if(!user){
+        navigate("/login");
+        toast.error("Pls login to use CineBAI AI")
+    }
     try{
         isLoading(true);
          const response = await axios.post(`/api/ai/${contentType}/ai-recommendation/`, {prompt});
