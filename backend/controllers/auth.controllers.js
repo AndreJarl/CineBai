@@ -1,6 +1,8 @@
 
 import { User } from "../models/user.model.js";
 import bcryptjs from 'bcryptjs';
+import validator from "validator";
+
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookies.js";
 
 export async function signup(req, res) {
@@ -11,15 +13,17 @@ export async function signup(req, res) {
              return res.status(400).json({success: false, message: "All fields are required."});
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!validator.isEmail(email)){
+                return res.status(400).json({ success: false, message: "Invalid email" });
+            }
 
-        if(!emailRegex.test(email)){
-             return res.status(400).json({success:false, message: "Invalid email"});
-        }
+               if (!validator.isStrongPassword(password)) {
+               return res.status(400).json({
+               success: false,
+               message: "Password must contain upper/lowercase letters, numbers, and symbols."
+               });
+               }
 
-        if(password.length < 6){
-              return res.status(400).json({success:false, message: "password must be at least 6 characters"});
-        }
 
         const existingEmail = await User.findOne({email: email});
 
@@ -111,6 +115,48 @@ export async function logout(req, res){
         res.status(500).json({success: false, message: "Internal server error"});
      }
 }
+
+export async function updatePass(req, res){
+       try{
+          const {email, oldPassword, newPassword} = req.body;
+
+          if(!email){
+                return res.status(400).json({success:false, message: "Email does not exist."});
+          }
+        
+          const user = await User.findOne({email});
+          if(!user){
+               return res.status(404).json({success:false, message: "Email does not exist."});
+          }
+          
+          const isMatch = await bcryptjs.compare(oldPassword, user.password);
+          if(!isMatch){
+              return res.status(401).json({success:false, message: "Old password is incorrect."});
+          }
+
+          const isSame = await bcryptjs.compare(newPassword, user.password);
+            if(isSame){
+              return res.status(401).json({success:false, message: "New password cannot be the same as the old one."});
+          }
+         const salt = await bcryptjs.genSalt(10);
+         const hashedPassword = await bcryptjs.hash(newPassword, salt);
+
+          user.password = hashedPassword;
+          await user.save();
+
+          return res.status(200).json({success: true, message: "Password updated successfully"});
+
+          
+
+       }catch(error){
+               console.error("Error updating password:", error);
+               return res.status(500).json({
+                    success: false,
+                    message: "Server error. Please try again later.",
+             });
+       }
+}
+
 
 export async function authCheck(req, res){
           try {

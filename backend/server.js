@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from "helmet";
 import cookieParser from 'cookie-parser';
 import authRoutes from "./routes/auth.route.js";
 import movieRoutes from "./routes/movie.route.js";
@@ -16,6 +17,7 @@ const app = express();
 const PORT = ENV_VARS.PORT;
 const __dirname = path.resolve();
 
+app.use(helmet()); // adds security headers
 app.use(express.json());
 app.use(cookieParser());
 
