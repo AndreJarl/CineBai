@@ -32,11 +32,11 @@ function AIRecommendation() {
          const response = await axios.post(`/api/ai/${contentType}/ai-recommendation/`, {prompt});
          setAIMessage(response.data.message);
          setAIRecommendations(response.data.recommendations);
-        
-      toast.success("🎬 AI recommendations generated! Scroll down to view.");
+         toast.success("🎬 CineBAI AI recommendations generated! Scroll down to view.");
 
 
     }catch(error){
+       toast.error("CineBAI AI failed to generate recommendation. Please try again.")
        console.error(error);
     }finally{
       isLoading(false);
