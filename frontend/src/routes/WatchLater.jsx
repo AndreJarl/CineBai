@@ -21,7 +21,7 @@ function WatchLater() {
              const res=  await axios.get(`/api/user/myProfile`);
             setProfile(res.data.user);
              setUserWatchLater(res.data.user.watchLater);
-             console.log(res.data.user.watchLater)
+             
           
        }
 

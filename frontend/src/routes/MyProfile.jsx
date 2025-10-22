@@ -37,14 +37,13 @@ function MyProfile() {
 
                 const res = await axios.get("/api/user/myProfile");
                 setProfile(res.data.user);
-                console.log(res.data.user);
 
               } catch (error) {
                 
               }
         }
         getMyProfile();
-      }, [user]);
+      }, [user, contentType]);
  
         const deleteFromList = async (item, type) =>{
           setIsDeleting(true);

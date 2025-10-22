@@ -14,6 +14,7 @@ import WatchLater from './routes/WatchLater'
 import Favorites from './routes/Favorites'
 import MoviePage from "./routes/movie/MoviePage"
 import TVPage from "./routes/tv/TVPage"
+import AIRecommendation from "./routes/AIRecommendation"
 
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
@@ -47,7 +48,8 @@ function App() {
        <Route path="/watchlater/:contentType" element={<WatchLater/>} />
        <Route path="/favorites/:contentType" element={<Favorites/>} />
        <Route path="/movie-page/:movieType" element={<MoviePage/>} />
-      <Route path="/tv-page/:seriesType" element={<TVPage/>} />
+       <Route path="/tv-page/:seriesType" element={<TVPage/>} />
+       <Route path="/ai-recommendation" element={<AIRecommendation/>} />
 
     </Routes>
     </>

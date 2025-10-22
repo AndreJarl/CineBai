@@ -21,7 +21,7 @@ function Favorites() {
              const res=  await axios.get(`/api/user/myProfile`);
             setProfile(res.data.user);
              setUserFavorites(res.data.user.favorites);
-             console.log(res.data.user.favorites)
+             
           
        }
 
