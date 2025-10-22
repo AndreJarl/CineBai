@@ -32,7 +32,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
     <>
   <>
   <Navbar />
- <div className="flex flex-col justify-center items-center py-5 bg-black  pt-20 -mt-20"
+ <div className="flex flex-col justify-center items-center py-5 bg-black  pt-32 lg:pt-20 -mt-20"
     style={{
     backgroundImage: `
       radial-gradient(circle, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.95)),

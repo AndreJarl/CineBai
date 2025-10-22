@@ -17,7 +17,7 @@ function TVWatch() {
         const getSeasonDetails = async ()=>{
              try {
                 const res = await axios.get(`/api/tv/${id}/season/${season_number}`);
-                console.log(res.data.content);
+             
                 setSeason(res.data.content);
                 setEpisodes(res.data.content.episodes);
              } catch (error) {

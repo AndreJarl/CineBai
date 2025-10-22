@@ -37,7 +37,7 @@ function AddToListButtonMovie({movie, mediaType}) {
                 }
               );
 
-              console.log(res.data);
+              // console.log(res.data);
               setButtonClicked(false);
            } catch (error) {
                  if (error.response?.status === 409) {

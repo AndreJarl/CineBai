@@ -18,7 +18,7 @@ function  TVDetails() {
               try {
                 const res = await axios.get(`/api/tv/${id}/TVDetails`);
               setTV(res.data.content);
-              console.log(res.data.content)
+              // console.log(res.data.content)
 
               } catch (error) {
                    console.error("Failed to fetch movie details", error);

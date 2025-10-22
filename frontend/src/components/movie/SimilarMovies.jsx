@@ -13,7 +13,7 @@ function SimilarMovies({id}) {
               try {
                  const res = await axios.get(`/api/movie/${id}/movieRecommendations`);
                  setMovieRecom(res.data.content.results);
-                 console.log(res.data.content.results);
+                //  console.log(res.data.content.results);
               } catch (error) {
                 console.error("Failed fetching similar movies", error);
               }
