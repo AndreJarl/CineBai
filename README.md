@@ -68,11 +68,6 @@ npm run dev
 
 ---
 
-## 📸 Preview
-*(Add screenshots or GIFs here)*
-
----
-
 ## 💡 Future Enhancements
 - 🎭 **User-Based AI Mood Tracking** – Get recommendations that adapt to your mood  
 - 🧩 **AI-Generated Movie Summaries** – Let Gemini AI summarize plots in seconds  
