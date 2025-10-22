@@ -1,4 +1,5 @@
-#CineBAI
+🎬 CineBai
+
 A full-stack AI-powered movie and TV show streaming platform built with React, Node.js, Express, and MongoDB.
 Powered by the TMDB API and Gemini AI, CineBai offers a personalized and intelligent streaming experience.
 
