@@ -12,7 +12,7 @@ function TVHero() {
                       try {
                           const res = await axios.get(`/api/tv/trendingTV`);
                            setTrendingTV(res.data.content);
-                           console.log(res.data.content);
+                          //  console.log(res.data.content);
 
                       } catch (error) {
                         console.error('Error fetching trending movie:', error);

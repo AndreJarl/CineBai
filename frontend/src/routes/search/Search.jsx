@@ -30,7 +30,7 @@ function SearchContent() {
                 const res = await axios.get(`/api/search/content/${contentType}/${query}`);
             
                 setSearch(res.data.content);
-                console.log(res.data.content)
+                // console.log(res.data.content)
               
          ;
             } catch (error) {

@@ -32,8 +32,10 @@ function AIRecommendation() {
          const response = await axios.post(`/api/ai/${contentType}/ai-recommendation/`, {prompt});
          setAIMessage(response.data.message);
          setAIRecommendations(response.data.recommendations);
-        console.log(response.data.recommendations);
-        console.log(response.data.message);
+        
+      toast.success("🎬 AI recommendations generated! Scroll down to view.");
+
+
     }catch(error){
        console.error(error);
     }finally{
@@ -62,7 +64,7 @@ function AIRecommendation() {
       
       
       <div className="bg-gradient-to-br from-black via-gray-900 to-black pt-10 -mt-20 text-white">
-        <div className="container mx-auto lg:px-4  pt-24 pb-16">
+        <div className="container mx-auto lg:px-4  pt-10 lg:pt-24 pb-2 lg:pb-16">
           <div className="flex flex-col lg:flex-row items-center justify-around gap-12 mb-16">
             
             <div className="w-full lg:w-[40%] flex justify-center lg:justify-start">
@@ -71,17 +73,17 @@ function AIRecommendation() {
                 <img 
                   src={bot} 
                   alt="AI Bot Mascot" 
-                  className="relative w-80 h-80  lg:w-96 lg:h-96 object-contain drop-shadow-2xl"
+                  className="relative w-60 h-60  lg:w-96 lg:h-96 object-contain drop-shadow-2xl"
                 />
               </div>
             </div>
 
           
-             <div className="w-full flex flex-col gap-4 lg:w-[60%] text-center lg:text-left">
-               <h1 className='text-5xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent'>
+             <div className="w-full flex flex-col gap-5 lg:w-[60%] text-center lg:text-left">
+               <h1 className=' text-4xl lg:text-6xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent'>
                  <span className='text-red-600'>AI-Powered</span> Prompt-Based Discovery That <span className='text-yellow-500'>Understands You</span> 
                </h1>
-               <p className="text-xl text-gray-300 mb-8 max-w-4xl leading-relaxed">
+               <p className="text-lg lg:text-xl md:text-xl text-gray-300 mb-8 max-w-4xl leading-relaxed">
                  Meet your personal AI assistant from <span className="text-yellow-500 font-semibold">Cine</span><span className="text-red-600 font-semibold">Bai</span>! I'll help you discover your next favorite movie or TV show based on your prompt and mood.
                </p>
               

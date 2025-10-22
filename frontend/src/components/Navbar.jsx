@@ -52,8 +52,8 @@ function Navbar() {
           </div>
       </div>
       {/* mobile */}
-      <div className='  fixed flex-row justify-around z-[100] lg:hidden md:hidden md:gap-48   h-20 items-center'>
-        <div className='flex flex-row pt-4 pb-5 justify-around gap-10'>
+      <div className='fixed flex-row justify-around z-[100] lg:hidden md:hidden md:gap-48   h-20 items-center'>
+        <div className='flex flex-row pt-4 pb-5 justify-around gap-32'>
           <Link to="/"><p className='lg:text-3xl text-2xl font-bold text-yellow-500'><span className='text-red-600'>CineB</span>AI</p></Link>
           
           <div className=' relative flex lg:gap-10 gap-2 items-center'>
@@ -74,7 +74,7 @@ function Navbar() {
           </div>
          </div>
           <div>
-            <ul className='flex border border-gray-200 bg-white/10 backdrop-blur-lg px-12 py-2 shadow-2xl justify-center rounded-full lg:gap-10 md:gap-10 gap-2 font-medium text-xs lg:text-base items-center'>
+            <ul className='flex border border-gray-200 bg-white/10 backdrop-blur-lg px-12 py-2 shadow-2xl justify-center rounded-full gap-3 lg:gap-10 md:gap-10 font-medium text-xs lg:text-base items-center'>
               <Link to="/"><li className={`cursor-pointer rounded-s-full ${contentType === "movie" && location.pathname === "/" ? 'text-red-700 font-semibold bg-white/40 backdrop-blur px-4 py-1 shadow-2xl rounded-full' : 'text-white'}`} onClick={()=>setContentType("movie")}>MOVIES</li></Link>
                <Link to="/"><li className={`cursor-pointer ${contentType === "tv" && location.pathname === "/" ? 'text-red-700 font-semibold bg-white/40 backdrop-blur px-4 py-1 shadow-2xl rounded-full' : 'text-white'}`} onClick={()=>setContentType("tv")}>SERIES</li></Link>
                <Link to="/ai-recommendation"><li className={`cursor-pointer ${location.pathname === "/ai-recommendation" ? 'text-red-700 font-semibold bg-white/40 backdrop-blur px-4 py-1 shadow-2xl rounded-full' : 'text-white'} `}>Ask AI 🤖</li></Link>
