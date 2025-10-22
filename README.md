@@ -68,13 +68,6 @@ npm run dev
 
 ---
 
-## 💡 Future Enhancements
-- 🎭 **User-Based AI Mood Tracking** – Get recommendations that adapt to your mood  
-- 🧩 **AI-Generated Movie Summaries** – Let Gemini AI summarize plots in seconds  
-- 🌙 **Dark/Light Mode Toggle** – Switch themes for a better viewing experience  
-
----
-
 ## 🧑‍💻 Author
 **Andre Jarl Aniana**  
 📍 Cebu, Philippines  
