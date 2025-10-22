@@ -45,10 +45,15 @@ Create a .env file in the root directory and add the following:
 
 bash
 Copy code
+
 MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret
+
 TMDB_API_KEY=your_tmdb_api_key
+
 GEMINI_API_KEY=your_gemini_api_key
+
 
 Run the App
 
