@@ -17,7 +17,6 @@ const app = express();
 const PORT = ENV_VARS.PORT;
 const __dirname = path.resolve();
 
-import helmet from "helmet";
 
 app.use(
   helmet({
