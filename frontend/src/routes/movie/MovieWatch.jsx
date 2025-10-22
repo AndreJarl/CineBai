@@ -48,7 +48,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
     {/* The iframe */}
     <iframe
       className="w-full h-full"
-      src={`https://autoembed.co/movie/tmdb/${id}`}
+      src={`https://111movies.com/movie/${id}`}
       allowFullScreen
       allow="autoplay; fullscreen"
       scrolling='no'
