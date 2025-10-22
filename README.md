@@ -5,7 +5,7 @@
 ---
 
 ## 🚀 Features
-
+🤖 **Gemini AI Recommendations** – Get personalized suggestions based on your preferences or mood  
 🔐 **Secure Authentication** – Sign up and log in using JWT-based authentication  
 🔍 **Smart Search** – Search for movies and TV shows in real time  
 🎥 **Watch & Explore** – Access detailed information, trailers, and related titles  
@@ -13,8 +13,6 @@
 🕒 **Watch Later** – Save content for future viewing  
 🔄 **Session Persistence** – Stay logged in seamlessly using localStorage  
 📡 **Live TMDB Data** – Fetch up-to-date movie and TV show details  
-🤖 **Gemini AI Recommendations** – Get personalized suggestions based on your preferences or mood  
-💬 **AI Chat Assistant** – Chat with Gemini AI for movie summaries, recommendations, or trivia  
 
 ---
 
