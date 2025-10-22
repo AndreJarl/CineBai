@@ -1,5 +1,4 @@
 import express from 'express';
-import helmet from "helmet";
 import cookieParser from 'cookie-parser';
 import authRoutes from "./routes/auth.route.js";
 import movieRoutes from "./routes/movie.route.js";
@@ -18,18 +17,7 @@ const PORT = ENV_VARS.PORT;
 const __dirname = path.resolve();
 
 
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        imgSrc: ["'self'", "https://image.tmdb.org", "data:"],
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-      },
-    },
-  })
-);
+
 
 app.use(express.json());
 app.use(cookieParser());
