@@ -32,41 +32,54 @@
    ```bash
    git clone https://github.com/your-username/CineBai.git
    cd CineBai
+
 Install dependencies
 
-bash
-Copy code
 npm install
+
+
 Set up environment variables
 Create a .env file in the root directory and include:
 
-ini
-Copy code
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 TMDB_API_KEY=your_tmdb_api_key
 GEMINI_API_KEY=your_gemini_api_key
+
+
 Run the app
+
+npm run dev
 
 bash
 Copy code
 npm run dev
-🌐 Live Demo
-🔗 View CineBai Online
 
-📸 Preview
-(Add screenshots or GIFs here)
 
-💡 Future Enhancements
-🎭 User-based AI mood tracking for recommendations
+## 🌐 Live Demo
+🔗 [View CineBai Online](https://your-deployed-link.com)
 
-🧩 AI-generated movie summaries
+---
 
-🌙 Dark/Light mode toggle
+## 📸 Preview
+*(Add screenshots or GIFs here)*
 
-🧑‍💻 Author
-Andre Jarl Aniana
-📍 Cebu, Philippines
-📧 andrejarlaniana@gmail.com
-🔗 GitHub Profile
+---
+
+## 💡 Future Enhancements
+- 🎭 **User-Based AI Mood Tracking** – Get recommendations that adapt to your mood  
+- 🧩 **AI-Generated Movie Summaries** – Let Gemini AI summarize plots in seconds  
+- 🌙 **Dark/Light Mode Toggle** – Switch themes for a better viewing experience  
+
+---
+
+## 🧑‍💻 Author
+**Andre Jarl Aniana**  
+📍 Cebu, Philippines  
+📧 [andrejarlaniana@gmail.com](mailto:andrejarlaniana@gmail.com)  
+🔗 [GitHub Profile](https://github.com/AndreJarl)
+
+---
+
+⭐ *If you enjoyed this project, please consider giving it a star on GitHub!*
 
