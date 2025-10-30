@@ -1,0 +1,58 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    # Runs every 10 minutes, 24/7
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+    inputs:
+      manual_run:
+        description: 'Manual trigger'
+        required: false
+        default: 'true'
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Ping multiple URLs to simulate real traffic
+        url:
+          - https://cinebai.onrender.com/
+          - https://cinebai.onrender.com/ai-recommendation
+          - https://cinebai.onrender.com/search
+          
+    steps:
+      - name: Check website responsiveness
+        run: |
+          START_TIME=$(date +%s%3N)
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "${{ matrix.url }}")
+          END_TIME=$(date +%s%3N)
+          RESPONSE_TIME=$((END_TIME - START_TIME))
+          
+          echo "🌐 URL: ${{ matrix.url }}"
+          echo "📊 HTTP Status: $HTTP_CODE"
+          echo "⏱️ Response Time: ${RESPONSE_TIME}ms"
+          echo "🕒 Timestamp: $(date)"
+          
+          if [ $HTTP_CODE -eq 200 ]; then
+            echo "✅ SUCCESS: Website is responsive"
+          else
+            echo "❌ FAILED: Website returned HTTP $HTTP_CODE"
+            # Don't exit with error to continue pinging other URLs
+          fi
+        continue-on-error: true
+
+      - name: Sleep between URLs
+        run: sleep 3
+
+  notify-health:
+    runs-on: ubuntu-latest
+    needs: keep-alive
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "📋 Keep-alive cycle completed at $(date)"
+          echo "✅ Your Render site should stay awake"
+          echo "⏰ Next run in 10 minutes"
