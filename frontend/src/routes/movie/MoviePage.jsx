@@ -20,14 +20,7 @@ function MoviePage() {
     setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
 
-  const handlePageInputChange = (e) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value) && value >= 1) {
-      setPage(value);
-    } else if (e.target.value === '') {
-      setPage(''); 
-    }
-  };
+
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -100,7 +93,7 @@ function MoviePage() {
             className='w-20 text-center flex items-center h-8 mt-5 mb-10 outline-none rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 transition-all duration-200 '
             type="number"
             value={page}
-            onChange={handlePageInputChange}
+            onChange={(e)=>setPage(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 const value = parseInt(e.target.value, 10);
