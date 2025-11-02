@@ -35,7 +35,7 @@ function ResetPass() {
     }
 
     setIsLoading(true);
-
+//    remove slash in link
     try {
       const response = await fetch('/api/auth/reset-password', {
         method: 'POST',
