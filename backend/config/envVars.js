@@ -10,4 +10,7 @@ export const ENV_VARS = {
       NODE_ENV: process.env.NODE_ENV,
       TMDB_KEY: process.env.TMDB_KEY,
       GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+      EMAIL_USER : process.env.EMAIL_USER,
+      EMAIL_PASS: process.env.EMAIL_PASS,
+      FE_URL : process.env.FE_URL
 }
