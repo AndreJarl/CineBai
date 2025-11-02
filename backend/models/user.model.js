@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 
-const userShcema = mongoose.Schema({
-    username:{
-         type: String,
-         required : true,
-         uniques: true
+const userSchema = mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true  // Fixed typo: was "uniques"
     },
-    email:{
-         type: String,
-         required : true,
-         uniques: true
+    email: {
+        type: String,
+        required: true,
+        unique: true  // Fixed typo: was "uniques"
     },
-    password:{
-         type: String,
-         required : true
+    password: {
+        type: String,
+        required: true
     },
-    image:{
+    image: {
         type: String,
         default: ""
     },
-    favorites:{
+    favorites: {
         type: [
             {
                 id: String,
@@ -30,17 +30,21 @@ const userShcema = mongoose.Schema({
         ],
         default: []
     },
-    watchLater:{
+    watchLater: {
         type: [
             {
                 id: String,
                 mediaType: String,
-                 title: String,
+                title: String,
                 poster_path: String,
             }
         ],
         default: []
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
+}, {  // Fixed: Moved timestamps to the correct position
+    timestamps: true
 });
 
-export const User = mongoose.model("User", userShcema);
+export const User = mongoose.model("User", userSchema);  // Fixed typo: was "userShcema"

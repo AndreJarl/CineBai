@@ -73,7 +73,7 @@ function Login() {
                 onChange={(e)=>setPassword(e.target.value)}
 							/>
 						</div>
-                   {/* <Link to="/forgot-pass"><p className="text-sm font-normal text-blue-500 -">Forgot Password?</p></Link> */}
+                    <Link to="/forgot-pass"><p className="text-sm pt-1 font-normal text-blue-500 -">Forgot Password?</p></Link> 
 						<button
 							className='w-full py-2 bg-red-600 text-white font-semibold rounded-md
 							hover:bg-red-700

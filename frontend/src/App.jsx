@@ -15,6 +15,8 @@ import Favorites from './routes/Favorites'
 import MoviePage from "./routes/movie/MoviePage"
 import TVPage from "./routes/tv/TVPage"
 import AIRecommendation from "./routes/AIRecommendation"
+import ForgotPass from "./routes/ForgotPass"
+import ResetPass from "./routes/ResetPass"
 
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
@@ -50,7 +52,8 @@ function App() {
        <Route path="/movie-page/:movieType" element={<MoviePage/>} />
        <Route path="/tv-page/:seriesType" element={<TVPage/>} />
        <Route path="/ai-recommendation" element={<AIRecommendation/>} />
-
+       <Route path="/forgot-pass" element={<ForgotPass/>} />
+       <Route path="/reset-password" element={<ResetPass/>} />
     </Routes>
     </>
   )
