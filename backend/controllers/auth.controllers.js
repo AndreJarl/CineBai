@@ -281,10 +281,22 @@ export async function resetPassword(req, res){
 
 
 export async function authCheck(req, res){
-          try {
-               res.status(200).json({success:true, user: req.user})
-          } catch (error) {
-               console.log("Error in authcheck controller", error.message);
-               res.status(500).json({success:false, message: "Internal server error"});
+         try {
+    // Check if user exists (if middleware didn't set it)
+          if (!req.user) {
+            return res.status(200).json({
+              success: false,
+              message: 'Not authenticated',
+              user: null
+            });
           }
+          
+          res.status(200).json({
+            success: true, 
+            user: req.user
+          });     
+        } catch (error) {
+              console.log("Error in authcheck controller", error.message);
+              res.status(500).json({success:false, message: "Internal server error"});
+        }
 }
