@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs';
 import validator from "validator";
 import crypto from "crypto"
 
-import { sendPasswordResetEmail } from "../utils/emailService.js";
+import { sendPasswordResetEmail } from "../services/emailService.js";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookies.js";
 
 
