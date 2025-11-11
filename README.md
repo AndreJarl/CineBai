@@ -29,16 +29,12 @@
 ## ⚙️ Installation
 
 1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/your-username/CineBai.git
-```
+   ```
+   git clone https://github.com/your-username/CineBai.git```
    cd CineBai
 2. **Install Dependencies**
 
- ```bash
-Copy code
-npm install
-```
+ ```npm install```
 3. **Set Up Environment Variables**
 Create a .env file in the root directory and add the following:
 
