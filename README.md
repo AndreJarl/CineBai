@@ -29,21 +29,19 @@
 ## ⚙️ Installation
 
 1. **Clone the Repository**
-   ```
-   git clone https://github.com/your-username/CineBai.git```
+   ```git clone
+   https://github.com/your-username/CineBai.git```
    cd CineBai
+
 2. **Install Dependencies**
 
  ```npm install```
 
 3. **Set Up Environment Variables**
+
 Create a .env file in the root directory and add the following:
 
-
-Copy code
-
-```bash
-MONGO_URI=your_mongodb_connection_string
+```MONGO_URI=your_mongodb_connection_string
 
 JWT_SECRET=your_jwt_secret
 
@@ -54,7 +52,7 @@ GEMINI_API_KEY=your_gemini_api_key
 
 Run the App
 
-```bash
+```
 Copy code
 npm run dev
 ```
