@@ -35,6 +35,7 @@
 2. **Install Dependencies**
 
  ```npm install```
+
 3. **Set Up Environment Variables**
 Create a .env file in the root directory and add the following:
 
