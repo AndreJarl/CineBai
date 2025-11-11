@@ -59,7 +59,7 @@ Run the App
 ```bash
 Copy code
 npm run dev
-
+```
 
 
 ## 🌐 Live Demo
