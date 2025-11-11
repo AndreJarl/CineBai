@@ -8,7 +8,7 @@
 🤖 **Gemini AI Recommendations** – Get personalized suggestions based on your preferences or mood  
 🔐 **Secure Authentication** – Sign up and log in using JWT-based authentication  
 🔍 **Smart Search** – Search for movies and TV shows in real time  
-🎥 **Watch & Explore** – Access detailed information, trailers, and related titles  
+🎥 **Watch & Explore** – Access detailed information,and related titles  
 ❤️ **Favorites** – Add and manage your favorite movies and shows  
 🕒 **Watch Later** – Save content for future viewing  
 🔄 **Session Persistence** – Stay logged in seamlessly using localStorage  
