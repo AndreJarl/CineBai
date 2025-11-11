@@ -41,7 +41,7 @@ npm install
 3. **Set Up Environment Variables**
 Create a .env file in the root directory and add the following:
 
-bash
+```bash
 Copy code
 
 MONGO_URI=your_mongodb_connection_string
@@ -55,7 +55,7 @@ GEMINI_API_KEY=your_gemini_api_key
 
 Run the App
 
-bash
+```bash
 Copy code
 npm run dev
 
