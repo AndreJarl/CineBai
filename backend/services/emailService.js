@@ -22,7 +22,7 @@ export const sendPasswordResetEmail = async (email, resetToken) => {
   const resetUrl = `${ENV_VARS.FE_URL}/reset-password?token=${resetToken}`;
   
   const mailOptions = {
-    from: `"CineBai Support" <${ENV_VARS.EMAIL_USER}`,
+    from: `"CineBai Support" <${ENV_VARS.EMAIL_USER}>`,
     to: email,
     subject: 'Password Reset Request',
     html: `
