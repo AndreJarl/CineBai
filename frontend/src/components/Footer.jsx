@@ -22,7 +22,7 @@ function Footer() {
     </div>
 
     
-     <div className='flex justify-center items-center text-white mb-5 text-sm opacity-85'>
+     <div className='flex justify-center items-center text-white mb-5 text-sm opacity-85 '>
         <p>© 2025 • Created by <a className=' font-medium underline' href="https://andrejarl.netlify.app/">Andre Jarl</a> • All rights reserved.</p>
      </div>
    
