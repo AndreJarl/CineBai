@@ -26,33 +26,6 @@
 
 ---
 
-## ⚙️ Installation
-
-1. **Clone the Repository**
-   ```git clone  https://github.com/your-username/CineBai.git
-    cd CineBai
-
-2. **Install Dependencies**
- ```npm install```
-
-3. **Set Up Environment Variables**
-Create a .env file in the root directory and add the following:
-
-```MONGO_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_jwt_secret
-
-TMDB_API_KEY=your_tmdb_api_key
-
-GEMINI_API_KEY=your_gemini_api_key
-```
-
-Run the App
-```
-Copy code
-npm run dev
-```
-
 
 ## 🌐 Live Demo
 🔗 [View CineBai Online](https://cinebai.onrender.com/)
