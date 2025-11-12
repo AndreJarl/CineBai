@@ -64,8 +64,8 @@ function Navbar() {
               : 
                  <Link to='/signin'><button className='bg-red-600 lg:px-3 lg:py-1 rounded text-white text-sm lg:text-base py-1 px-2 hover:bg-red-700'>Sign In</button></Link>
              }
-             <div className={`${iconClicked ? 'absolute' : 'hidden'} lg:top-11 lg:right-1 top-11 z-[200] backdrop-blur-3xl right-1 shadow-2xl border border-gray-200 rounded-lg w-[90px] lg:w-[120px]`}>
-                 <ul className='flex flex-col lg:gap-5 gap-3  lg:p-4 p-3 lg:text-base text-xs'>
+             <div className={`${iconClicked ? 'absolute' : 'hidden'} lg:top-11 lg:right-1 top-11 z-[200] backdrop-blur-3xl right-1 shadow-2xl border border-gray-200 rounded-lg w-[100px] lg:w-[120px]`}>
+                 <ul className='flex flex-col lg:gap-5 gap-3  lg:p-4 p-3 lg:text-base text-sm'>
                   <Link to="/myprofile"><li className='hover:text-red-600 '>My Profile</li></Link> 
                   <li onClick={handleClicked} className='hover:text-red-600 cursor-pointer'>Log Out</li>
 

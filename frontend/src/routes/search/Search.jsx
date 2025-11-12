@@ -67,14 +67,14 @@ function SearchContent() {
             <p className='lg:text-7xl text-center text-5xl font-bold'><span className='text-red-600'>Cine</span><span className='text-yellow-500'>Bai</span> 🎞️🧐 </p>
             <p className='text-center lg:text-3xl text-2xl font-medium'>Discover the films and series you love with <span className='text-red-600'>Cine</span><span className='text-yellow-500'>Bai</span>.</p>
 
-            <div className='flex lg:flex-row md:flex-row flex-col items-center lg:gap-2 gap-5 mt-2'>
-                <input className='lg:w-[600px] w-[300px] h-14 rounded-full outline-none pl-5 text-black' type="text" placeholder='Search....' onChange={(e)=>setQuery(e.target.value)} 
+            <div className=' bg-white rounded-full flex lg:flex-row md:flex-row  items-center mt-2'>
+                <input className='lg:w-[500px] md:w-[400px] w-[200px] h-10 rounded-full outline-none pl-5 text-black' type="text" placeholder='Search....' onChange={(e)=>setQuery(e.target.value)} 
                 onKeyDown={(e)=>{
                     if(e.key === 'Enter' && query.trim() !== ""){
                         searchButtonClicked();
                     }
                 }}/>
-                <button onClick={()=> {query.trim() != "" && searchButtonClicked()}} disabled={query.trim()===""} className={`flex rounded-full gap-1 ${query.trim() === "" ? 'bg-red-600 opacity-80' : 'bg-red-600 hover:bg-red-700 opacity-100 cursor-pointer'} px-4 text-xl  lg:py-3 py-2 items-center`}><Search/> Search </button>
+                <button onClick={()=> {query.trim() != "" && searchButtonClicked()}} disabled={query.trim()===""} className={`flex rounded-full gap-1 lg:w-[140px] md:w-[140px] w-[100px] ${query.trim() === "" ? 'bg-red-600 opacity-80' : 'bg-red-600 hover:bg-red-700 opacity-100 cursor-pointer'} px-4 lg:text-xl md:text-xl  text-base  lg:py-3 py-2 items-center`}><Search/> Search </button>
             </div>
             </div>
               <p className='mt-10 mb-1'>Choose media:</p>
