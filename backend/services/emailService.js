@@ -2,11 +2,21 @@ import nodemailer from "nodemailer";
 import { ENV_VARS } from "../config/envVars.js";
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth:{
-         user: ENV_VARS.EMAIL_USER,
-         pass: ENV_VARS.EMAIL_PASS
-    }
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // true for 465, false for 587
+  auth: {
+    user: ENV_VARS.EMAIL_USER,
+    pass: ENV_VARS.EMAIL_PASS,
+  },
+});
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('SMTP Connection Error:', error);
+  } else {
+    console.log('SMTP Server is ready to send messages');
+  }
 });
 
 export const sendPasswordResetEmail = async (email, resetToken) => {
