@@ -27,7 +27,7 @@ function ForgotPass() {
       const data = await response.json();
       
       if (data.success) {
-        setMessage('If an account with that email exists, a password reset link has been sent.');
+        setMessage('If an account with that email exists, a password reset link has been sent. Please check in spam');
       } else {
         setMessage('Error: ' + data.message);
       }
