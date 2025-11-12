@@ -157,7 +157,21 @@ export async function forgotPassword (req, res){
     await user.save();
 
     // Send email with reset token (unhashed)
-    await sendPasswordResetEmail(user.email, resetToken);
+    try {
+      await sendPasswordResetEmail(user.email, resetToken);
+      console.log(`✅ Password reset email sent successfully to ${user.email}`);
+    } catch (emailError) {
+      console.error('❌ Failed to send password reset email:', emailError.message);
+      // Clear the reset token if email fails
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+      await user.save();
+      
+      return res.status(500).json({
+        success: false,
+        message: emailError.message || 'Failed to send password reset email. Please try again later.'
+      });
+    }
 
     res.json({
       success: true,
@@ -165,7 +179,8 @@ export async function forgotPassword (req, res){
     });
 
   } catch (error) {
-    console.error('Forgot password error:', error);
+    console.error('❌ Forgot password error:', error.message);
+    console.error('Full error:', error);
     res.status(500).json({
       success: false,
       message: 'Server error during password reset request'
