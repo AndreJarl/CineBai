@@ -1,9 +1,13 @@
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 import { ENV_VARS } from "../config/envVars.js";
 
 // Validate required environment variables
 if (!ENV_VARS.SENDGRID_API_KEY) {
   console.error("❌ ERROR: SENDGRID_API_KEY is not set in environment variables");
+} else {
+  // Set SendGrid API key
+  sgMail.setApiKey(ENV_VARS.SENDGRID_API_KEY);
+  console.log("✅ SendGrid API key configured");
 }
 
 if (!ENV_VARS.EMAIL_USER) {
@@ -13,31 +17,6 @@ if (!ENV_VARS.EMAIL_USER) {
 if (!ENV_VARS.FE_URL) {
   console.error("❌ ERROR: FE_URL is not set in environment variables");
 }
-
-// Updated transporter using SendGrid SMTP
-const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net", // Use SendGrid SMTP host
-  port: 587,                 // TLS port
-  secure: false,             // false for port 587
-  auth: {
-    user: "apikey",          // MUST literally be "apikey"
-    pass: ENV_VARS.SENDGRID_API_KEY, // Your SendGrid API key
-  },
-  // Add connection timeout and retry options
-  connectionTimeout: 10000, // 10 seconds
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-});
-
-// Verify transporter on startup
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("❌ SMTP connection error:", error.message);
-    console.error("Full error:", error);
-  } else {
-    console.log("✅ SMTP server ready to send emails");
-  }
-});
 
 export const sendPasswordResetEmail = async (email, resetToken) => {
   // Validate required environment variables
@@ -63,9 +42,9 @@ export const sendPasswordResetEmail = async (email, resetToken) => {
   console.log(`📧 Attempting to send password reset email to: ${email}`);
   console.log(`🔗 Reset URL: ${resetUrl}`);
   
-  const mailOptions = {
-    from: `"CineBai Support" <${ENV_VARS.EMAIL_USER}>`,
+  const msg = {
     to: email,
+    from: ENV_VARS.EMAIL_USER, // Must be a verified sender in SendGrid
     subject: 'Password Reset Request',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -87,28 +66,32 @@ export const sendPasswordResetEmail = async (email, resetToken) => {
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
+    const response = await sgMail.send(msg);
     console.log('✅ Password reset email sent successfully');
-    console.log('📧 Email info:', {
-      messageId: info.messageId,
-      accepted: info.accepted,
-      rejected: info.rejected
-    });
-    return info;
+    console.log('📧 SendGrid response status:', response[0].statusCode);
+    return response;
   } catch (error) {
     console.error('❌ Error sending email:', error.message);
-    console.error('Full error details:', {
-      code: error.code,
-      command: error.command,
-      response: error.response,
-      responseCode: error.responseCode
-    });
     
-    // Provide more specific error messages
-    if (error.code === 'EAUTH') {
-      throw new Error('Email authentication failed. Please check your SendGrid API key.');
-    } else if (error.code === 'ECONNECTION' || error.code === 'ETIMEDOUT') {
-      throw new Error('Failed to connect to email server. Please try again later.');
+    // SendGrid provides detailed error information
+    if (error.response) {
+      console.error('SendGrid error details:', {
+        statusCode: error.response.statusCode,
+        body: error.response.body,
+        headers: error.response.headers
+      });
+      
+      // Provide user-friendly error messages based on SendGrid error codes
+      if (error.response.statusCode === 401) {
+        throw new Error('Email authentication failed. Please check your SendGrid API key.');
+      } else if (error.response.statusCode === 403) {
+        throw new Error('SendGrid API key does not have permission to send emails.');
+      } else if (error.response.statusCode === 400) {
+        const errorMessage = error.response.body?.errors?.[0]?.message || 'Invalid email request.';
+        throw new Error(`Email validation error: ${errorMessage}`);
+      } else {
+        throw new Error(`Failed to send email. Status: ${error.response.statusCode}`);
+      }
     } else {
       throw new Error(`Failed to send password reset email: ${error.message}`);
     }
