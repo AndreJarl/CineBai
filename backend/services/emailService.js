@@ -1,29 +1,28 @@
 import nodemailer from "nodemailer";
 import { ENV_VARS } from "../config/envVars.js";
 
+// Updated transporter using SendGrid SMTP
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true, // true for 465, false for 587
+  host: "smtp.sendgrid.net", // Use SendGrid SMTP host
+  port: 587,                 // TLS port
+  secure: false,             // false for port 587
   auth: {
-    user: ENV_VARS.EMAIL_USER,
-    pass: ENV_VARS.EMAIL_PASS,
+    user: "apikey",          // MUST literally be "apikey"
+    pass: ENV_VARS.SENDGRID_API_KEY, // Your SendGrid API key
   },
 });
 
+// Optional: verify transporter
 transporter.verify((error, success) => {
-  if (error) {
-    console.error('SMTP Connection Error:', error);
-  } else {
-    console.log('SMTP Server is ready to send messages');
-  }
+  if (error) console.error("SMTP connection error:", error);
+  else console.log("✅ SMTP server ready to send emails");
 });
 
 export const sendPasswordResetEmail = async (email, resetToken) => {
   const resetUrl = `${ENV_VARS.FE_URL}/reset-password?token=${resetToken}`;
   
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: `"CineBai Support" <${ENV_VARS.EMAIL_USER}`,
     to: email,
     subject: 'Password Reset Request',
     html: `
