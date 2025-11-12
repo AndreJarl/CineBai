@@ -8,6 +8,7 @@ function ForgotPass() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -15,7 +16,7 @@ function ForgotPass() {
 
     try {
       // Call your forgot password API
-      const response = await fetch('/api/auth/forgot-password', {
+      const response = await fetch(`/api/auth/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
