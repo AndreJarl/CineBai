@@ -61,7 +61,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
               </p>
             ))}
                </div>
-               <p className="max-w-xl text-xs lg:text-base md:text-xl  font-normal">{movie.overview}</p>
+               <p className="max-w-xl text-sm lg:text-base md:text-xl  font-normal">{movie.overview}</p>
                <p className='text-white flex justify-center items-center lg:text-base text-[12px] gap-2'>⭐ {movie.vote_average?.toFixed(1)} <span className='lg:text-sm text-[10px] opacity-75'>({movie.vote_count} votes) </span>| ⌛ {movie.runtime} mins |  📅  {movie.release_date ? movie.release_date.slice(0, 4) : 'N/A'} </p>
                <AddToListButton movie={movie} mediaType="movie"/>
              
