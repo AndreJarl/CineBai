@@ -30,8 +30,7 @@
 
 1. **Clone the Repository**
    ```git clone  https://github.com/your-username/CineBai.git
-   cd CineBai
-```
+    cd CineBai
 
 2. **Install Dependencies**
  ```npm install```
