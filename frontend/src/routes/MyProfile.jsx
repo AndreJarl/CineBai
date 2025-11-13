@@ -12,22 +12,23 @@ import { Trash } from 'lucide-react';
 
 function MyProfile() {
 
-    const [profile, setProfile] = useState([]);
+    const [profile, setProfile] = useState({});
         const {user, logout} = userAuthStore();
         const navigate = useNavigate();
-        const {contentType} = useContentStore();
-        
-        
+        const {contentType, setContentType} = useContentStore();
 
-        const [favoriteFilter, setFavoriteFilter] = useState(`${contentType}` || "movies");
-        const [watchLaterFilter, setWatchLaterFilter] = useState(`${contentType}` || "movies");
         const [isDeleting, setIsDeleting] = useState(false);
-        const filteredFavorites = profile.favorites?.filter(item => item.mediaType === favoriteFilter) || [];
+        const filteredFavorites = profile.favorites?.filter(item => item.mediaType === contentType) || [];
 
-        const filteredWatchLater = profile.watchLater?.filter(item => item.mediaType === watchLaterFilter) || [];
+        const filteredWatchLater = profile.watchLater?.filter(item => item.mediaType === contentType) || [];
 
       useEffect(()=>{
-                const getMyProfile = async () =>{
+        if(user){
+           getMyProfile();
+        }
+      }, [user, contentType]);
+               
+      const getMyProfile = async () =>{
               try {
                 if(!user){
                     setTimeout(()=>{
@@ -42,9 +43,8 @@ function MyProfile() {
                 
               }
         }
-        getMyProfile();
-      }, [user, contentType]);
- 
+  
+
         const deleteFromList = async (item, type) =>{
           setIsDeleting(true);
               try {
@@ -72,7 +72,7 @@ function MyProfile() {
     <Navbar />
     <div className='flex flex-col justify-center items-center bg-black/80 gap-10 lg:pt-40 md:pt-40 pt-28 -mt-20   '>
 
-         <div className='flex lg:flex-row md:flex-row flex-col justify-around lg:gap-60 gap-10 items-center mx-3 mb-16'>
+         <div className='flex lg:flex-row md:flex-row flex-col justify-around lg:gap-60 gap-10 items-center mx-3 mb-10'>
        
          
         <div className='flex lg:flex-row md:flex-row flex-col lg:justify-start justify-center  items-center gap-4  text-white'>
@@ -91,6 +91,16 @@ function MyProfile() {
 
          </div>
 
+
+   
+              <div className='flex flex-col gap-2 justify-center items-center' >
+                  <p className=' text-white'>Choose media:</p>
+                  <ul className='flex flex-row justify-center items-center text-xl bg-yellow-300/60 backdrop-blur-md px-3 py-2 shadow-2xl rounded-full'>
+                      <li onClick={()=>{setContentType("movie"); setisClicked(true) }} className={` cursor-pointer px-6  py-1 ${contentType === "movie" ? 'bg-red-600 font-medium  rounded-full text-white' : "text-white"} `}>Movie</li>
+                      <li onClick={()=>{setContentType("tv"); setisClicked(true)}}className={`cursor-pointer px-6  py-1 ${contentType === "tv" ? 'bg-red-600 font-medium rounded-full text-white' : "text-white"}`}>Series</li>
+                  </ul>
+              </div>
+
           <div className=''>
                 <div className='flex flex-row items-center gap-10'>
                      <p className='text-white lg:text-5xl md:text-4xl text-4xl text-center font-normal mb-5'>❤️ Favorites {contentType === "movie" ? 'Movies' : 'Series'}</p>
@@ -102,7 +112,7 @@ function MyProfile() {
 
    
         { filteredFavorites.length === 0 ?
-        ( <p className="text-gray-400 col-span-5 text-center">No favorite {favoriteFilter === "movie" ? "movies" : "series"} found.</p>)
+        ( <p className="text-gray-400 col-span-5 text-center">No favorite {contentType === "movie" ? "movies" : "series"} found.</p>)
         : (  <div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-center items-center lg:gap-6 gap-2 mx-2 '>
           {filteredFavorites.slice().reverse().slice(0,5).map((favorite, index) =>(
              <Link to={`/${favorite.mediaType}-details/${favorite.id}`}>
@@ -137,7 +147,7 @@ function MyProfile() {
                 
      {   filteredWatchLater.length === 0 ?
       
-        ( <p className="text-gray-400 col-span-5 text-center">No watch later {watchLaterFilter === "movie" ? "movies" : "series"} found.</p>)
+        ( <p className="text-gray-400 col-span-5 text-center">No watch later {contentType === "movie" ? "movies" : "series"} found.</p>)
       
      : (    <div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-center items-center lg:gap-6 gap-2 mx-2 '>
           {filteredWatchLater.slice().reverse().slice(0,5).map((later, index) =>(
