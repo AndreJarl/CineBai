@@ -8,7 +8,7 @@ import { userAuthStore } from '../store/authUser';
 import toast from 'react-hot-toast';
 
 function Favorites() {
-  const {contentType} = useContentStore();
+  const {contentType, setContentType} = useContentStore();
    const {user, logout} = userAuthStore();
   
    const [profile, setProfile] = useState([]);
@@ -62,7 +62,7 @@ function Favorites() {
                      <div className="w-[100%] h-[1px] bg-gray-400 opacity-60 mb-5"></div>
                 </div>
 
-   
+
         { filteredFavorites.length === 0 ?
         ( <p className="text-gray-400 col-span-5 text-center">No favorite {contentType === "movie" ? "movies" : "series"} found.</p>)
         : (  <div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-center items-center lg:gap-6 gap-2 mx-2 mb-10'>
