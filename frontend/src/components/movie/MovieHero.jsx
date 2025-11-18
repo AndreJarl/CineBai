@@ -6,22 +6,33 @@ import axios from 'axios';
 function Hero() {
     
      const [trendingMovie, setTrendingMovie ] = useState([]);
+     
+        useEffect(() => {
+          let isMounted = true;
 
-         useEffect(()=>{
-               const getTrendingMovie = async () =>{
-                      try {
-                          const res = await axios.get(`/api/movie/trendingMovie`);
-                           setTrendingMovie(res.data.content);
+          const getTrendingMovie = async () => {
+            try {
+              const res = await axios.get(`/api/movie/trendingMovie`);
+              if (isMounted) setTrendingMovie(res.data.content);
+            } catch (error) {
+              console.error('Error fetching trending movie:', error);
+            }
+          };
 
-                      } catch (error) {
-                        console.error('Error fetching trending movie:', error);
-                      }
-               }
+          getTrendingMovie();
 
-               getTrendingMovie();
-         }, []);
+          return () => {
+            isMounted = false; // cleanup to prevent setting state after unmount
+          };
+        }, []);
 
-const backdropUrl = `https://image.tmdb.org/t/p/original${trendingMovie.backdrop_path}`;
+
+
+const backdropUrl = trendingMovie.backdrop_path
+  ? window.innerWidth >= 1024
+      ? `https://image.tmdb.org/t/p/w1920_and_h1080_bestv2${trendingMovie.backdrop_path}`
+      : `https://image.tmdb.org/t/p/w1280_and_h720_bestv2${trendingMovie.backdrop_path}`
+  : null;
 
 function covertedDuration (minutes){
      const hours = Math.floor(minutes/60);

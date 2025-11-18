@@ -7,22 +7,32 @@ function TVHero() {
     
      const [trendingTV, setTrendingTV ] = useState([]);
 
-         useEffect(()=>{
-               const getTrendingMovie = async () =>{
-                      try {
-                          const res = await axios.get(`/api/tv/trendingTV`);
-                           setTrendingTV(res.data.content);
-                          //  console.log(res.data.content);
+          useEffect(() => {
+            let isMounted = true; // flag to prevent setting state if unmounted
 
-                      } catch (error) {
-                        console.error('Error fetching trending movie:', error);
-                      }
-               }
+            const getTrendingTV = async () => {
+              try {
+                const res = await axios.get(`/api/tv/trendingTV`);
+                if (isMounted) setTrendingTV(res.data.content);
+                // console.log(res.data.content);
+              } catch (error) {
+                console.error('Error fetching trending TV:', error);
+              }
+            };
 
-               getTrendingMovie();
-         }, []);
+            getTrendingTV();
 
-const backdropUrl = `https://image.tmdb.org/t/p/original${trendingTV.backdrop_path}`;
+            return () => {
+              isMounted = false; // cleanup on unmount
+            };
+          }, []);
+
+const backdropUrl = trendingTV.backdrop_path
+  ? window.innerWidth >= 1024
+      ? `https://image.tmdb.org/t/p/w1920_and_h1080_bestv2${trendingTV.backdrop_path}`
+      : `https://image.tmdb.org/t/p/w1280_and_h720_bestv2${trendingTV.backdrop_path}`
+  : null;
+
 
 function covertedDuration (minutes){
      const hours = Math.floor(minutes/60);
