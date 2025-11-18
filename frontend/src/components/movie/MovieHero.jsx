@@ -6,14 +6,17 @@ import axios from 'axios';
 function Hero() {
     
      const [trendingMovie, setTrendingMovie ] = useState([]);
-     
+      const [loading, setLoading] = useState(true);
         useEffect(() => {
           let isMounted = true;
 
           const getTrendingMovie = async () => {
             try {
               const res = await axios.get(`/api/movie/trendingMovie`);
-              if (isMounted) setTrendingMovie(res.data.content);
+              if (isMounted)
+                {setTrendingMovie(res.data.content);
+                  setLoading(false);
+                }
             } catch (error) {
               console.error('Error fetching trending movie:', error);
             }
@@ -25,7 +28,19 @@ function Hero() {
             isMounted = false; // cleanup to prevent setting state after unmount
           };
         }, []);
-
+  if (loading) {
+    // Skeleton loader
+    return (
+      <div className="h-screen w-full bg-neutral-900 animate-pulse -mt-24">
+        <div className="mx-4 lg:mx-28 md:mx-10 flex flex-col gap-5 pt-72 ">
+          <div className="h-6 w-1/4 bg-gray-600 rounded" />
+          <div className="h-10 w-1/6 bg-gray-600 rounded mt-2" />
+          <div className="h-6 w-full bg-gray-600 rounded mt-2" />
+          <div className="h-6 w-2/3 bg-gray-600 rounded mt-2" />
+        </div>
+      </div>
+    );
+  }
 
 
 const backdropUrl = trendingMovie.backdrop_path

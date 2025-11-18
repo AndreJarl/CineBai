@@ -6,14 +6,17 @@ import AddToListButtonTV from './AddToListButtonTV';
 function TVHero() {
     
      const [trendingTV, setTrendingTV ] = useState([]);
-
+    const [loading, setLoading] = useState(true);
           useEffect(() => {
             let isMounted = true; // flag to prevent setting state if unmounted
 
             const getTrendingTV = async () => {
               try {
                 const res = await axios.get(`/api/tv/trendingTV`);
-                if (isMounted) setTrendingTV(res.data.content);
+                if (isMounted){
+                  setTrendingTV(res.data.content);
+                  setLoading(false);
+                }
                 // console.log(res.data.content);
               } catch (error) {
                 console.error('Error fetching trending TV:', error);
@@ -26,6 +29,20 @@ function TVHero() {
               isMounted = false; // cleanup on unmount
             };
           }, []);
+
+ if (loading) {
+    // Skeleton loader
+    return (
+      <div className="h-screen w-full bg-neutral-900 animate-pulse -mt-24">
+        <div className="mx-4 lg:mx-28 md:mx-10 flex flex-col gap-5 pt-72 ">
+          <div className="h-6 w-1/4 bg-gray-600 rounded" />
+          <div className="h-10 w-1/6 bg-gray-600 rounded mt-2" />
+          <div className="h-6 w-full bg-gray-600 rounded mt-2" />
+          <div className="h-6 w-2/3 bg-gray-600 rounded mt-2" />
+        </div>
+      </div>
+    );
+  }
 
 const backdropUrl = trendingTV.backdrop_path
   ? window.innerWidth >= 1024
