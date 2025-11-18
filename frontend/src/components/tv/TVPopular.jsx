@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 function TVPopular() {
   const [trendingTV, setTrendingTV] = useState([]);
+   const [loading, setLoading] = useState(true); // track loading state
   const seriesType = "popular";
 
   useEffect(() => {
@@ -15,6 +16,8 @@ function TVPopular() {
         setTrendingTV(res.data.content.results || []);
       } catch (error) {
         console.error('Error fetching trending movies:', error);
+      }finally {
+        setLoading(false); // stop loading after fetch
       }
     };
 
@@ -37,7 +40,7 @@ function TVPopular() {
         <div className="w-[78%] h-[1px] bg-gray-400 opacity-60 mt-5"></div>
       </div>
 
-      <TVCard trendingTV={trendingTV} />
+      <TVCard trendingTV={trendingTV} loading={loading}/>
     </div>
   );
 }

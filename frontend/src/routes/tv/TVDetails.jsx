@@ -11,6 +11,7 @@ import TVSeasons from '../../components/tv/TVSeasons';
 function  TVDetails() {
       
   const [tv, setTV] = useState({});
+    const [loading, setLoading] = useState(true); // track loading state
   const {id} = useParams();
 
     useEffect(()=>{
@@ -22,7 +23,9 @@ function  TVDetails() {
 
               } catch (error) {
                    console.error("Failed to fetch movie details", error);
-              }
+              }finally {
+        setLoading(false); // stop loading after fetch
+      }
         }
 
         getTVDetails();
@@ -70,7 +73,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${tv.backdrop_path}`;
          
        </div>
        <div className=''>
-          <TVSeasons tv={tv.seasons} tvss={tv}/>
+          <TVSeasons tv={tv.seasons} tvss={tv} loading={loading}/>
       
     </div>
     </div>

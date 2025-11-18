@@ -10,6 +10,7 @@ import Footer from '../../components/Footer';
 function MoviePage() {
   const [movies, setMovies] = useState([]); 
   const [page, setPage] = useState(1);
+     const [loading, setLoading] = useState(true); // track loading state
   const { movieType } = useParams();
 
   const nextPage = () => {
@@ -45,6 +46,8 @@ function MoviePage() {
         window.scrollTo({ top: 0, behavior: 'smooth' }); 
       } catch (error) {
         console.error(`Error fetching ${movieType} movies:`, error);
+      }finally {
+        setLoading(false); // stop loading after fetch
       }
     };
 
@@ -80,7 +83,7 @@ function MoviePage() {
         <div className="w-[78%] h-[1px] bg-gray-400 opacity-60 mt-5"></div>
       </div>
       <div className='flex flex-col items-center'>
-        <MoviePageCard trendingMovies={movies} /> 
+        <MoviePageCard trendingMovies={movies} loading={loading} /> 
         <div className="flex items-center gap-3 mt-5 mb-10">
           <button
             onClick={prevPage}

@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import noimg from '../../assets/se404.png'
-function TVSeasons({tv, tvss}) {
+import Skeleton from '../Skeleton';
+
+function TVSeasons({tv, tvss, loading}) {
 
   if (!Array.isArray(tv)) return null;
 
@@ -10,7 +12,9 @@ function TVSeasons({tv, tvss}) {
             <p className="text-white text-6xl font-semibold mb-8 w-full  text-left">Seasons</p>
 
           <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-5 justify-items-center ">
-              {tv.map((tvs, index) => (
+             {loading
+          ? <Skeleton MOVIES_PER_PAGE={Array.isArray(tvss) ? tvss.length : 0}/> // show 20 skeletons while loading
+          : tv.map((tvs, index) => (
            <Link to={`/tv-watch/${tvss.id}/${tvs.season_number}`}><div key={index} className='flex flex-col gap-2'>
               <img src={tvs.poster_path ?
                 `https://image.tmdb.org/t/p/w500${tvs.poster_path}` : noimg
@@ -20,8 +24,8 @@ function TVSeasons({tv, tvss}) {
                <p className='text-sm'>⭐ {tvs.vote_average}</p>
              </div>
            </div></Link>
-       
-    ))}
+    ))
+        }
         </div>
     </div>
   )

@@ -3,8 +3,10 @@ import { Trophy, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import { Link } from 'react-router-dom';
+
 function MovieTopRated() {
   const [trendingMovies, setTrendingMovies] = useState([]);
+  const [loading, setLoading] = useState(true); // track loading state
   const movieType = "topRated";
 
   useEffect(() => {
@@ -14,6 +16,8 @@ function MovieTopRated() {
         setTrendingMovies(res.data.content.results || []);
       } catch (error) {
         console.error('Error fetching trending movies:', error);
+      }finally {
+        setLoading(false); // stop loading after fetch
       }
     };
 
@@ -36,7 +40,7 @@ function MovieTopRated() {
         <div className="w-[78%] h-[1px] bg-gray-400 opacity-60 mt-5"></div>
       </div>
 
-      <MovieCard trendingMovies={trendingMovies} />
+      <MovieCard trendingMovies={trendingMovies} loading={loading} />
     </div>
   );
 }
