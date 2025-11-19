@@ -50,6 +50,10 @@ function MovieCard({ trendingMovies, loading }) {
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
                     className="lg:h-[300px] md:h-[300px] hover:scale-110 transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"
+                    loading="lazy"
+                    decoding="async"
+                    width="180"
+                    height="300"
                   />
                   <p className='text-white px-1 font-bold w-[180px] truncate'>{movie.title}</p>
                   <div className='flex flex-row justify-between mx-2'>
@@ -82,6 +86,10 @@ function MovieCard({ trendingMovies, loading }) {
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
                     className="lg:h-[300px] h-[260px] hover:scale-110 transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"
+                    loading="lazy"
+                    decoding="async"
+                    width="180"
+                    height="260"
                   />
                   <p className='text-white text-sm px-1 font-bold w-[180px] truncate'>{movie.title}</p>
                   <div className='flex flex-row text-sm justify-between mx-2'>

@@ -52,6 +52,10 @@ function TVCard({ trendingTV, loading }) {
                       src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`}
                       alt={tv.name}
                       className="lg:h-[300px] h-[260px] hover:scale-110 transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"
+                      loading="lazy"
+                      decoding="async"
+                      width="180"
+                      height="300"
                     />
                     <p className='text-white px-1 font-bold w-[180px] truncate'>{tv.name}</p>
                     <div className='flex flex-row justify-between mx-2'>
@@ -84,6 +88,10 @@ function TVCard({ trendingTV, loading }) {
                     src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`}
                     alt={tv.name}
                     className="lg:h-[300px] h-[260px] hover:scale-110 transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"
+                    loading="lazy"
+                    decoding="async"
+                    width="180"
+                    height="260"
                   />
                   <p className='text-white px-1 font-bold w-[180px] truncate'>{tv.name}</p>
                   <div className='flex flex-row justify-between mx-2'>
