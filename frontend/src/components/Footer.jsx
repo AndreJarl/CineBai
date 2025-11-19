@@ -14,16 +14,12 @@ function Footer() {
            <p className='text-white text-xs max-w-2xl'>Disclaimer: CineBai is a personal project created for educational and entertainment purposes only. We do not host or upload any media files on our servers. All content provided through this site is sourced from publicly available third-party APIs. CineBai is not affiliated with or endorsed by any official movie or TV streaming service. Always respect copyright laws and use the platform responsibly.</p>
         </div>
 
-        <div className='flex items-center gap-5 text-white'>
-           <a href="https://github.com/AndreJarl"><Github color='white' /></a>
-           <a href="https://www.linkedin.com/in/andre-jarl-aniana-135588244/"><Linkedin color='white' /></a>
-        </div>
-
+     
     </div>
 
     
-     <div className='flex justify-center items-center text-white mb-5 text-sm opacity-85 '>
-        <p>© 2025 • Created by <a className=' font-medium underline' href="https://andrejarl.netlify.app/">Andre Jarl</a> • All rights reserved.</p>
+     <div className='flex justify-center items-center text-white mb-5 text-[10px] opacity-60 '>
+        <p>© 2025 • Created by <a className=' font-medium ' >AJA for 3.14a🩷</a> • All rights reserved.</p>
      </div>
    
    
