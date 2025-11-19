@@ -10,7 +10,7 @@ function TVPageCard({trendingTV, loading}) {
           ? <Skeleton MOVIES_PER_PAGE={20} /> // show 10 skeletons while loading
          : trendingTV.map((movie, index) => (
              <Link to={`/tv-details/${movie.id}`}><div key={index} className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="lg:h-[300px] md:h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"/>
+            <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="lg:h-[300px] md:h-[300px] hover:scale-110  transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md" loading="lazy" decoding="async" width="180" height="300"/>
              
             <p className='text-white px-1 font-bold w-[180px] truncate'>{movie.name}</p>
             <div className='flex flex-row justify-between mx-2'> 
