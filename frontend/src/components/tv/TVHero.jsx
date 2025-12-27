@@ -66,7 +66,7 @@ function TVHero() {
       />
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-black/60 flex items-center justify-start">
+      <div className="absolute inset-0 bg-black/60 flex -mt-32 lg:mt-0 items-center justify-start">
         <div className="text-white px-4 lg:mx-28 mx-4 md:mx-10 flex flex-col gap-5 mt-24">
           <p className="text-sm opacity-75">📺 Season {trendingTV.number_of_seasons}</p>
 
