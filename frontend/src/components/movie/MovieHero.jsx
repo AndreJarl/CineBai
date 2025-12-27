@@ -55,7 +55,7 @@ function Hero() {
   const backdropLarge = `https://image.tmdb.org/t/p/w1280${trendingMovie.backdrop_path}`;
 
   return (
-    <div className="relative h-screen w-full -mt-24">
+    <div className="relative h-screen w-full -mt-20">
       {/* Hero image with srcSet for responsive loading */}
       <img
         src={backdropSmall}
@@ -72,7 +72,7 @@ function Hero() {
       />
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-black/60 flex items-center justify-start">
+      <div className="absolute inset-0 bg-black/60 flex -mt-32 lg:mt-0 items-center justify-start">
         <div className="text-white px-4 lg:mx-28 mx-4 md:mx-10 flex flex-col gap-5 mt-24">
           <p className="text-sm opacity-75">
             Duration: {trendingMovie.runtime ? convertDuration(trendingMovie.runtime) : ""}
