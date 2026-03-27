@@ -43,7 +43,7 @@ const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
   }}
-    className="bg-cover bg-center h-full w-full relative flex flex-col justify-center items-center text-white -mt-20"
+    className="bg-cover bg-center h-full w-full relative flex flex-col justify-center items-center text-white"
   >
     
     

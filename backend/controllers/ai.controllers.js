@@ -9,86 +9,103 @@ export async function AIRecommendation(req, res) {
     const { prompt } = req.body;
     const { content } = req.params;
 
-    console.log('Received request:', { prompt, content });
-
-    if (!prompt) {
+    if (!prompt?.trim()) {
       return res.status(400).json({ message: "Prompt is required." });
     }
 
+    const sanitizedPrompt = prompt.trim().slice(0, 500);
+    console.log("Received request:", { sanitizedPrompt, content });
 
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash-exp", 
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
       generationConfig: {
         temperature: 0.9,
         maxOutputTokens: 1024,
-      }
+      },
     });
 
-    const aiPrompt = `You are a ${content} expert.  
-Based on the user's input "${prompt}", which may include a character name, theme, description, or keywords that it's related to:  
-1. Write a short, friendly AI message introducing relevant ${content} recommendations.  
-2. Search the web (and your internal knowledge) to find at least 20 real ${content} titles that best match or relate to the user's input — list one per line, with no years or extra text.  
-Separate the message and the list clearly.`;
+    const aiPrompt = `You are a ${content} expert.
+Based on the user's input "${sanitizedPrompt}", find relevant ${content} recommendations.
+ 
+Respond in exactly this format:
+MESSAGE: <a short friendly intro message on one line>
+TITLES:
+<title 1>
+<title 2>
+<title 3>
+... (at least 20 titles, one per line, no numbers, no bullets, no years, no extra text)`;
 
-    console.log('Calling Gemini API with model: gemini-2.0-flash-exp');
+    console.log("Calling Gemini API with model: gemini-2.5-flash");
     const result = await model.generateContent(aiPrompt);
-    const response = result.response;
-    const aiText = response.text();
+    const aiText = result.response.text();
 
-    console.log('AI Response received successfully');
+    console.log("=== RAW AI RESPONSE ===");
+    console.log(aiText);
+    console.log("=== END RAW AI RESPONSE ===");
 
     if (!aiText.trim()) {
-      console.log("Full AI response:", response);
-      return res.status(500).json({ error: "AI did not return any content" });
+      return res.status(500).json({ error: "AI did not return any content." });
     }
 
-    // Split AI response into intro message and titles
-    const lines = aiText.split("\n").filter(line => line.trim() !== "");
-    const aiMessage = lines[0];
-    const titles = lines.slice(1)
-      .map(t => t.replace(/^\d+\.\s*/, "").trim())
+    // Parse using strict format: MESSAGE: ... and TITLES:
+    const messageMatch = aiText.match(/MESSAGE:\s*(.+)/i);
+    const titlesMatch = aiText.match(/TITLES:\s*\n([\s\S]+)/i);
+
+    const aiMessage = messageMatch
+      ? messageMatch[1].trim()
+      : aiText.split("\n")[0].trim();
+
+    const rawTitles = titlesMatch ? titlesMatch[1] : "";
+
+    const titles = rawTitles
+      .split("\n")
+      .map((t) =>
+        t
+          .replace(/^\d+\.\s*/, "")              // remove "1. "
+          .replace(/^[-•*]\s*/, "")              // remove "- " "• " "* "
+          .replace(/\*{1,2}(.*?)\*{1,2}/g, "$1") // remove **bold**
+          .trim()
+      )
       .filter(Boolean);
 
     console.log(`Found ${titles.length} titles from AI`);
 
-    // Fetch details from TMDB
-    const recommendations = [];
-    for (const title of titles) {
-      try {
-        const data = await fetchFromTMDB(
-          `https://api.themoviedb.org/3/search/${content}?query=${encodeURIComponent(title)}`
-        );
-        if (data.results?.length) {
-          recommendations.push(data.results[0]);
-        } else {
-          console.log(`No TMDB results for: ${title}`);
-        }
-      } catch (error) {
-        console.error(`Error fetching ${title}:`, error.message);
-      }
+    if (titles.length === 0) {
+      return res.status(500).json({ error: "AI did not return any titles." });
     }
+
+    // Fetch all titles from TMDB in parallel
+    const tmdbResults = await Promise.allSettled(
+      titles.map((title) =>
+        fetchFromTMDB(
+          `https://api.themoviedb.org/3/search/${content}?query=${encodeURIComponent(title)}`
+        )
+      )
+    );
+
+    const recommendations = tmdbResults
+      .filter((r) => r.status === "fulfilled" && r.value.results?.length)
+      .map((r) => r.value.results[0]);
 
     console.log(`Returning ${recommendations.length} recommendations`);
     res.status(200).json({ message: aiMessage, recommendations });
-    
+
   } catch (error) {
-    console.error("AIRecommendation FULL error:", error);
-    console.error("Error stack:", error.stack);
-    
-    // Handle specific Gemini API errors
-    if (error.message?.includes('API key not valid')) {
-      return res.status(500).json({ error: "Invalid Google API key" });
+    console.error("AIRecommendation error:", error.message);
+
+    if (error.message?.includes("API key not valid")) {
+      return res.status(500).json({ error: "Invalid Google API key." });
     }
-    if (error.message?.includes('quota')) {
-      return res.status(500).json({ error: "API quota exceeded" });
+    if (error.message?.includes("quota")) {
+      return res.status(500).json({ error: "API quota exceeded. Try again later." });
     }
-    if (error.message?.includes('model')) {
-      return res.status(500).json({ error: "Invalid model name - check available models" });
+    if (error.message?.includes("model")) {
+      return res.status(500).json({ error: "AI model unavailable. Try again later." });
     }
-    
-    res.status(500).json({ 
-      error: "Failed to generate recommendations",
-      details: error.message 
+
+    res.status(500).json({
+      error: "Failed to generate recommendations.",
+      details: error.message,
     });
   }
 }

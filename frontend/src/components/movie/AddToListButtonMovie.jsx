@@ -1,82 +1,99 @@
-import { Play, Plus} from 'lucide-react';
-import { useState } from 'react';
-import { userAuthStore } from '../../store/authUser';
-import { Toaster, toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { set } from 'mongoose';
-import { Link } from 'react-router-dom';
+import { Play, Plus } from "lucide-react";
+import { useState } from "react";
+import { userAuthStore } from "../../store/authUser";
+import { Toaster, toast } from "react-hot-toast";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
-function AddToListButtonMovie({movie, mediaType}) {
+function AddToListButtonMovie({ movie, mediaType }) {
+  const navigate = useNavigate();
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const { user } = userAuthStore();
 
-    const navigate = useNavigate();
+  const addToList = async (type) => {
+    try {
+      if (!user) {
+        toast.error("Please login to add to list.");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+        return;
+      }
 
-    const [buttonClicked, setButtonClicked] = useState(false);
-    
-    const {user} = userAuthStore();
+      await toast.promise(
+        axios.post(`/api/user/list/${type}`, {
+          id: movie.id,
+          mediaType,
+          title: movie.title,
+          poster_path: movie.poster_path,
+        }),
+        {
+          loading: `Adding ${movie.title} to ${
+            type === "favorites" ? "favorites" : "watch later"
+          }...`,
+          success: `${movie.title} added to ${
+            type === "favorites" ? "favorites" : "watch later"
+          }!`,
+          error: `Failed to add ${movie.title}.`,
+        }
+      );
 
-    const addToList = async (type) =>{
-           try {
-               if(!user){
-                   setTimeout(()=>{
-                      navigate('/login');
-                  },1000);
-                  toast.error("Please login to add to list.")
-               }
-                const res = await toast.promise(
-                axios.post(`/api/user/list/${type}`, {
-                  id: movie.id,
-                  mediaType,
-                  title: movie.title,
-                  poster_path: movie.poster_path
-                }),
-                {
-                  loading: `Adding ${movie.title} to ${type === 'favorites' ? 'favorites' : 'watch later'}...`,
-                  success: `${movie.title} added to ${type === 'favorites' ? 'favorites' : 'watch later'}!`,
-                  error: `Failed to add ${movie.title}.`
-                }
-              );
-
-              // console.log(res.data);
-              setButtonClicked(false);
-           } catch (error) {
-                 if (error.response?.status === 409) {
-                        toast.error("Already in the list.");
-                        setButtonClicked(false);
-                    } else {
-                        console.error(error);
-                    }
-           }
+      setButtonClicked(false);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        toast.error("Already in the list.");
+        setButtonClicked(false);
+      } else {
+        console.error(error);
+      }
     }
-
-
+  };
 
   return (
-  <div className="flex  flex-row z-50 items-center gap-5 mt-5">
-  <Link to={`/watch-movie/${movie.id}`}> <button className="bg-red-800 px-4 py-2 lg:px-6 lg:py-3 lg:text-base cursor-pointer rounded-3xl font-medium flex flex-row text-xs items-center text-center gap-1">
-    <Play /> WATCH NOW
-  </button></Link> 
+    <div className="relative z-50 mt-6 flex flex-row flex-wrap items-center gap-3 sm:gap-4">
+      <Link to={`/watch-movie/${movie.id}`}>
+        <button className="group flex items-center gap-2 rounded-full bg-red-600 px-4 py-2.5 text-xs font-medium text-white shadow-lg shadow-red-900/30 transition-all duration-300 hover:bg-red-500 hover:scale-[1.02] sm:px-5 sm:py-3 sm:text-sm lg:px-6">
+          <Play className="h-4 w-4 fill-white text-white" />
+          WATCH NOW
+        </button>
+      </Link>
 
-  <div className="relative z-[1000]">
-   <button
-      onClick={() => setButtonClicked(!buttonClicked)}
-      className="px-4 text-xs lg:text-base py-2 lg:px-6 lg:py-3  rounded-3xl backdrop-blur-lg border-2 border-gray-200 flex flex-row items-center text-center gap-1"
-    >
-      <Plus /> ADD LIST
-    </button>
-    <div
-      className={`absolute ${buttonClicked ? 'flex' : 'hidden'} right-0 top-full mt-2 z-50 shadow-2xl border-2 border-white backdrop-blur-xl rounded-lg`}
-    >
-      <ul className="flex flex-col gap-5 p-4 text-white lg:text-base text-xs">
-        <li className="hover:text-red-600 cursor-pointer" onClick={()=>addToList('favorites')}>Favorites</li>
-        <li className="hover:text-red-600 cursor-pointer z-50" onClick={()=>addToList('watchLater')}>Watch Later</li>
-      </ul>
+      <div className="relative z-[1000]">
+        <button
+          onClick={() => setButtonClicked(!buttonClicked)}
+          className="flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2.5 text-xs font-medium text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/15 hover:scale-[1.02] sm:px-5 sm:py-3 sm:text-sm lg:px-6"
+        >
+          <Plus className="h-4 w-4" />
+          ADD LIST
+        </button>
+
+        <div
+          className={`absolute right-0 top-full mt-3 w-44 overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] transition-all duration-200 ${
+            buttonClicked
+              ? "visible opacity-100 translate-y-0"
+              : "invisible opacity-0 -translate-y-2"
+          }`}
+        >
+          <ul className="p-2 text-sm text-white">
+            <li
+              className="cursor-pointer rounded-xl px-4 py-3 transition-colors duration-200 hover:bg-white/10 hover:text-red-300"
+              onClick={() => addToList("favorites")}
+            >
+              Favorites
+            </li>
+            <li
+              className="cursor-pointer rounded-xl px-4 py-3 transition-colors duration-200 hover:bg-white/10 hover:text-red-300"
+              onClick={() => addToList("watchLater")}
+            >
+              Watch Later
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
-  </div>
- <Toaster position="top-center" reverseOrder={false} />
-</div>
-
-  )
+  );
 }
 
-export default AddToListButtonMovie
+export default AddToListButtonMovie;

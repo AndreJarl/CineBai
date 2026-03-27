@@ -1,98 +1,164 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Skeleton from "../Skeleton";
 
 function MovieCard({ trendingMovies, loading }) {
-  const [currentStartIndex, setCurrentStartIndex] = useState(0);
-  const MOVIES_PER_PAGE = 5;
+  const desktopRef = useRef(null);
+  const mobileRef = useRef(null);
 
-  const nextSlide = () => {
-    setCurrentStartIndex((prev) =>
-      prev + MOVIES_PER_PAGE >= trendingMovies.length ? 0 : prev + MOVIES_PER_PAGE
-    );
+  const scrollDesktop = (dir) => {
+    if (desktopRef.current) {
+      desktopRef.current.scrollBy({
+        left: dir === "next" ? 980 : -980,
+        behavior: "smooth",
+      });
+    }
   };
 
-  const prevSlide = () => {
-    setCurrentStartIndex((prev) =>
-      prev === 0
-        ? Math.max(0, trendingMovies.length - MOVIES_PER_PAGE)
-        : prev - MOVIES_PER_PAGE
-    );
+  const scrollMobile = (dir) => {
+    if (mobileRef.current) {
+      mobileRef.current.scrollBy({
+        left: dir === "next" ? 260 : -260,
+        behavior: "smooth",
+      });
+    }
   };
 
-  const visibleMovies = trendingMovies.slice(
-    currentStartIndex,
-    currentStartIndex + MOVIES_PER_PAGE
-  );
+  const getResponsiveImage = (path) => ({
+    src: `https://image.tmdb.org/t/p/w500${path}`,
+    srcSet: `
+      https://image.tmdb.org/t/p/w500${path} 500w,
+      https://image.tmdb.org/t/p/w780${path} 780w,
+      https://image.tmdb.org/t/p/w1280${path} 1280w
+    `,
+    sizes: "(max-width: 768px) 65vw, 220px",
+  });
 
+  const renderCard = (movie, index, isMobile = false) => {
+    const img = getResponsiveImage(movie.poster_path);
 
+    return (
+      <Link key={index} to={`/movie-details/${movie.id}`}>
+        <div
+          className={`group flex flex-col gap-3 text-white shrink-0 ${
+            isMobile ? "min-w-[160px] max-w-[160px]" : "min-w-[190px] max-w-[190px]"
+          }`}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          {/* Poster */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm">
+            <img
+              src={img.src}
+              srcSet={img.srcSet}
+              sizes={img.sizes}
+              alt={movie.title}
+              className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                isMobile ? "h-[235px]" : "h-[285px]"
+              }`}
+              loading="lazy"
+              decoding="async"
+            />
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+            {/* Rating badge */}
+            <div className="absolute top-3 left-3 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[11px] text-white backdrop-blur-md">
+              ⭐ {movie.vote_average?.toFixed(1) || "N/A"}
+            </div>
+          </div>
+
+          {/* Info */}
+          <div className="px-1">
+            <p className="truncate text-sm md:text-base font-semibold">
+              {movie.title}
+            </p>
+
+            <div className="mt-1 flex items-center justify-between text-xs text-gray-400">
+              <span>
+                {movie.release_date
+                  ? movie.release_date.slice(0, 4)
+                  : "N/A"}
+              </span>
+              <span>Movie</span>
+            </div>
+          </div>
+        </div>
+      </Link>
+    );
+  };
 
   return (
     <>
-      {/* PC VERSION */}
-      <div className="lg:flex md:flex hidden justify-center items-center mt-10 px-5">
-        <div className="flex relative lg:w-[1040px] w-screen justify-center items-center mt-10 px-5">
-          {/* Left Arrow */}
-          <button
-            onClick={prevSlide}
-            className="absolute lg:-left-10 left-0 z-10 text-white bg-slate-900 p-3 rounded-full"
-          >
-            <ChevronLeft size={30} />
-          </button>
+      {/* DESKTOP */}
+      <div className="hidden md:block relative">
+        {!loading && trendingMovies.length > 0 && (
+          <>
+            <button
+              onClick={() => scrollDesktop("prev")}
+              className="absolute left-0 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-white/10 p-3 text-white backdrop-blur-xl hover:bg-white/15 transition"
+            >
+              <ChevronLeft size={22} />
+            </button>
 
-          {/* Movie posters */}
-          <div className="flex gap-5 justify-center overflow-hidden px-14">
-            {loading ? <Skeleton MOVIES_PER_PAGE={MOVIES_PER_PAGE} />: visibleMovies.map((movie, index) => (
-              <Link key={index} to={`/movie-details/${movie.id}`}>
-                <div className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                    className="lg:h-[300px] md:h-[300px] hover:scale-110 transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"
-                  />
-                  <p className='text-white px-1 font-bold w-[180px] truncate'>{movie.title}</p>
-                  <div className='flex flex-row justify-between mx-2'>
-                    📅 {movie.release_date ? movie.release_date.slice(0, 4) : 'N/A'}
-                    <p className='text-white flex items-center text-xs gap-2'>⭐ {movie.vote_average?.toFixed(1)}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+            <button
+              onClick={() => scrollDesktop("next")}
+              className="absolute right-0 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-white/10 p-3 text-white backdrop-blur-xl hover:bg-white/15 transition"
+            >
+              <ChevronRight size={22} />
+            </button>
+          </>
+        )}
 
-          {/* Right Arrow */}
-          <button
-            onClick={nextSlide}
-            className="absolute lg:-right-10 right-0 z-10 text-white backdrop-blur-sm bg-slate-900 p-3 rounded-full"
-          >
-            <ChevronRight size={30} />
-          </button>
+        <div className="px-12">
+          {loading ? (
+            <Skeleton MOVIES_PER_PAGE={5} />
+          ) : (
+            <div
+              ref={desktopRef}
+              className="flex gap-5 overflow-x-auto scroll-smooth scrollbar-hide py-2"
+            >
+              {trendingMovies.map((movie, i) =>
+                renderCard(movie, i, false)
+              )}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* MOBILE VERSION */}
-      <div className="lg:hidden md:hidden flex justify-center items-center mt-10 px-5">
-        <div className="flex relative lg:w-[1040px] w-screen justify-center items-center">
-          <div className="grid grid-cols-2 gap-5 justify-center overflow-hidden">
-            {loading ?<Skeleton MOVIES_PER_PAGE={MOVIES_PER_PAGE} /> : visibleMovies.map((movie, index) => (
-              <Link key={index} to={`/movie-details/${movie.id}`}>
-                <div className='flex flex-col text-white gap-2' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                    className="lg:h-[300px] h-[260px] hover:scale-110 transition-transform duration-300 w-[180px] object-cover rounded-lg shadow-md"
-                  />
-                  <p className='text-white text-sm px-1 font-bold w-[180px] truncate'>{movie.title}</p>
-                  <div className='flex flex-row text-sm justify-between mx-2'>
-                    📅 {movie.release_date ? movie.release_date.slice(0, 4) : 'N/A'}
-                    <p className='text-white flex items-center text-xs gap-2'>⭐ {movie.vote_average?.toFixed(1)}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
+      {/* MOBILE */}
+      <div className="block md:hidden relative">
+        {!loading && trendingMovies.length > 0 && (
+          <>
+            <button
+              onClick={() => scrollMobile("prev")}
+              className="absolute left-0 top-[38%] z-20 -translate-y-1/2 rounded-full border border-white/10 bg-white/10 p-2 text-white backdrop-blur-xl"
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            <button
+              onClick={() => scrollMobile("next")}
+              className="absolute right-0 top-[38%] z-20 -translate-y-1/2 rounded-full border border-white/10 bg-white/10 p-2 text-white backdrop-blur-xl"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </>
+        )}
+
+        {loading ? (
+          <Skeleton MOVIES_PER_PAGE={4} />
+        ) : (
+          <div
+            ref={mobileRef}
+            className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide py-2 px-6"
+          >
+            {trendingMovies.map((movie, i) =>
+              renderCard(movie, i, true)
+            )}
           </div>
-        </div>
+        )}
       </div>
     </>
   );

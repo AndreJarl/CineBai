@@ -2,7 +2,7 @@ import { Github, Linkedin } from 'lucide-react'
 
 function Footer() {
   return (
-    <div className='flex flex-col justify-center items-center bg-black'>
+    <div className='flex flex-col justify-center items-center bg-black/10'>
 
     <div className='flex lg:flex-row flex-col mx-10 lg:mx-0  gap-10 justify-center items-center pt-5 pb-10'>
         <div>
