@@ -52,11 +52,11 @@ function TVHero() {
     <div className="relative h-screen w-full">
       {/* Responsive hero image */}
       <img
-        src={backdropUrl}
+        src={backdropSmall}
         srcSet={`
-          ${backdropUrl} 500w,
-          ${backdropUrl} 780w,
-          ${backdropUrl} 1280w
+          ${backdropSmall} 500w,
+          ${backdropMedium} 780w,
+          ${backdropLarge} 1280w
         `}
         sizes="(max-width: 768px) 100vw, 1280px"
         alt={trendingTV.name}
