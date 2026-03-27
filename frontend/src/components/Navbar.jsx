@@ -28,19 +28,17 @@ function Navbar() {
   const isHomeTv = location.pathname === "/" && contentType === "tv";
   const isAiPage = location.pathname === "/ai-recommendation";
 
-  const navPillBase =
-    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300";
-  const navPillActive =
-    "bg-white/20 text-white shadow-[0_0_20px_rgba(255,255,255,0.08)] border border-white/15";
+  const navPillBase = "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300";
+  const navPillActive = "bg-white/20 text-white shadow-[0_0_20px_rgba(255,255,255,0.08)] border border-white/15";
   const navPillInactive = "text-gray-300 hover:text-white hover:bg-white/10";
 
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[500]">
         <div className="mx-auto max-w-6xl px-4 md:px-6 lg:px-8">
+
           {/* Desktop / Tablet */}
           <div className="hidden md:flex items-center justify-between h-20">
-            {/* Logo */}
             <Link to="/" className="shrink-0">
               <p className="text-2xl lg:text-3xl font-bold tracking-tight text-white">
                 <span className="text-red-500">CineB</span>
@@ -48,37 +46,20 @@ function Navbar() {
               </p>
             </Link>
 
-            {/* Center Nav */}
             <div className="rounded-full border border-white/10 bg-white/10 backdrop-blur-xl px-3 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
               <ul className="flex items-center gap-2 lg:gap-3">
                 <Link to="/">
-                  <li
-                    onClick={() => setContentType("movie")}
-                    className={`${navPillBase} ${
-                      isHomeMovie ? navPillActive : navPillInactive
-                    }`}
-                  >
+                  <li onClick={() => setContentType("movie")} className={`${navPillBase} ${isHomeMovie ? navPillActive : navPillInactive}`}>
                     MOVIES
                   </li>
                 </Link>
-
                 <Link to="/">
-                  <li
-                    onClick={() => setContentType("tv")}
-                    className={`${navPillBase} ${
-                      isHomeTv ? navPillActive : navPillInactive
-                    }`}
-                  >
+                  <li onClick={() => setContentType("tv")} className={`${navPillBase} ${isHomeTv ? navPillActive : navPillInactive}`}>
                     SERIES
                   </li>
                 </Link>
-
                 <Link to="/ai-recommendation">
-                  <li
-                    className={`${navPillBase} flex items-center gap-2 ${
-                      isAiPage ? navPillActive : navPillInactive
-                    }`}
-                  >
+                  <li className={`${navPillBase} flex items-center gap-2 ${isAiPage ? navPillActive : navPillInactive}`}>
                     <Sparkles className="w-4 h-4" />
                     Ask AI
                   </li>
@@ -86,43 +67,22 @@ function Navbar() {
               </ul>
             </div>
 
-            {/* Right Actions */}
             <div className="relative flex items-center gap-3 lg:gap-4">
-              <Link
-                to="/search"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/15 hover:scale-105"
-              >
+              <Link to="/search" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/15 hover:scale-105">
                 <Search className="w-5 h-5" />
               </Link>
 
               {user ? (
                 <>
-                  <button
-                    onClick={() => setIconClicked(!iconClicked)}
-                    className="rounded-full border border-white/15 bg-white/10 p-[2px] backdrop-blur-xl transition-all duration-300 hover:scale-105"
-                  >
-                    <img
-                      className="w-10 h-10 rounded-full object-cover border border-yellow-400/60"
-                      src={person}
-                      alt="Profile"
-                    />
+                  <button onClick={() => setIconClicked(!iconClicked)} className="rounded-full border border-white/15 bg-white/10 p-[2px] backdrop-blur-xl transition-all duration-300 hover:scale-105">
+                    <img className="w-10 h-10 rounded-full object-cover border border-yellow-400/60" src={person} alt="Profile" />
                   </button>
-
-                  <div
-                    className={`${
-                      iconClicked ? "absolute" : "hidden"
-                    } top-14 right-0 w-40 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] overflow-hidden`}
-                  >
+                  <div className={`${iconClicked ? "absolute" : "hidden"} top-14 right-0 w-40 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] overflow-hidden`}>
                     <ul className="p-2 text-sm text-white">
                       <Link to="/myprofile">
-                        <li className="rounded-xl px-4 py-3 hover:bg-white/10 transition-colors duration-200">
-                          My Profile
-                        </li>
+                        <li className="rounded-xl px-4 py-3 hover:bg-white/10 transition-colors duration-200">My Profile</li>
                       </Link>
-                      <li
-                        onClick={handleClicked}
-                        className="rounded-xl px-4 py-3 hover:bg-red-500/15 hover:text-red-300 transition-colors duration-200 cursor-pointer"
-                      >
+                      <li onClick={handleClicked} className="rounded-xl px-4 py-3 hover:bg-red-500/15 hover:text-red-300 transition-colors duration-200 cursor-pointer">
                         Log Out
                       </li>
                     </ul>
@@ -148,41 +108,21 @@ function Navbar() {
             </Link>
 
             <div className="flex items-center gap-2">
-              <Link
-                to="/search"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-xl"
-              >
+              <Link to="/search" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-xl">
                 <Search className="w-4 h-4" />
               </Link>
 
               {user ? (
                 <div className="relative">
-                  <button
-                    onClick={() => setIconClicked(!iconClicked)}
-                    className="rounded-full border border-white/15 bg-white/10 p-[2px] backdrop-blur-xl"
-                  >
-                    <img
-                      className="w-10 h-10 rounded-full object-cover border border-yellow-400/60"
-                      src={person}
-                      alt="Profile"
-                    />
+                  <button onClick={() => setIconClicked(!iconClicked)} className="rounded-full border border-white/15 bg-white/10 p-[2px] backdrop-blur-xl">
+                    <img className="w-10 h-10 rounded-full object-cover border border-yellow-400/60" src={person} alt="Profile" />
                   </button>
-
-                  <div
-                    className={`${
-                      iconClicked ? "absolute" : "hidden"
-                    } top-12 right-0 w-36 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] overflow-hidden`}
-                  >
+                  <div className={`${iconClicked ? "absolute" : "hidden"} top-12 right-0 w-36 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] overflow-hidden`}>
                     <ul className="p-2 text-sm text-white">
                       <Link to="/myprofile">
-                        <li className="rounded-xl px-3 py-2.5 hover:bg-white/10 transition-colors duration-200">
-                          My Profile
-                        </li>
+                        <li className="rounded-xl px-3 py-2.5 hover:bg-white/10 transition-colors duration-200">My Profile</li>
                       </Link>
-                      <li
-                        onClick={handleClicked}
-                        className="rounded-xl px-3 py-2.5 hover:bg-red-500/15 hover:text-red-300 transition-colors duration-200 cursor-pointer"
-                      >
+                      <li onClick={handleClicked} className="rounded-xl px-3 py-2.5 hover:bg-red-500/15 hover:text-red-300 transition-colors duration-200 cursor-pointer">
                         Log Out
                       </li>
                     </ul>
@@ -196,55 +136,28 @@ function Navbar() {
                 </Link>
               )}
 
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-xl"
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-4 h-4" />
-                ) : (
-                  <Menu className="w-4 h-4" />
-                )}
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-xl">
+                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
           {/* Mobile Dropdown Nav */}
-          <div
-            className={`md:hidden overflow-hidden transition-all duration-300 ${
-              mobileMenuOpen ? "max-h-40 opacity-100 pb-3" : "max-h-0 opacity-0"
-            }`}
-          >
+          <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-40 opacity-100 pb-3" : "max-h-0 opacity-0"}`}>
             <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-xl p-2 shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
               <ul className="flex flex-col gap-2">
                 <Link to="/">
-                  <li
-                    onClick={() => setContentType("movie")}
-                    className={`${navPillBase} ${
-                      isHomeMovie ? navPillActive : navPillInactive
-                    }`}
-                  >
+                  <li onClick={() => setContentType("movie")} className={`${navPillBase} ${isHomeMovie ? navPillActive : navPillInactive}`}>
                     MOVIES
                   </li>
                 </Link>
-
                 <Link to="/">
-                  <li
-                    onClick={() => setContentType("tv")}
-                    className={`${navPillBase} ${
-                      isHomeTv ? navPillActive : navPillInactive
-                    }`}
-                  >
+                  <li onClick={() => setContentType("tv")} className={`${navPillBase} ${isHomeTv ? navPillActive : navPillInactive}`}>
                     SERIES
                   </li>
                 </Link>
-
                 <Link to="/ai-recommendation">
-                  <li
-                    className={`${navPillBase} flex items-center gap-2 ${
-                      isAiPage ? navPillActive : navPillInactive
-                    }`}
-                  >
+                  <li className={`${navPillBase} flex items-center gap-2 ${isAiPage ? navPillActive : navPillInactive}`}>
                     <Sparkles className="w-4 h-4" />
                     Ask AI
                   </li>
@@ -252,47 +165,10 @@ function Navbar() {
               </ul>
             </div>
           </div>
-        </div>
 
+        </div>
         <Toaster position="top-center" reverseOrder={false} />
       </header>
-
-      {/* Mobile Bottom Floating Nav */}
-      {/* <div className="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-[450]">
-        <ul className="flex items-center gap-2 rounded-full border border-white/10 bg-white/10 backdrop-blur-xl px-3 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.3)] text-xs font-medium text-white">
-          <Link to="/">
-            <li
-              onClick={() => setContentType("movie")}
-              className={`px-4 py-2 rounded-full transition-all duration-300 ${
-                isHomeMovie ? "bg-white/20 text-white" : "text-gray-300"
-              }`}
-            >
-              MOVIES
-            </li>
-          </Link>
-
-          <Link to="/">
-            <li
-              onClick={() => setContentType("tv")}
-              className={`px-4 py-2 rounded-full transition-all duration-300 ${
-                isHomeTv ? "bg-white/20 text-white" : "text-gray-300"
-              }`}
-            >
-              SERIES
-            </li>
-          </Link>
-
-          <Link to="/ai-recommendation">
-            <li
-              className={`px-4 py-2 rounded-full transition-all duration-300 ${
-                isAiPage ? "bg-white/20 text-white" : "text-gray-300"
-              }`}
-            >
-              AI
-            </li>
-          </Link>
-        </ul>
-      </div> */}
     </>
   );
 }

@@ -1,37 +1,34 @@
-import { Star} from 'lucide-react';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import AddToListButtonTV from './AddToListButtonTV';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import AddToListButtonTV from "./AddToListButtonTV";
 
 function TVHero() {
-    
-     const [trendingTV, setTrendingTV ] = useState([]);
-    const [loading, setLoading] = useState(true);
-          useEffect(() => {
-            let isMounted = true; // flag to prevent setting state if unmounted
+  const [trendingTV, setTrendingTV] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-            const getTrendingTV = async () => {
-              try {
-                const res = await axios.get(`/api/tv/trendingTV`);
-                if (isMounted){
-                  setTrendingTV(res.data.content);
-                  setLoading(false);
-                }
-                // console.log(res.data.content);
-              } catch (error) {
-                console.error('Error fetching trending TV:', error);
-              }
-            };
+  useEffect(() => {
+    let isMounted = true;
 
-            getTrendingTV();
+    const getTrendingTV = async () => {
+      try {
+        const res = await axios.get("/api/tv/trendingTV");
+        if (isMounted) {
+          setTrendingTV(res.data.content);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching trending TV:", error);
+      }
+    };
 
-            return () => {
-              isMounted = false; // cleanup on unmount
-            };
-          }, []);
+    getTrendingTV();
 
- if (loading) {
-    // Skeleton loader
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (loading) {
     return (
       <div className="h-screen w-full bg-neutral-900 animate-pulse">
         <div className="mx-4 lg:mx-28 md:mx-10 flex flex-col gap-5 pt-72">
@@ -44,18 +41,13 @@ function TVHero() {
     );
   }
 
-const backdropUrl = trendingTV.backdrop_path
-  ? window.innerWidth >= 1024
-      ? `https://image.tmdb.org/t/p/w1920_and_h1080_bestv2${trendingTV.backdrop_path}`
-      : `https://image.tmdb.org/t/p/w1280_and_h720_bestv2${trendingTV.backdrop_path}`
-  : null;
+  if (!trendingTV) return null;
 
+  // Responsive image URLs
+  const backdropSmall = `https://image.tmdb.org/t/p/w500${trendingTV.backdrop_path}`;
+  const backdropMedium = `https://image.tmdb.org/t/p/w780${trendingTV.backdrop_path}`;
+  const backdropLarge = `https://image.tmdb.org/t/p/w1280${trendingTV.backdrop_path}`;
 
-function covertedDuration (minutes){
-     const hours = Math.floor(minutes/60);
-     const mins = minutes % 60;
-     return `${hours}h : ${mins}m`
-}
   return (
     <div className="relative h-screen w-full">
       {/* Responsive hero image */}
@@ -89,15 +81,20 @@ function covertedDuration (minutes){
                 </p>
               ))}
             </div>
-      </div>
-      <h1 className="lg:text-6xl md:text-6xl text-3xl font-semibold mb-4">{trendingTV.name}</h1>
-      <p className="max-w-2xl text-xs lg:text-base md:text-xl  font-normal">{trendingTV.overview}</p>
-      <AddToListButtonTV tv={trendingTV} mediaType="tv"/>
-    </div>
-  </div>
-</div>
+          </div>
 
-  )
+          <h1 className="lg:text-6xl md:text-6xl text-3xl font-semibold mb-4">
+            {trendingTV.name}
+          </h1>
+          <p className="max-w-2xl text-xs lg:text-base md:text-xl font-normal">
+            {trendingTV.overview}
+          </p>
+
+          <AddToListButtonTV tv={trendingTV} mediaType="tv" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default TVHero
+export default TVHero;

@@ -12,6 +12,7 @@ function TVWatch() {
     const [season, setSeason] = useState([]);
     const [episodesPlaying, setEpisodePlaying] = useState(1);
     const[episodes, setEpisodes] = useState([]);
+    const [server, setServer] = useState("111movies");
 
    useEffect(()=>{
         const getSeasonDetails = async ()=>{
@@ -51,15 +52,25 @@ function TVWatch() {
 
   <div className="relative w-11/12 lg:w-4/5 aspect-video border-2 border-white rounded-xl overflow-hidden">
     {/* The iframe */}
-    <iframe
-      className="w-full h-full"
-           src={`https://111movies.com/tv/${id}/${season.season_number}/${episodesPlaying}`}
-    //  src={`https://autoembed.co/tv/tmdb/${id}-${season.season_number}-${episodesPlaying}`}
-        // src={`https://vidsrc.to/embed/tv/${id}/${season_number}/${episodesPlaying}`}
-      allowFullScreen
-      allow="autoplay; fullscreen"
-      scrolling='no'
-    ></iframe>
+  <iframe
+  className="w-full h-full"
+  src={
+    server === "111movies"
+      ? `https://111movies.com/tv/${id}/${season.season_number}/${episodesPlaying}`
+      : server === "vidsrc"
+      ? `https://vidsrc.to/embed/tv/${id}/${season_number}/${episodesPlaying}`
+      : server === "autoembed"
+      ? `https://autoembed.co/tv/tmdb/${id}-${season_number}-${episodesPlaying}`
+      : server === "videasy"
+      ? `https://player.videasy.net/tv/${id}/${season_number}/${episodesPlaying}`
+      : server === 'vidlink'
+      ? `https://vidlink.pro/tv/${id}/${season_number}/${episodesPlaying}`
+      : ""
+  }
+  allow="autoplay; fullscreen; encrypted-media"
+  scrolling="no"
+/>
+
 
     {/* Logo overlay inside the video */}
     <Link
@@ -70,9 +81,57 @@ function TVWatch() {
     </Link>
   </div>
 
+
+
 <div className='mt-5 flex flex-col justify-center items-center'>
             <p className='lg:text-2xl md:text-2xl text-xl  text-center font-medium'><span className='text-gray-300'>You are watching</span> Season {season.season_number} Episode {episodesPlaying}.</p>
 </div>
+
+<div className="grid grid-cols-3 lg:flex md:flex justify-start gap-2 mt-5 text-sm items-center">
+  <p> Choose a server:</p>
+  <button
+    className={`px-3 py-1 rounded-md ${
+      server === "111movies" ? "bg-red-600 text-white" : "bg-gray-700 text-white"
+    }`}
+    onClick={() => setServer("111movies")}
+  >
+    111Movies
+  </button>
+  <button
+    className={`px-3 py-1 rounded-md ${
+      server === "vidsrc" ? "bg-red-600 text-white" : "bg-gray-700 text-white"
+    }`}
+    onClick={() => setServer("vidsrc")}
+  >
+    Vidsrc
+  </button>
+  <button
+    className={`px-3 py-1 rounded-md ${
+      server === "autoembed" ? "bg-red-600 text-white" : "bg-gray-700 text-white"
+    }`}
+    onClick={() => setServer("autoembed")}
+  >
+    AutoEmbed
+  </button>
+    <button
+    className={`px-3 py-1 rounded-md ${
+      server === "videasy" ? "bg-red-600 text-white" : "bg-gray-700 text-white"
+    }`}
+    onClick={() => setServer("videasy")}
+  >
+    Videasy
+  </button>
+     <button
+    className={`px-3 py-1 rounded-md ${
+      server === "vidlink" ? "bg-red-600 text-white" : "bg-gray-700 text-white"
+    }`}
+    onClick={() => setServer("vidlink")}
+  >
+    VidLink
+  </button>
+</div>
+
+
 
 <div className="w-full px-10 mt-10">
   <p className="text-left text-6xl font-medium lg:ml-28">Episodes</p>

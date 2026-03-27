@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import Skeleton from "../Skeleton"; // optional, reusable Skeleton component
+import Skeleton from "../Skeleton";
 
 function TVCard({ trendingTV, loading }) {
   const desktopScrollRef = useRef(null);

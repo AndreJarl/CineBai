@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
-import MovieHero from './components/movie/MovieHero'
-import MovieTrending from './components/movie/MovieTrending'
-import MoviePopular from './components/movie/MoviePopular'
-import MovieTopRated from './components/movie/MovieTopRated'
 import { useContentStore } from './store/contentType'
-import TVHero from './components/tv/TVHero'
-import TVTrending from './components/tv/TVTrending'
-import TVPopular from './components/tv/TVPopular'
-import TVTopRated from './components/tv/TVTopRated'
-import Footerr from './components/Footer'
+
+// Lazy load heavy components for better initial load performance
+const MovieHero = lazy(() => import('./components/movie/MovieHero'))
+const MovieTrending = lazy(() => import('./components/movie/MovieTrending'))
+const MoviePopular = lazy(() => import('./components/movie/MoviePopular'))
+const MovieTopRated = lazy(() => import('./components/movie/MovieTopRated'))
+const TVHero = lazy(() => import('./components/tv/TVHero'))
+const TVTrending = lazy(() => import('./components/tv/TVTrending'))
+const TVPopular = lazy(() => import('./components/tv/TVPopular'))
+const TVTopRated = lazy(() => import('./components/tv/TVTopRated'))
 
 function Home() {
 
@@ -20,11 +21,13 @@ function Home() {
        return (
     <>
        <Navbar />
-       <TVHero />
-       <TVTrending/>
-       <TVPopular />
-       <TVTopRated />
-       <Footerr />
+       <Suspense fallback={<div className="h-screen bg-neutral-900 animate-pulse" />}>
+         <TVHero />
+         <TVTrending/>
+         <TVPopular />
+         <TVTopRated />
+       </Suspense>
+       <Footer />
     </>
   )
   }
@@ -32,11 +35,13 @@ function Home() {
   return (
     <>
        <Navbar />
-       <MovieHero/>
-       <MovieTrending/>
-       <MoviePopular/>
-       <MovieTopRated/>
-        <Footerr />
+       <Suspense fallback={<div className="h-screen bg-neutral-900 animate-pulse" />}>
+         <MovieHero/>
+         <MovieTrending/>
+         <MoviePopular/>
+         <MovieTopRated/>
+       </Suspense>
+       <Footer />
     </>
   )
 }

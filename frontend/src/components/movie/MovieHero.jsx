@@ -1,35 +1,40 @@
-import { Star} from 'lucide-react';
-import AddToListButton from './AddToListButtonMovie';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import AddToListButton from "./AddToListButtonMovie";
 
 function Hero() {
-    
-     const [trendingMovie, setTrendingMovie ] = useState([]);
-      const [loading, setLoading] = useState(true);
-        useEffect(() => {
-          let isMounted = true;
+  const [trendingMovie, setTrendingMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-          const getTrendingMovie = async () => {
-            try {
-              const res = await axios.get(`/api/movie/trendingMovie`);
-              if (isMounted)
-                {setTrendingMovie(res.data.content);
-                  setLoading(false);
-                }
-            } catch (error) {
-              console.error('Error fetching trending movie:', error);
-            }
-          };
+  useEffect(() => {
+    let isMounted = true;
 
-          getTrendingMovie();
+    const getTrendingMovie = async () => {
+      try {
+        const res = await axios.get("/api/movie/trendingMovie");
+        if (isMounted) {
+          setTrendingMovie(res.data.content);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching trending movie:", error);
+      }
+    };
 
-          return () => {
-            isMounted = false; // cleanup to prevent setting state after unmount
-          };
-        }, []);
+    getTrendingMovie();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const convertDuration = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}h ${mins}m`;
+  };
+
   if (loading) {
-    // Skeleton loader
     return (
       <div className="h-screen w-full bg-neutral-900 animate-pulse">
         <div className="mx-4 lg:mx-28 md:mx-10 flex flex-col gap-5 pt-72 ">
@@ -89,15 +94,20 @@ function convertedDuration (minutes){
                 </p>
               ))}
             </div>
-      </div>
-      <h1 className="lg:text-6xl md:text-6xl text-3xl font-semibold mb-4">{trendingMovie.title}</h1>
-      <p className="max-w-2xl text-xs lg:text-base md:text-xl  font-normal">{trendingMovie.overview}</p>
-      <AddToListButton movie={trendingMovie} mediaType="movie"/>
-    </div>
-  </div>
-</div>
+          </div>
 
-  )
+          <h1 className="lg:text-6xl md:text-6xl text-3xl font-semibold mb-4">
+            {trendingMovie.title}
+          </h1>
+          <p className="max-w-2xl text-xs lg:text-base md:text-xl font-normal">
+            {trendingMovie.overview}
+          </p>
+
+          <AddToListButton movie={trendingMovie} mediaType="movie" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Hero
+export default Hero;

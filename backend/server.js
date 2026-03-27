@@ -13,6 +13,9 @@ import path from "path";
 
 const app = express();
 
+// ⭐ The FIX — REQUIRED on Render ⭐
+app.set('trust proxy', true);
+
 const PORT = ENV_VARS.PORT;
 const __dirname = path.resolve();
 
