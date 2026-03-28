@@ -113,7 +113,9 @@ function MovieCard({ trendingMovies, loading }) {
 
         <div className="px-12">
           {loading ? (
+            <div className="flex gap-4">
             <Skeleton MOVIES_PER_PAGE={5} />
+            </div>
           ) : (
             <div
               ref={desktopRef}

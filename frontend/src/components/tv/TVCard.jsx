@@ -129,7 +129,7 @@ function TVCard({ trendingTV, loading }) {
 
           <div className="px-12">
             {loading ? (
-              <div className="mt-8">
+              <div className="mt-8 flex gap-5">
                 <Skeleton MOVIES_PER_PAGE={5} />
               </div>
             ) : (
