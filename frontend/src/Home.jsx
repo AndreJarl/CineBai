@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import { useContentStore } from './store/contentType'
+import FeedbackWidget from './components/FeedbackWidget'
 
 // Lazy load heavy components for better initial load performance
 const MovieHero = lazy(() => import('./components/movie/MovieHero'))
@@ -26,6 +27,7 @@ function Home() {
          <TVTrending/>
          <TVPopular />
          <TVTopRated />
+         <FeedbackWidget />
        </Suspense>
        <Footer />
     </>
@@ -40,6 +42,7 @@ function Home() {
          <MovieTrending/>
          <MoviePopular/>
          <MovieTopRated/>
+        <FeedbackWidget />
        </Suspense>
        <Footer />
     </>
