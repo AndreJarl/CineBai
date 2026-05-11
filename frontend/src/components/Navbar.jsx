@@ -14,6 +14,9 @@ function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  // 🌟 Logic for dynamic profile picture
+  const profilePic = user?.image || person;
+
   const handleClicked = () => {
     setIconClicked(false);
     logout();
@@ -75,7 +78,13 @@ function Navbar() {
               {user ? (
                 <>
                   <button onClick={() => setIconClicked(!iconClicked)} className="rounded-full border border-white/15 bg-white/10 p-[2px] backdrop-blur-xl transition-all duration-300 hover:scale-105">
-                    <img className="w-10 h-10 rounded-full object-cover border border-yellow-400/60" src={person} alt="Profile" />
+                    {/* 🌟 Updated Profile Pic */}
+                    <img 
+                      className="w-10 h-10 rounded-full object-cover border border-yellow-400/60" 
+                      src={profilePic} 
+                      alt="Profile" 
+                      referrerPolicy="no-referrer"
+                    />
                   </button>
                   <div className={`${iconClicked ? "absolute" : "hidden"} top-14 right-0 w-40 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] overflow-hidden`}>
                     <ul className="p-2 text-sm text-white">
@@ -115,7 +124,13 @@ function Navbar() {
               {user ? (
                 <div className="relative">
                   <button onClick={() => setIconClicked(!iconClicked)} className="rounded-full border border-white/15 bg-white/10 p-[2px] backdrop-blur-xl">
-                    <img className="w-10 h-10 rounded-full object-cover border border-yellow-400/60" src={person} alt="Profile" />
+                    {/* 🌟 Updated Profile Pic */}
+                    <img 
+                      className="w-10 h-10 rounded-full object-cover border border-yellow-400/60" 
+                      src={profilePic} 
+                      alt="Profile" 
+                      referrerPolicy="no-referrer"
+                    />
                   </button>
                   <div className={`${iconClicked ? "absolute" : "hidden"} top-12 right-0 w-36 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] overflow-hidden`}>
                     <ul className="p-2 text-sm text-white">

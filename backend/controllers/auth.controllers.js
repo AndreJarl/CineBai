@@ -7,6 +7,66 @@ import crypto from "crypto"
 import { sendPasswordResetEmail } from "../services/emailService.js";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookies.js";
 
+import { OAuth2Client } from 'google-auth-library';
+// ... your other imports
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+export async function googleAuth(req, res) {
+    try {
+        const { token } = req.body;
+
+        if (!token) {
+            return res.status(400).json({ success: false, message: "Token is required" });
+        }
+
+        // 1. Verify the Google Token
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+
+        const payload = ticket.getPayload();
+        const { email, name, picture, sub: googleId } = payload;
+
+        // 2. Check if user exists in MongoDB
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            // 3. Create new user if they don't exist
+            // We use a random password since they'll use Google to log in
+            const tempPassword = crypto.randomBytes(16).toString('hex');
+            const salt = await bcryptjs.genSalt(10);
+            const hashedPassword = await bcryptjs.hash(tempPassword, salt);
+            user = new User({
+                    // 🌟 Use the Google name directly as the username
+                    username: name, 
+                    email,
+                    password: hashedPassword,
+                    image: picture,
+                });
+            await user.save();
+        }
+
+        // 4. Generate token and set cookie (using your existing utility)
+        generateTokenAndSetCookie(user._id, res);
+
+        res.status(200).json({
+            success: true,
+            message: "Google Auth successful",
+            user: {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                image: user.image,
+            }
+        });
+
+    } catch (error) {
+        console.log("Error in googleAuth controller", error.message);
+        res.status(500).json({ success: false, message: "Google authentication failed" });
+    }
+}
 
 export async function signup(req, res) {
     try {
@@ -73,41 +133,47 @@ export async function signup(req, res) {
 }
 
 export async function login(req, res) {
-       try {
-         const {email, password} = req.body;
-         
-         if(!email || !password){
-              return res.status(400).json({success: false, message: "Invalid credentials"});
-         }
+    try {
+        const { email, password } = req.body;
 
-         const user = await User.findOne({email:email});
-         if(!user){
-              return res.status(400).json({success: false, message:"Invalid credentials"});
-         }
+        if (!email || !password) {
+            return res.status(400).json({ success: false, message: "All fields are required" });
+        }
 
-         const isPasswordCorrect = await bcryptjs.compare(password, user.password);
-         if(!isPasswordCorrect){
-              return res.status(400).json({success: false, message:"Invalid credentials"});
-         }
+        const user = await User.findOne({ email: email });
+        
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Invalid credentials" });
+        }
 
-         generateTokenAndSetCookie(user._id, res);
-         res.status(200).json({
-              success:true,
-              message:"Logged in successfully.",
-              user:{
-                 username: user.username,
-                 email: user.email,
-                 image: user.image
-              }
+        // OPTIONAL: Better UX for Google Users
+        // If you gave Google users a specific placeholder password like "google-auth-placeholder"
+        // you could check for it here to tell them to use Google Login instead.
 
-         })
+        const isPasswordCorrect = await bcryptjs.compare(password, user.password);
+        
+        if (!isPasswordCorrect) {
+            return res.status(400).json({ success: false, message: "Invalid credentials" });
+        }
 
-       } catch (error) {
-        	console.log("Error in login controller", error.message);
-		res.status(500).json({ success: false, message: "Internal server error" });
-       }
+        generateTokenAndSetCookie(user._id, res);
+        
+        res.status(200).json({
+            success: true,
+            message: "Logged in successfully.",
+            user: {
+                _id: user._id, // Adding ID is useful for the frontend
+                username: user.username,
+                email: user.email,
+                image: user.image
+            }
+        });
 
-} 
+    } catch (error) {
+        console.log("Error in login controller", error.message);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
 
 export async function logout(req, res){
      try {

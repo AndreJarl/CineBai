@@ -8,6 +8,20 @@ export const userAuthStore = create((set)=>({
     isLoggingIn :false,
     isLoggingOut : false,
     isCheckingAuth : false,
+
+    // Add this new function
+    googleAuth: async (token) => {
+        set({ isLoggingIn: true }); // Using isLoggingIn for the loading state
+        try {
+            const response = await axios.post("/api/auth/google", { token });
+            set({ user: response.data.user, isLoggingIn: false });
+            toast.success(`Welcome ${response.data.user.username}!`);
+        } catch (error) {
+            set({ isLoggingIn: false, user: null });
+            toast.error(error.response?.data?.message || "Google Authentication failed");
+        }
+    },
+    
     signin: async (credentials) =>{
          set({isSigningUp: true});
          try{
