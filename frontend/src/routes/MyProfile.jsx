@@ -17,6 +17,9 @@ function MyProfile() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("favorites");
 
+  // Determine which image to show: Google Auth Image -> DB Profile Image -> Local Asset Fallback
+  const profilePic = user?.image || profile?.image || person;
+
   const filteredFavorites =
     profile.favorites?.filter((item) => item.mediaType === contentType) || [];
   const filteredWatchLater =
@@ -79,39 +82,40 @@ function MyProfile() {
     }
 
     return (
-<div className="flex flex-wrap gap-4 justify-center md:justify-start">
-  {items.slice(0, 8).map((item, i) => (
-    <div
-      key={i}
-      className="w-[110px] sm:w-[120px] md:w-[130px] lg:w-[140px]"
-    >
-      <Link to={`/${item.mediaType}-details/${item.id}`}>
-        <div className="group">
-          <div className="relative overflow-hidden rounded-xl border border-white/10 aspect-[2/3]">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-              className="h-full w-full object-cover group-hover:scale-105 transition"
-            />
+      <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+        {items.slice(0, 8).map((item, i) => (
+          <div
+            key={i}
+            className="w-[110px] sm:w-[120px] md:w-[130px] lg:w-[140px]"
+          >
+            <Link to={`/${item.mediaType}-details/${item.id}`}>
+              <div className="group">
+                <div className="relative overflow-hidden rounded-xl border border-white/10 aspect-[2/3]">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                    alt={item.title}
+                    className="h-full w-full object-cover group-hover:scale-105 transition"
+                  />
 
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                deleteFromList(item, type);
-              }}
-              className="absolute top-2 right-2 bg-red-500 p-1 rounded-full"
-            >
-              <Trash size={12} />
-            </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      deleteFromList(item, type);
+                    }}
+                    className="absolute top-2 right-2 bg-red-500 p-1 rounded-full"
+                  >
+                    <Trash size={12} />
+                  </button>
+                </div>
+
+                <p className="mt-1 text-[11px] md:text-xs truncate text-white">
+                  {item.title || item.name}
+                </p>
+              </div>
+            </Link>
           </div>
-
-          <p className="mt-1 text-[11px] md:text-xs truncate text-white">
-            {item.title || item.name}
-          </p>
-        </div>
-      </Link>
-    </div>
-  ))}
-</div>
+        ))}
+      </div>
     );
   };
 
@@ -133,8 +137,10 @@ function MyProfile() {
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between mb-8">
               <div className="flex items-center gap-4">
                 <img
-                  src={person}
-                  className="w-20 h-20 rounded-full border-2 border-yellow-400"
+                  src={profilePic}
+                  alt="Profile"
+                  referrerPolicy="no-referrer" // Add this line
+                  className="w-20 h-20 rounded-full border-2 border-yellow-400 object-cover"
                 />
 
                 <div>
@@ -186,44 +192,44 @@ function MyProfile() {
             </div>
 
             {/* TABS */}
-       <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center gap-6 border-b border-white/10">
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center gap-6 border-b border-white/10">
                 <button
-                onClick={() => setActiveTab("favorites")}
-                className={`relative pb-2 text-sm md:text-base transition ${
+                  onClick={() => setActiveTab("favorites")}
+                  className={`relative pb-2 text-sm md:text-base transition ${
                     activeTab === "favorites"
-                    ? "text-white"
-                    : "text-gray-400 hover:text-white"
-                }`}
+                      ? "text-white"
+                      : "text-gray-400 hover:text-white"
+                  }`}
                 >
-                Favorites
-                {activeTab === "favorites" && (
-              <span className="absolute left-0 bottom-0 h-[2px] w-full bg-red-500 rounded-full transition-all duration-300" />   
-               )}
+                  Favorites
+                  {activeTab === "favorites" && (
+                    <span className="absolute left-0 bottom-0 h-[2px] w-full bg-red-500 rounded-full transition-all duration-300" />
+                  )}
                 </button>
 
                 <button
-                onClick={() => setActiveTab("watchLater")}
-                className={`relative pb-2 text-sm md:text-base transition ${
+                  onClick={() => setActiveTab("watchLater")}
+                  className={`relative pb-2 text-sm md:text-base transition ${
                     activeTab === "watchLater"
-                    ? "text-white"
-                    : "text-gray-400 hover:text-white"
-                }`}
+                      ? "text-white"
+                      : "text-gray-400 hover:text-white"
+                  }`}
                 >
-                Watch Later
-                {activeTab === "watchLater" && (
+                  Watch Later
+                  {activeTab === "watchLater" && (
                     <span className="absolute left-0 bottom-0 h-[2px] w-full bg-red-500 rounded-full" />
-                )}
+                  )}
                 </button>
-            </div>
+              </div>
 
-  {/* View all */}
-  <Link to={`/${currentType}/${contentType}`}>
-    <button className="text-xs md:text-sm text-red-300 hover:text-red-200 transition">
-      View All
-    </button>
-  </Link>
-</div>
+              {/* View all */}
+              <Link to={`/${currentType}/${contentType}`}>
+                <button className="text-xs md:text-sm text-red-300 hover:text-red-200 transition">
+                  View All
+                </button>
+              </Link>
+            </div>
 
             {/* CONTENT */}
             {renderGrid(currentItems, currentType)}

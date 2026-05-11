@@ -15,6 +15,7 @@
   "dependencies": {
     "@google/genai": "^1.23.0",
     "@google/generative-ai": "^0.24.1",
+    "@react-oauth/google": "^0.13.5",
     "@sendgrid/mail": "^8.1.6",
     "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
@@ -24,6 +25,7 @@
     "express": "4.19.2",
     "express-rate-limit": "^8.2.1",
     "framer-motion": "^12.38.0",
+    "google-auth-library": "^10.6.2",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",

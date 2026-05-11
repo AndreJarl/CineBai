@@ -1,5 +1,5 @@
 import express from 'express';
-import{ login, signup, logout, authCheck, forgotPassword, verifyResetToken, resetPassword } from "../controllers/auth.controllers.js"
+import{ login, signup, logout, authCheck, forgotPassword, verifyResetToken, resetPassword, googleAuth } from "../controllers/auth.controllers.js"
 import { protectRoutes } from '../middlewares/proctectRoutes.js';
 import { optionalAuth } from '../middlewares/optionalAuth.js';
 import { emailRateLimiter } from '../middlewares/emailRateLimiter.js';
@@ -14,6 +14,6 @@ router.get("/authCheck", optionalAuth, authCheck);
 router.post('/forgot-password', emailRateLimiter, forgotPassword); // Rate limited to prevent email spam
 router.post('/verify-reset-token', verifyResetToken);
 router.post('/reset-password', resetPassword);
-
+router.post("/google", googleAuth);
 
 export default router;
