@@ -15,45 +15,42 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 export async function googleAuth(req, res) {
     try {
         const { token } = req.body;
-
-        if (!token) {
-            return res.status(400).json({ success: false, message: "Token is required" });
-        }
-
-        // 1. Verify the Google Token
         const ticket = await client.verifyIdToken({
             idToken: token,
             audience: process.env.GOOGLE_CLIENT_ID,
         });
 
-        const payload = ticket.getPayload();
-        const { email, name, picture, sub: googleId } = payload;
+        const { email, name, picture } = ticket.getPayload();
 
-        // 2. Check if user exists in MongoDB
         let user = await User.findOne({ email });
 
-        if (!user) {
-            // 3. Create new user if they don't exist
-            // We use a random password since they'll use Google to log in
+        if (user) {
+            // 🌟 UPDATE LOGIC: If the user exists but has no image (or the default), 
+            // update it with their latest Google profile picture.
+            if (!user.image || user.image === "") {
+                user.image = picture;
+                await user.save();
+            }
+        } else {
+            // CREATE LOGIC: For entirely new users
             const tempPassword = crypto.randomBytes(16).toString('hex');
             const salt = await bcryptjs.genSalt(10);
             const hashedPassword = await bcryptjs.hash(tempPassword, salt);
+
             user = new User({
-                    // 🌟 Use the Google name directly as the username
-                    username: name, 
-                    email,
-                    password: hashedPassword,
-                    image: picture,
-                });
+                username: name, // Using their Google Name as requested
+                email,
+                password: hashedPassword,
+                image: picture,
+            });
+
             await user.save();
         }
 
-        // 4. Generate token and set cookie (using your existing utility)
         generateTokenAndSetCookie(user._id, res);
 
         res.status(200).json({
             success: true,
-            message: "Google Auth successful",
             user: {
                 _id: user._id,
                 username: user.username,
@@ -63,8 +60,8 @@ export async function googleAuth(req, res) {
         });
 
     } catch (error) {
-        console.log("Error in googleAuth controller", error.message);
-        res.status(500).json({ success: false, message: "Google authentication failed" });
+        console.log("Error in googleAuth", error.message);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
 
