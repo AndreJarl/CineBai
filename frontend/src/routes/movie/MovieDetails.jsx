@@ -5,6 +5,12 @@ import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import AddToListButton from '../../components/movie/AddToListButtonMovie';
 import SimilarMovies from '../../components/movie/SimilarMovies';
+import DetailsSkeleton from '../../components/DetailsSkeleton';
+
+
+
+
+
 
 function MovieDetails() {
       
@@ -30,6 +36,9 @@ function MovieDetails() {
 
     
 const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+
+if (fetchingMovie) return <DetailsSkeleton />;
+
   return (
     <>
      <Navbar/>

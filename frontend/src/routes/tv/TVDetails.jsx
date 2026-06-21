@@ -7,6 +7,7 @@ import AddToListButton from '../../components/movie/AddToListButtonMovie';
 import SimilarMovies from '../../components/movie/SimilarMovies';
 import AddToListButtonTV from '../../components/tv/AddToListButtonTV';
 import TVSeasons from '../../components/tv/TVSeasons';
+import DetailsSkeleton from '../../components/DetailsSkeleton';
 
 function  TVDetails() {
       
@@ -34,6 +35,9 @@ function  TVDetails() {
 
     
 const backdropUrl = `https://image.tmdb.org/t/p/original${tv.backdrop_path}`;
+
+if (loading) return <DetailsSkeleton />;
+
   return (
     <>
      <Navbar/>
