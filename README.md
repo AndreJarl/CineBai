@@ -33,7 +33,7 @@
 | Frontend       | React, Tailwind CSS                      |
 | Backend        | Node.js, Express.js                      |
 | Database       | MongoDB                                  |
-| External APIs  | [TMDB API],[Gemini API]                  |
+| External APIs  | TMDB API, Gemini API                     |
 | Authentication | JSON Web Tokens (JWT), Google OAuth      |
 | Deployment     | Render                                   |
 | CI             | GitHub Actions                           |
