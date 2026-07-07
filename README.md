@@ -107,7 +107,7 @@ npm start
 npm run dev
 ```
 
-The frontend will typically be available at `http://localhost:5173` (or your configured port), with the API running at `http://localhost:5000`.
+The frontend will typically be available at `http://localhost:5173` (or your configured port), with the API running at `http://localhost:8080`.
 
 ## Live Demo
 
