@@ -6,7 +6,7 @@
 
 ## 🚀 Features
 🤖 **Gemini AI Recommendations** – Get personalized suggestions based on your preferences or mood  
-🔐 **Secure Authentication** – Sign up and log in using JWT-based authentication  
+🔐 **Secure Authentication** – Sign up and log in using JWT-based authentication with sign in via gmail
 🔍 **Smart Search** – Search for movies and TV shows in real time  
 🎥 **Watch & Explore** – Access detailed information,and related titles  
 ❤️ **Favorites** – Add and manage your favorite movies and shows  
