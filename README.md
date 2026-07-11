@@ -17,14 +17,14 @@
 
 ## Features
 
-- 🤖 **Gemini AI Recommendations** — Prompt-based, mood-aware suggestions powered by Google's Gemini API
-- 🔍 **Smart Search** — Real-time search across movies and TV shows
-- 🎥 **Watch & Explore** — Detailed title pages with metadata and related content
-- ❤️ **Favorites** — Save and manage favorite titles
-- 🕒 **Watch Later** — Build a personal watchlist
-- 🔐 **Secure Authentication** — JWT-based auth with Google Sign-In support
-- 🔄 **Session Persistence** — Stay signed in across visits
-- 📡 **Live TMDB Data** — Up-to-date movie and TV metadata sourced directly from TMDB
+- **Gemini AI Recommendations** — Prompt-based, mood-aware suggestions powered by Google's Gemini API
+- **Smart Search** — Real-time search across movies and TV shows
+- **Watch & Explore** — Detailed title pages with metadata and related content
+- **Favorites** — Save and manage favorite titles
+- **Watch Later** — Build a personal watchlist
+- **Secure Authentication** — JWT-based auth with Google Sign-In support
+- **Session Persistence** — Stay signed in across visits
+- **Live TMDB Data** — Up-to-date movie and TV metadata sourced directly from TMDB
 
 ## Tech Stack
 
