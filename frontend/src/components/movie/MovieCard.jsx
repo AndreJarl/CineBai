@@ -1,11 +1,13 @@
 import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import Skeleton from "../Skeleton";
+import { userAuthStore } from "../../store/authUser";
 
 function MovieCard({ trendingMovies, loading }) {
   const desktopRef = useRef(null);
   const mobileRef = useRef(null);
+  const { user } = userAuthStore();
 
   const scrollDesktop = (dir) => {
     if (desktopRef.current) {
@@ -35,8 +37,16 @@ function MovieCard({ trendingMovies, loading }) {
     sizes: "(max-width: 768px) 65vw, 220px",
   });
 
+  const isMovieWatched = (movieId) => {
+    if (!user?.watched) return false;
+    return user.watched.some(
+      (item) => String(item.id) === String(movieId) && item.mediaType === "movie"
+    );
+  };
+
   const renderCard = (movie, index, isMobile = false) => {
     const img = getResponsiveImage(movie.poster_path);
+    const watched = isMovieWatched(movie.id);
 
     return (
       <Link key={index} to={`/movie-details/${movie.id}`}>
@@ -67,6 +77,14 @@ function MovieCard({ trendingMovies, loading }) {
             <div className="absolute top-3 left-3 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[11px] text-white backdrop-blur-md">
               ⭐ {movie.vote_average?.toFixed(1) || "N/A"}
             </div>
+
+            {/* Watched pill */}
+            {watched && (
+              <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full border border-red-500/30 bg-red-600/80 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
+                <CheckCircle className="h-3 w-3" />
+                Watched
+              </div>
+            )}
           </div>
 
           {/* Info */}

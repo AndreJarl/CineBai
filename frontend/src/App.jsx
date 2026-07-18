@@ -14,6 +14,7 @@ const TVDetails = lazy(() => import("./routes/tv/TVDetails"))
 const TVWatch = lazy(() => import("./routes/tv/TVWatch"))
 const SearchContent = lazy(() => import("./routes/search/Search"))
 const WatchLater = lazy(() => import('./routes/WatchLater'))
+const WatchedList = lazy(() => import('./routes/WatchedList'))
 const Favorites = lazy(() => import('./routes/Favorites'))
 const MoviePage = lazy(() => import("./routes/movie/MoviePage"))
 const TVPage = lazy(() => import("./routes/tv/TVPage"))
@@ -55,6 +56,7 @@ function App() {
          <Route path="/tv-watch/:id/:season_number" element={<TVWatch />} />
          <Route path="/search" element={<SearchContent/>} />
          <Route path="/watchlater/:contentType" element={<WatchLater/>} />
+         <Route path="/watched/:contentType" element={<WatchedList/>} />
          <Route path="/favorites/:contentType" element={<Favorites/>} />
          <Route path="/movie-page/:movieType" element={<MoviePage/>} />
          <Route path="/tv-page/:seriesType" element={<TVPage/>} />

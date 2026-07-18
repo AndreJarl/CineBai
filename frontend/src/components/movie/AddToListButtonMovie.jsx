@@ -1,5 +1,5 @@
-import { Play, Plus } from "lucide-react";
-import { useState } from "react";
+import { Play, Plus, CheckCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import { userAuthStore } from "../../store/authUser";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,15 +8,23 @@ import axios from "axios";
 function AddToListButtonMovie({ movie, mediaType }) {
   const navigate = useNavigate();
   const [buttonClicked, setButtonClicked] = useState(false);
-  const { user } = userAuthStore();
+  const [isWatched, setIsWatched] = useState(false);
+  const { user, updateWatched } = userAuthStore();
+
+  useEffect(() => {
+    if (user?.watched) {
+      const exists = user.watched.some(
+        (item) => String(item.id) === String(movie.id) && item.mediaType === mediaType
+      );
+      setIsWatched(exists);
+    }
+  }, [user, movie.id, mediaType]);
 
   const addToList = async (type) => {
     try {
       if (!user) {
         toast.error("Please login to add to list.");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1000);
+        setTimeout(() => navigate("/login"), 1000);
         return;
       }
 
@@ -49,8 +57,67 @@ function AddToListButtonMovie({ movie, mediaType }) {
     }
   };
 
+  const markAsWatched = async () => {
+    if (!user) {
+      toast.error("Please login to mark as watched.");
+      setTimeout(() => navigate("/login"), 1000);
+      return;
+    }
+
+    const itemPayload = {
+      id: movie.id,
+      mediaType,
+      title: movie.title,
+      poster_path: movie.poster_path,
+    };
+
+    if (isWatched) {
+      try {
+        await toast.promise(
+          axios.delete(`/api/user/watched`, {
+            data: { id: movie.id, mediaType },
+          }),
+          {
+            loading: `Removing ${movie.title} from watched...`,
+            success: `${movie.title} removed from watched.`,
+            error: `Failed to update ${movie.title}.`,
+          }
+        );
+        updateWatched(itemPayload, "remove");
+        setIsWatched(false);
+        setButtonClicked(false);
+      } catch (error) {
+        console.error(error);
+      }
+      return;
+    }
+
+    try {
+      await toast.promise(
+        axios.post(`/api/user/watched`, itemPayload),
+        {
+          loading: `Marking ${movie.title} as watched...`,
+          success: `${movie.title} marked as watched!`,
+          error: `Failed to mark ${movie.title} as watched.`,
+        }
+      );
+      updateWatched(itemPayload, "add");
+      setIsWatched(true);
+      setButtonClicked(false);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        toast.error("Already marked as watched.");
+        updateWatched(itemPayload, "add");
+        setIsWatched(true);
+        setButtonClicked(false);
+      } else {
+        console.error(error);
+      }
+    }
+  };
+
   return (
-    <div className="relative z-50 mt-6 flex flex-row flex-wrap items-center gap-3 sm:gap-4">
+    <div className="relative z-[9999] mt-6 flex flex-row flex-wrap items-center gap-3 sm:gap-4">
       <Link to={`/watch-movie/${movie.id}`}>
         <button className="group flex items-center gap-2 rounded-full bg-red-600 px-4 py-2.5 text-xs font-medium text-white shadow-lg shadow-red-900/30 transition-all duration-300 hover:bg-red-500 hover:scale-[1.02] sm:px-5 sm:py-3 sm:text-sm lg:px-6">
           <Play className="h-4 w-4 fill-white text-white" />
@@ -86,6 +153,17 @@ function AddToListButtonMovie({ movie, mediaType }) {
               onClick={() => addToList("watchLater")}
             >
               Watch Later
+            </li>
+            <li
+              className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-3 transition-colors duration-200 ${
+                isWatched
+                  ? "text-red-500"
+                  : "text-white hover:bg-white/10 hover:text-red-300"
+              }`}
+              onClick={markAsWatched}
+            >
+              {isWatched && <CheckCircle className="h-4 w-4 text-red-500" />}
+              Watched
             </li>
           </ul>
         </div>

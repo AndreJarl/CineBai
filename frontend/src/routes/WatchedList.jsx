@@ -8,7 +8,7 @@ import { userAuthStore } from '../store/authUser';
 import toast from 'react-hot-toast';
 import Skeleton from '../components/Skeleton';
 
-function WatchLater() {
+function  WatchedList() {
   const { contentType } = useContentStore();
   const { user } = userAuthStore();
 
@@ -23,7 +23,7 @@ function WatchLater() {
       try {
         const res = await axios.get(`/api/user/myProfile`);
         setProfile(res.data.user);
-        setUserWatchLater(res.data.user.watchLater);
+        setUserWatchLater(res.data.user.watched);
       } catch (err) {
         console.error(err);
       } finally {
@@ -61,7 +61,7 @@ function WatchLater() {
       <Navbar />
       <div className='flex flex-col justify-center items-center mt-24'>
         <p className='text-white lg:text-6xl text-4xl text-center font-normal mb-5'>
-          🔖 Watch Later {contentType === "movie" ? 'Movies' : 'Series'}
+          👀 Watched {contentType === "movie" ? 'Movies' : 'Series'}
         </p>
 
         <div className="flex justify-center items-center">
@@ -108,4 +108,4 @@ function WatchLater() {
   );
 }
 
-export default WatchLater;
+export default WatchedList;
