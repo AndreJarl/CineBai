@@ -8,12 +8,15 @@ import SimilarMovies from '../../components/movie/SimilarMovies';
 import AddToListButtonTV from '../../components/tv/AddToListButtonTV';
 import TVSeasons from '../../components/tv/TVSeasons';
 import DetailsSkeleton from '../../components/DetailsSkeleton';
+import { CheckCircle } from 'lucide-react';
+import { userAuthStore } from '../../store/authUser';
 
 function  TVDetails() {
       
   const [tv, setTV] = useState({});
     const [loading, setLoading] = useState(true); // track loading state
   const {id} = useParams();
+  const { user } = userAuthStore();
 
     useEffect(()=>{
         const getTVDetails = async () =>{
@@ -32,6 +35,9 @@ function  TVDetails() {
         getTVDetails();
     }, [id])
 
+    const isWatched = user?.watched?.some(
+      (item) => String(item.id) === String(tv.id) && item.mediaType === "tv"
+    );
 
     
 const backdropUrl = `https://image.tmdb.org/t/p/original${tv.backdrop_path}`;
@@ -56,8 +62,15 @@ if (loading) return <DetailsSkeleton />;
     
     
        <div className='flex justify-center items-center lg:flex-row flex-col gap-6 mx-10 mt-36'>
-           <div>
+           <div className='relative'>
                  <img  src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`} alt={tv.name}  className="h-[400px]  hover:scale-110  transition-transform duration-300 w-[300px] object-cover rounded-lg shadow-md"/>
+
+                 {isWatched && (
+                   <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full border border-red-500/30 bg-red-600/80 px-3 py-1 text-xs font-medium text-white backdrop-blur-md animate-pop">
+                     <CheckCircle className="h-3.5 w-3.5" />
+                     Watched
+                   </div>
+                 )}
            </div>
            <div className='flex flex-col items-start justify-center gap-4 text-left'>
          

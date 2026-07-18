@@ -2,16 +2,15 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
-export const userAuthStore = create((set)=>({
+export const userAuthStore = create((set, get) => ({
     user: null,
     isSigningUp : false,
     isLoggingIn :false,
     isLoggingOut : false,
     isCheckingAuth : false,
 
-    // Add this new function
     googleAuth: async (token) => {
-        set({ isLoggingIn: true }); // Using isLoggingIn for the loading state
+        set({ isLoggingIn: true });
         try {
             const response = await axios.post("/api/auth/google", { token });
             set({ user: response.data.user, isLoggingIn: false });
@@ -67,5 +66,24 @@ export const userAuthStore = create((set)=>({
           } catch (error) {
               set({isCheckingAuth:false, user:null});
           }
-    }
+    },
+
+    // Add or remove an item from user.watched locally, no refetch needed
+    updateWatched: (item, action) => {
+        const currentUser = get().user;
+        if (!currentUser) return;
+
+        const currentWatched = currentUser.watched || [];
+
+        let updatedWatched;
+        if (action === "add") {
+            updatedWatched = [...currentWatched, item];
+        } else {
+            updatedWatched = currentWatched.filter(
+                (w) => !(String(w.id) === String(item.id) && w.mediaType === item.mediaType)
+            );
+        }
+
+        set({ user: { ...currentUser, watched: updatedWatched } });
+    },
 }))

@@ -59,7 +59,7 @@ function Favorites() {
   return (
     <>
       <Navbar />
-      <div className='flex flex-col justify-center items-center mt-10'>
+      <div className='flex flex-col justify-center items-center mt-24'>
         <p className='text-white lg:text-6xl text-4xl text-center font-normal mb-5'>
           ❤️ Favorites {contentType === "movie" ? 'Movies' : 'Series'}
         </p>

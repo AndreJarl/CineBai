@@ -41,6 +41,13 @@ const userSchema = mongoose.Schema({
         ],
         default: []
     },
+    watched: [{
+    id: String,
+    mediaType: { type: String, enum: ["movie", "tv"] },
+    title: String,
+    poster_path: String,
+    watchedAt: { type: Date, default: Date.now }, // optional but handy
+}],
     resetPasswordToken: String,
     resetPasswordExpires: Date
 }, {  // Fixed: Moved timestamps to the correct position

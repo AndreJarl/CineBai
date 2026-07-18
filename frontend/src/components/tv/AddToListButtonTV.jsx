@@ -1,5 +1,5 @@
-import { Play, Plus } from "lucide-react";
-import { useState } from "react";
+import { Play, Plus, CheckCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import { userAuthStore } from "../../store/authUser";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,7 +8,17 @@ import axios from "axios";
 function AddToListButtonTV({ tv, mediaType }) {
   const navigate = useNavigate();
   const [buttonClicked, setButtonClicked] = useState(false);
-  const { user } = userAuthStore();
+  const [isWatched, setIsWatched] = useState(false);
+  const { user, updateWatched } = userAuthStore();
+
+  useEffect(() => {
+    if (user?.watched) {
+      const exists = user.watched.some(
+        (item) => String(item.id) === String(tv.id) && item.mediaType === mediaType
+      );
+      setIsWatched(exists);
+    }
+  }, [user, tv.id, mediaType]);
 
   const addToList = async (type) => {
     try {
@@ -40,6 +50,67 @@ function AddToListButtonTV({ tv, mediaType }) {
     } catch (error) {
       if (error.response?.status === 409) {
         toast.error("Already in the list.");
+        setButtonClicked(false);
+      } else {
+        console.error(error);
+      }
+    }
+  };
+
+  const markAsWatched = async () => {
+    if (!user) {
+      toast.error("Please login to mark as watched.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+      return;
+    }
+
+    const itemPayload = {
+      id: tv.id,
+      mediaType,
+      title: tv.name,
+      poster_path: tv.poster_path,
+    };
+
+    if (isWatched) {
+      try {
+        await toast.promise(
+          axios.delete(`/api/user/watched`, {
+            data: { id: tv.id, mediaType },
+          }),
+          {
+            loading: `Removing ${tv.name} from watched...`,
+            success: `${tv.name} removed from watched.`,
+            error: `Failed to update ${tv.name}.`,
+          }
+        );
+        updateWatched(itemPayload, "remove");
+        setIsWatched(false);
+        setButtonClicked(false);
+      } catch (error) {
+        console.error(error);
+      }
+      return;
+    }
+
+    try {
+      await toast.promise(
+        axios.post(`/api/user/watched`, itemPayload),
+        {
+          loading: `Marking ${tv.name} as watched...`,
+          success: `${tv.name} marked as watched!`,
+          error: `Failed to mark ${tv.name} as watched.`,
+        }
+      );
+      updateWatched(itemPayload, "add");
+      setIsWatched(true);
+      setButtonClicked(false);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        toast.error("Already marked as watched.");
+        updateWatched(itemPayload, "add");
+        setIsWatched(true);
         setButtonClicked(false);
       } else {
         console.error(error);
@@ -86,6 +157,17 @@ function AddToListButtonTV({ tv, mediaType }) {
               onClick={() => addToList("watchLater")}
             >
               Watch Later
+            </li>
+            <li
+              className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-3 transition-colors duration-200 ${
+                isWatched
+                  ? "text-red-500"
+                  : "text-white hover:bg-white/10 hover:text-red-300"
+              }`}
+              onClick={markAsWatched}
+            >
+              {isWatched && <CheckCircle className="h-4 w-4 text-red-500 animate-pop" />}
+              Watched
             </li>
           </ul>
         </div>

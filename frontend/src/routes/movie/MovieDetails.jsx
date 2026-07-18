@@ -6,10 +6,8 @@ import Navbar from '../../components/Navbar';
 import AddToListButton from '../../components/movie/AddToListButtonMovie';
 import SimilarMovies from '../../components/movie/SimilarMovies';
 import DetailsSkeleton from '../../components/DetailsSkeleton';
-
-
-
-
+import { CheckCircle } from 'lucide-react';
+import { userAuthStore } from '../../store/authUser';
 
 
 function MovieDetails() {
@@ -17,6 +15,7 @@ function MovieDetails() {
   const [movie, setMovies] = useState({});
   const {id} = useParams();
   const [fetchingMovie, setFetchingMovie] = useState(false);
+  const { user } = userAuthStore();
 
     useEffect(()=>{
         const getMovieDetails = async () =>{
@@ -33,6 +32,9 @@ function MovieDetails() {
         getMovieDetails();
     }, [id])
 
+    const isWatched = user?.watched?.some(
+      (item) => String(item.id) === String(movie.id) && item.mediaType === "movie"
+    );
 
     
 const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
@@ -57,8 +59,14 @@ if (fetchingMovie) return <DetailsSkeleton />;
     
     
        <div className='flex justify-center items-center lg:flex-row flex-col gap-6 mx-10 mt-36'>
-           <div>
+           <div className='relative'>
                  <img  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}  className="h-[400px]  hover:scale-110  transition-transform duration-300 w-[300px] object-cover rounded-lg shadow-md"/>
+          {isWatched && (
+            <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full border border-red-500/30 bg-red-600/80 px-3 py-1 text-xs font-medium text-white backdrop-blur-md animate-pop">
+              <CheckCircle className="h-3.5 w-3.5" />
+              Watched
+            </div>
+          )}
            </div>
            <div className='flex flex-col items-start justify-center gap-4 text-left'>
          
