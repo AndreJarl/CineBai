@@ -2,7 +2,7 @@
 
 **CineBai** is a full-stack **AI-powered movie and TV show streaming platform** built with **React, Node.js, Express, and MongoDB**. Powered by the **TMDB API** and **Gemini AI**, CineBai delivers an AI-powered, prompt-based discovery streaming experience for movie/TV lovers.
 
-<div style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 10px; width: 100%;">
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 20px; width: 100%;">
   <img src="https://github.com/user-attachments/assets/e8f3109c-2618-4837-a69c-0ead7ad97640" alt="Image 1" style="width: 48%; border-radius: 8px;">
   <img src="https://github.com/user-attachments/assets/caf86741-0232-41d8-bd63-2f7e1d24ef8a" alt="Image 2" style="width: 48%; border-radius: 8px;">
 </div>
