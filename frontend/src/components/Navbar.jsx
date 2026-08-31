@@ -1,6 +1,6 @@
 import { Search, Sparkles, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router";
-import person from "../assets/person.jpg";
+import person from "../assets/person.webp";
 import { useState, useEffect } from "react";
 import { userAuthStore } from "../store/authUser";
 import { Toaster } from "react-hot-toast";

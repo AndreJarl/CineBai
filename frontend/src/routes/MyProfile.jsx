@@ -3,7 +3,7 @@ import { userAuthStore } from "../store/authUser";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import person from "../assets/person.jpg";
+import person from "../assets/person.webp";
 import Navbar from "../components/Navbar";
 import { Mail, Heart, Bookmark, CheckCircle, Trash } from "lucide-react";
 import { useContentStore } from "../store/contentType";

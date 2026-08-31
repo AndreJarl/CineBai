@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import signin1 from "../assets/signin3d.png";
+import signin1 from "../assets/signin3d.webp";
 import { Link, useNavigate } from 'react-router-dom';
 import { userAuthStore } from '../store/authUser.js';
 import { Toaster } from 'react-hot-toast';

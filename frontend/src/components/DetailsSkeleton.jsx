@@ -1,5 +1,9 @@
+import Navbar from "./Navbar";
+
 const DetailsSkeleton = () => {
   return (
+    <>
+    <Navbar/>
     <div className="h-full w-full min-h-screen bg-zinc-950 flex flex-col justify-center items-center">
       <div className="flex justify-center items-center lg:flex-row flex-col gap-6 px-4 sm:px-8 mt-24 lg:mt-36 w-full max-w-5xl">
 
@@ -48,6 +52,7 @@ const DetailsSkeleton = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
-import signin from "../assets/signin3d.png";
+import signin from "../assets/signin3d.webp";
 import { Link } from 'react-router-dom';
 
 function ResetPass() {

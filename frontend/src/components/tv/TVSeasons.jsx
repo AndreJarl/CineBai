@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import noimg from '../../assets/se404.png'
+import noimg from '../../assets/se404.webp'
 import Skeleton from '../Skeleton';
 
 function TVSeasons({tv, tvss, loading}) {
