@@ -8,7 +8,7 @@ import { Film } from "lucide-react";
 function MovieWatch() {
   const [movie, setMovies] = useState({});
   const { id } = useParams();
-  const [server, setServer] = useState("111movies");
+  const [server, setServer] = useState("cinesrc");
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -38,14 +38,18 @@ function MovieWatch() {
       ? `https://player.videasy.net/movie/${id}`
       : server === "vidlink"
       ? `https://vidlink.pro/movie/${id}`
+      :server === "cinesrc"
+      ? `https://cinesrc.st/embed/movie/${id}`
       : "";
 
   const servers = [
-    { key: "111movies", label: "111Movies" },
+    { key: "cinesrc", label: "Cinesrc" },
     { key: "vidsrc", label: "Vidsrc" },
     { key: "autoembed", label: "AutoEmbed" },
     { key: "videasy", label: "Videasy" },
     { key: "vidlink", label: "VidLink" },
+    { key: "111movies", label: "111Movies" },
+
   ];
 
   return (
@@ -140,10 +144,6 @@ function MovieWatch() {
                   </h2>
                 </div>
               </div>
-
-              <p className="text-xs sm:text-sm text-gray-400">
-                Based on this title
-              </p>
             </div>
 
             <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6 md:mb-8" />
