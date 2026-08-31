@@ -35,8 +35,7 @@ function SimilarMovies({id}) {
   
   return (
     <>
-   <div className="flex flex-col justify-center items-center mt-20 mb-20">
-      <p className="text-white text-4xl font-semibold mb-8 w-full z-50 text-left ml-3">Similar Movies</p>
+   <div className="flex flex-col justify-center items-center mt-10 mb-20">
   <div className="grid lg:grid-cols-5 grid-cols-2 md:grid-cols-3 gap-10 justify-items-center lg:mx-0  mx-5">
     {movieRecom.slice(0,5).map((movie, index) => (
        <Link to={`/movie-details/${movie.id}`}><div key={index} className='flex flex-col text-white gap-2'  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>

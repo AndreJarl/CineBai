@@ -11,7 +11,7 @@ function TVWatch() {
   const [season, setSeason] = useState([]);
   const [episodesPlaying, setEpisodePlaying] = useState(1);
   const [episodes, setEpisodes] = useState([]);
-  const [server, setServer] = useState("111movies");
+  const [server, setServer] = useState("cinesrc");
 
   useEffect(() => {
     const getSeasonDetails = async () => {
@@ -43,14 +43,17 @@ function TVWatch() {
       ? `https://player.videasy.net/tv/${id}/${season_number}/${episodesPlaying}`
       : server === "vidlink"
       ? `https://vidlink.pro/tv/${id}/${season_number}/${episodesPlaying}`
+      : server === "cinesrc"
+      ? `https://cinesrc.st/embed/tv/${id}?s=${season_number}&e=${episodesPlaying}`
       : "";
 
   const servers = [
-    { key: "111movies", label: "111Movies" },
+    { key: "cinesrc", label: "Cinesrc" },
     { key: "vidsrc", label: "Vidsrc" },
     { key: "autoembed", label: "AutoEmbed" },
     { key: "videasy", label: "Videasy" },
     { key: "vidlink", label: "VidLink" },
+    { key: "111movies", label: "111Movies" },
   ];
 
   return (
