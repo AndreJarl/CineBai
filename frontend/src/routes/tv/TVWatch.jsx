@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import noimg from "../../assets/ep404.png";
+import noimg from "../../assets/ep404.webp";
 import Navbar from "../../components/Navbar";
 import { PlayCircle, Tv2 } from "lucide-react";
 

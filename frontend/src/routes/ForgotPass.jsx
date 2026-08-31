@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import signin from "../assets/signin3d.png";
+import signin from "../assets/signin3d.webp";
 
 function ForgotPass() {
   const [email, setEmail] = useState('');

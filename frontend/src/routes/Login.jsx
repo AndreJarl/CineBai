@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import signin from "../assets/signin3d.png";
+import signin from "../assets/signin3d.webp";
 import { userAuthStore } from "../store/authUser";
 import { Toaster } from "react-hot-toast";
 import { GoogleLogin } from '@react-oauth/google';

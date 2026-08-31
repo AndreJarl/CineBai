@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { useContentStore } from '../../store/contentType';
 import Navbar from '../../components/Navbar';
-import searchbg from '../../assets/search.png';
-import noimg from '../../assets/4043d.png';
+import searchbg from '../../assets/search.webp';
+import noimg from '../../assets/4043d.webp';
 
 function SearchContent() {
   const [query, setQuery] = useState('');
