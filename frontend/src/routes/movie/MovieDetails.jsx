@@ -8,6 +8,7 @@ import SimilarMovies from '../../components/movie/SimilarMovies';
 import DetailsSkeleton from '../../components/DetailsSkeleton';
 import { CheckCircle } from 'lucide-react';
 import { userAuthStore } from '../../store/authUser';
+import api from '../../lib/axios';
 
 
 function MovieDetails() {
