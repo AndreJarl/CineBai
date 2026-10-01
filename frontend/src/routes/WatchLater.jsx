@@ -8,6 +8,7 @@ import { userAuthStore } from '../store/authUser';
 import toast from 'react-hot-toast';
 import Skeleton from '../components/Skeleton';
 import { ApiError } from '@google/genai';
+import api from '../lib/axios';
 
 function WatchLater() {
   const { contentType } = useContentStore();
