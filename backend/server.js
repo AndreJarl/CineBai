@@ -27,6 +27,8 @@ app.use((req, res, next) => {
     'http://localhost:5173',
     'http://localhost:3000',
     'https://cinebai.onrender.com',
+    'https://cinebai.vercel.app',
+
     ENV_VARS.FE_URL
   ].filter(Boolean); // Remove undefined values
 
