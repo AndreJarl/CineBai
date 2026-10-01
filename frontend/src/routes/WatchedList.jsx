@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import { userAuthStore } from '../store/authUser';
 import toast from 'react-hot-toast';
 import Skeleton from '../components/Skeleton';
+import api from '../lib/axios';
 
 function  WatchedList() {
   const { contentType } = useContentStore();
@@ -21,7 +22,7 @@ function  WatchedList() {
   useEffect(() => {
     const getUserWatchLater = async () => {
       try {
-        const res = await axios.get(`/api/user/myProfile`);
+        const res = await api.get(`/api/user/myProfile`);
         setProfile(res.data.user);
         setUserWatchLater(res.data.user.watched);
       } catch (err) {
@@ -37,7 +38,7 @@ function  WatchedList() {
   const deleteFromList = async (item, type) => {
     try {
       await toast.promise(
-        axios.delete(`/api/user/list/${type}`, {
+        api.delete(`/api/user/list/${type}`, {
           data: { id: item.id, mediaType: item.mediaType }
         }),
         {
@@ -47,7 +48,7 @@ function  WatchedList() {
         }
       );
 
-      const res2 = await axios.get("/api/user/myProfile");
+      const res2 = await api.get("/api/user/myProfile");
       setProfile(res2.data.user);
       setUserWatchLater(res2.data.user.watchLater);
     } catch (error) {

@@ -3,6 +3,7 @@ import { TrendingUp, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import TVCard from "./TVCard";
 import { Link } from "react-router-dom";
+import api from "../../lib/axios";
 
 function TVPopular() {
   const [trendingTV, setTrendingTV] = useState([]);
@@ -12,7 +13,7 @@ function TVPopular() {
   useEffect(() => {
     const getPopularTV = async () => {
       try {
-        const res = await axios.get("/api/tv/popularTV");
+        const res = await api.get("/api/tv/popularTV");
         setTrendingTV(res.data.content.results || []);
       } catch (error) {
         console.error("Error fetching popular series:", error);

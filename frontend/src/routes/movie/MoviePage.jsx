@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import MoviePageCard from "../../components/movie/MoviePageCard";
 import Footer from "../../components/Footer";
+import api from "../../lib/axios";
 
 function MoviePage() {
   const [movies, setMovies] = useState([]);
@@ -54,7 +55,7 @@ function MoviePage() {
       }
 
       try {
-        const res = await axios.get(endpoint);
+        const res = await api.get(endpoint);
         setMovies(res.data.content.results || []);
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (error) {

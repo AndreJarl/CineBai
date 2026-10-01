@@ -3,6 +3,7 @@ import MovieCard from './MovieCard';
 import axios from 'axios';
 import {ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from "react-router-dom";
+import api from '../../lib/axios';
 
 function SimilarMovies({id}) {
 
@@ -11,7 +12,7 @@ function SimilarMovies({id}) {
     useEffect(()=>{
           const getMovieRecom = async () =>{
               try {
-                 const res = await axios.get(`/api/movie/${id}/movieRecommendations`);
+                 const res = await api.get(`/api/movie/${id}/movieRecommendations`);
                  setMovieRecom(res.data.content.results);
                 //  console.log(res.data.content.results);
               } catch (error) {

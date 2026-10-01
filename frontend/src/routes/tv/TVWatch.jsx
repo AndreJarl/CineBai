@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import noimg from "../../assets/ep404.webp";
 import Navbar from "../../components/Navbar";
 import { PlayCircle, Tv2 } from "lucide-react";
+import api from "../../lib/axios";
 
 function TVWatch() {
   const { id, season_number } = useParams();
@@ -16,7 +17,7 @@ function TVWatch() {
   useEffect(() => {
     const getSeasonDetails = async () => {
       try {
-        const res = await axios.get(`/api/tv/${id}/season/${season_number}`);
+        const res = await api.get(`/api/tv/${id}/season/${season_number}`);
         setSeason(res.data.content);
         setEpisodes(res.data.content.episodes || []);
         setEpisodePlaying(1);

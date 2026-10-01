@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AddToListButton from "./AddToListButtonMovie";
+import api from "../../lib/axios";
 
 function Hero() {
   const [trendingMovie, setTrendingMovie] = useState(null);
@@ -11,7 +12,7 @@ function Hero() {
 
     const getTrendingMovie = async () => {
       try {
-        const res = await axios.get("/api/movie/trendingMovie");
+        const res = await api.get("/api/movie/trendingMovie");
         if (isMounted) {
           setTrendingMovie(res.data.content);
           setLoading(false);

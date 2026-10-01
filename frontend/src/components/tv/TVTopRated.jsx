@@ -3,6 +3,7 @@ import { Trophy, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import TVCard from "./TVCard";
 import { Link } from "react-router-dom";
+import api from "../../lib/axios";
 
 function TVTopRated() {
   const [trendingTV, setTrendingTV] = useState([]);
@@ -12,7 +13,7 @@ function TVTopRated() {
   useEffect(() => {
     const getTrendingTV = async () => {
       try {
-        const res = await axios.get("/api/tv/topRatedTV");
+        const res = await api.get("/api/tv/topRatedTV");
         setTrendingTV(res.data.content.results || []);
       } catch (error) {
         console.error("Error fetching top rated series:", error);

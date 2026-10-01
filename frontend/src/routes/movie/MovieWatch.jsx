@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
 import { Film } from "lucide-react";
+import api from "../../lib/axios";
 
 function MovieWatch() {
   const [movie, setMovies] = useState({});
@@ -13,7 +14,7 @@ function MovieWatch() {
   useEffect(() => {
     const getMovieDetails = async () => {
       try {
-        const res = await axios.get(`/api/movie/${id}/movieDetails`);
+        const res = await api.get(`/api/movie/${id}/movieDetails`);
         setMovies(res.data.content);
       } catch (error) {
         console.error("Failed to fetch movie details", error);

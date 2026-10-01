@@ -3,6 +3,7 @@ import { TrendingUp, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
+import api from "../../lib/axios";
 
 function MoviePopular() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -12,7 +13,7 @@ function MoviePopular() {
   useEffect(() => {
     const getPopularMovies = async () => {
       try {
-        const res = await axios.get("/api/movie/popularMovies");
+        const res = await api.get("/api/movie/popularMovies");
         setTrendingMovies(res.data.content.results || []);
       } catch (error) {
         console.error("Error fetching popular movies:", error);

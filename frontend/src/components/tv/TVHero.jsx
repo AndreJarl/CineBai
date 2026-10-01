@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AddToListButtonTV from "./AddToListButtonTV";
+import api from "../../lib/axios";
 
 function TVHero() {
   const [trendingTV, setTrendingTV] = useState(null);
@@ -11,7 +12,7 @@ function TVHero() {
 
     const getTrendingTV = async () => {
       try {
-        const res = await axios.get("/api/tv/trendingTV");
+        const res = await api.get("/api/tv/trendingTV");
         if (isMounted) {
           setTrendingTV(res.data.content);
           setLoading(false);

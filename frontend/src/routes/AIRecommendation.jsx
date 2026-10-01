@@ -17,6 +17,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { userAuthStore } from "../store/authUser";
 import toast from "react-hot-toast";
+import api from "../lib/axios";
 
 function AIRecommendation() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function AIRecommendation() {
 
     try {
       setLoading(true);
-      const response = await axios.post(
+      const response = await api.post(
         `/api/ai/${contentType}/ai-recommendation/`,
         { prompt }
       );

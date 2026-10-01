@@ -10,6 +10,7 @@ import TVSeasons from '../../components/tv/TVSeasons';
 import DetailsSkeleton from '../../components/DetailsSkeleton';
 import { CheckCircle } from 'lucide-react';
 import { userAuthStore } from '../../store/authUser';
+import api from '../../lib/axios';
 
 function  TVDetails() {
       
@@ -21,7 +22,7 @@ function  TVDetails() {
     useEffect(()=>{
         const getTVDetails = async () =>{
               try {
-                const res = await axios.get(`/api/tv/${id}/TVDetails`);
+                const res = await api.get(`/api/tv/${id}/TVDetails`);
               setTV(res.data.content);
               // console.log(res.data.content)
 

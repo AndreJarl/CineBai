@@ -4,6 +4,7 @@ import { userAuthStore } from "../../store/authUser";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import api from "../../lib/axios";
 
 function AddToListButtonTV({ tv, mediaType }) {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ function AddToListButtonTV({ tv, mediaType }) {
       }
 
       await toast.promise(
-        axios.post(`/api/user/list/${type}`, {
+        api.post(`/api/user/list/${type}`, {
           id: tv.id,
           mediaType,
           title: tv.name,
@@ -76,7 +77,7 @@ function AddToListButtonTV({ tv, mediaType }) {
     if (isWatched) {
       try {
         await toast.promise(
-          axios.delete(`/api/user/watched`, {
+          api.delete(`/api/user/watched`, {
             data: { id: tv.id, mediaType },
           }),
           {
@@ -96,7 +97,7 @@ function AddToListButtonTV({ tv, mediaType }) {
 
     try {
       await toast.promise(
-        axios.post(`/api/user/watched`, itemPayload),
+        api.post(`/api/user/watched`, itemPayload),
         {
           loading: `Marking ${tv.name} as watched...`,
           success: `${tv.name} marked as watched!`,

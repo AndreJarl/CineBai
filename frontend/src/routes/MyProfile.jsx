@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 import { Mail, Heart, Bookmark, CheckCircle, Trash } from "lucide-react";
 import { useContentStore } from "../store/contentType";
 import Skeleton from "../components/Skeleton";
+import api from "../lib/axios";
 
 function MyProfile() {
   const [profile, setProfile] = useState({});
@@ -37,7 +38,7 @@ function MyProfile() {
         return;
       }
 
-      const res = await axios.get("/api/user/myProfile");
+      const res = await api.get("/api/user/myProfile");
       setProfile(res.data.user);
     } catch (error) {
       console.error(error);
@@ -50,7 +51,7 @@ function MyProfile() {
     try {
       if (type === "watched") {
         await toast.promise(
-          axios.delete(`/api/user/watched`, {
+          api.delete(`/api/user/watched`, {
             data: { id: item.id, mediaType: item.mediaType },
           }),
           {
@@ -61,7 +62,7 @@ function MyProfile() {
         );
       } else {
         await toast.promise(
-          axios.delete(`/api/user/list/${type}`, {
+          api.delete(`/api/user/list/${type}`, {
             data: { id: item.id, mediaType: item.mediaType },
           }),
           {

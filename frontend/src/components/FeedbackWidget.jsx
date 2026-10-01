@@ -5,6 +5,7 @@ import { Star, X, Loader2, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import api from '../lib/axios';
 
 const FeedbackWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,7 @@ const FeedbackWidget = () => {
         return;
       }
       try {
-        const res = await axios.get(`/api/v1/feedback/check-eligibility?t=${Date.now()}`);
+        const res = await api.get(`/api/v1/feedback/check-eligibility?t=${Date.now()}`);
         setCanShow(res.data.canSubmit === true);
       } catch (err) {
         console.error('Eligibility check failed', err);
@@ -65,7 +66,7 @@ const FeedbackWidget = () => {
     }
     setIsSubmitting(true);
     try {
-      const response = await axios.post('/api/v1/feedback', {
+      const response = await api.post('/api/v1/feedback', {
         rating,
         summary: feedback,
         details: description,

@@ -21,7 +21,7 @@ function MovieDetails() {
         const getMovieDetails = async () =>{
               setFetchingMovie(true);
               try {
-                const res = await axios.get(`/api/movie/${id}/movieDetails`);
+                const res = await api.get(`/api/movie/${id}/movieDetails`);
               setMovies(res.data.content);
               setFetchingMovie(false);
               } catch (error) {

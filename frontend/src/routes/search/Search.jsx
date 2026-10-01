@@ -7,6 +7,7 @@ import { useContentStore } from '../../store/contentType';
 import Navbar from '../../components/Navbar';
 import searchbg from '../../assets/search.webp';
 import noimg from '../../assets/4043d.webp';
+import api from '../../lib/axios';
 
 function SearchContent() {
   const [query, setQuery] = useState('');
@@ -25,7 +26,7 @@ function SearchContent() {
   const getSearch = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get(`/api/search/content/${contentType}/${query}`);
+      const res = await api.get(`/api/search/content/${contentType}/${query}`);
       setSearch(res.data.content || []);
     } catch (error) {
       console.error('Error in fetching search', error);

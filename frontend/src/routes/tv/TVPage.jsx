@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import TVPageCard from "../../components/tv/TVPageCard";
+import api from "../../lib/axios";
 
 function TVPage() {
   const [series, setSeries] = useState([]);
@@ -54,7 +55,7 @@ function TVPage() {
       }
 
       try {
-        const res = await axios.get(endpoint);
+        const res = await api.get(endpoint);
         setSeries(res.data.content.results || []);
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (error) {

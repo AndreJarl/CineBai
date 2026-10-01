@@ -3,6 +3,7 @@ import { Flame, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import TVCard from "./TVCard";
 import { Link } from "react-router-dom";
+import api from "../../lib/axios";
 
 function TVTrending() {
   const [trendingTV, setTrendingTV] = useState([]);
@@ -12,7 +13,7 @@ function TVTrending() {
   useEffect(() => {
     const getTrendingTV = async () => {
       try {
-        const res = await axios.get("/api/tv/trendingTVHero?page=1");
+        const res = await api.get("/api/tv/trendingTVHero?page=1");
         setTrendingTV(res.data.content.results || []);
       } catch (error) {
         console.error("Error fetching trending series:", error);
