@@ -117,7 +117,7 @@ The frontend will typically be available at `http://localhost:5173` (or your con
 
 ## Live Demo
 
-A hosted version is available at **[cinebai.onrender.com](https://cinebai.onrender.com/)**.
+A hosted version is available at **[cinebai.onrender.com](https://cinebai.vercel.app/)**.
 
 > Deployed on Render's free tier. A scheduled [GitHub Actions workflow](.github/workflows/) pings the app every few minutes to keep the instance warm and avoid cold-start delays.
 
