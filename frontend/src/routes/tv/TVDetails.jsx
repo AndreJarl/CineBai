@@ -11,6 +11,7 @@ import DetailsSkeleton from '../../components/DetailsSkeleton';
 import { CheckCircle } from 'lucide-react';
 import { userAuthStore } from '../../store/authUser';
 import api from '../../lib/axios';
+import Seo from '../../components/Seo';
 
 function  TVDetails() {
       
@@ -47,6 +48,14 @@ if (loading) return <DetailsSkeleton />;
 
   return (
     <>
+     {tv.name && (
+       <Seo
+         title={`${tv.name} (TV Series)`}
+         description={tv.overview?.slice(0, 155) || `Seasons, ratings and details for ${tv.name} on CineBai.`}
+         path={`/tv-details/${id}`}
+         image={tv.poster_path ? `https://image.tmdb.org/t/p/w500${tv.poster_path}` : undefined}
+       />
+     )}
      <Navbar/>
    <div
    style={{

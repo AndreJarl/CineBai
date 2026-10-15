@@ -8,6 +8,7 @@ import Navbar from '../../components/Navbar';
 import searchbg from '../../assets/search.webp';
 import noimg from '../../assets/4043d.webp';
 import api from '../../lib/axios';
+import Seo from '../../components/Seo';
 
 function SearchContent() {
   const [query, setQuery] = useState('');
@@ -52,6 +53,11 @@ function SearchContent() {
 
   return (
     <>
+      <Seo
+        title="AI-Powered Search for Movies or Shows"
+        description="Search movies and TV shows with CineBai's AI-powered search. Find films and series by title and discover your next favorite watch."
+        path="/search"
+      />
       <Navbar />
 
       <div

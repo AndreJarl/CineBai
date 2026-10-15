@@ -3,15 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="CineBai: AI-Powered Prompt-Based Recommendation for Movies/Shows" />
+    <meta name="description" content="CineBai is an AI-powered movie and TV show recommendation app. Describe your mood, a plot, or a scene and CineBai AI finds the perfect movie or series to watch." />
+    <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://cinebai.vercel.app/" />
     <link rel="icon" type="image/png" href="/cinelogo.png" />
+    <link rel="apple-touch-icon" href="/cinelogo.png" />
+
+    <!-- Open Graph / social previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CineBai" />
+    <meta property="og:title" content="CineBai – AI Movie & TV Show Recommendations | AI-Powered Search" />
+    <meta property="og:description" content="Describe what you're in the mood for and CineBai AI recommends movies and TV shows you'll love." />
+    <meta property="og:url" content="https://cinebai.vercel.app/" />
+    <meta property="og:image" content="https://cinebai.vercel.app/cinelogo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CineBai – AI Movie & TV Show Recommendations | AI-Powered Search" />
+    <meta name="twitter:description" content="Describe what you're in the mood for and CineBai AI recommends movies and TV shows you'll love." />
+    <meta name="twitter:image" content="https://cinebai.vercel.app/cinelogo.png" />
+
+    <!-- Structured data: tells Google the site name "CineBai" and what the app does -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://cinebai.vercel.app/#website",
+          "name": "CineBai",
+          "alternateName": ["Cine Bai", "CineBAI", "CineBai AI"],
+          "url": "https://cinebai.vercel.app/",
+          "description": "AI-powered movie and TV show recommendations and search."
+        },
+        {
+          "@type": "WebApplication",
+          "name": "CineBai",
+          "url": "https://cinebai.vercel.app/",
+          "applicationCategory": "EntertainmentApplication",
+          "operatingSystem": "Web",
+          "description": "CineBai is an AI movie and TV show recommendation app with AI-powered search. Describe a mood, plot, actor, or scene and get personalized movie and series recommendations.",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "featureList": [
+            "AI movie recommendations",
+            "AI TV show recommendations",
+            "AI-powered search for movies and shows",
+            "Trending, popular and top rated movies and series",
+            "Watch later, watched and favorites lists"
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="preconnect" href="https://image.tmdb.org" />
     <link rel="dns-prefetch" href="https://image.tmdb.org" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <title>CineBai</title>
+    <title>CineBai – AI Movie & TV Show Recommendations | AI-Powered Search</title>
     
     <!-- Google Tag Manager - Deferred -->
     <script>

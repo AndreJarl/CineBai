@@ -3,6 +3,7 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import { useContentStore } from './store/contentType'
 import FeedbackWidget from './components/FeedbackWidget'
+import Seo from './components/Seo'
 
 // Lazy load heavy components for better initial load performance
 const MovieHero = lazy(() => import('./components/movie/MovieHero'))
@@ -21,6 +22,7 @@ function Home() {
   if(contentType === "tv"){
        return (
     <>
+       <Seo path="/" />
        <Navbar />
        <Suspense fallback={<div className="h-screen bg-neutral-900 animate-pulse" />}>
          <TVHero />
@@ -36,6 +38,7 @@ function Home() {
 
   return (
     <>
+       <Seo path="/" />
        <Navbar />
        <Suspense fallback={<div className="h-screen bg-neutral-900 animate-pulse" />}>
          <MovieHero/>

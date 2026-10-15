@@ -9,6 +9,7 @@ import DetailsSkeleton from '../../components/DetailsSkeleton';
 import { CheckCircle } from 'lucide-react';
 import { userAuthStore } from '../../store/authUser';
 import api from '../../lib/axios';
+import Seo from '../../components/Seo';
 
 
 function MovieDetails() {
@@ -44,6 +45,14 @@ if (fetchingMovie) return <DetailsSkeleton />;
 
   return (
     <>
+     {movie.title && (
+       <Seo
+         title={`${movie.title}${movie.release_date ? ` (${movie.release_date.slice(0, 4)})` : ''}`}
+         description={movie.overview?.slice(0, 155) || `Details, ratings and similar movies to ${movie.title} on CineBai.`}
+         path={`/movie-details/${id}`}
+         image={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : undefined}
+       />
+     )}
      <Navbar/>
    <div
    style={{

@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react"
 import { Routes, Route } from "react-router-dom"
 import { userAuthStore } from "./store/authUser"
 import { useEffect } from "react"
+import Seo from "./components/Seo"
 
 // Lazy load all routes for code splitting
 const Home = lazy(() => import("./Home"))
@@ -32,6 +33,9 @@ const LoadingFallback = () => (
   </div>
 )
 
+// Private / utility pages that shouldn't appear in search results
+const noindex = (element) => <><Seo noindex />{element}</>
+
 function App() {
      const{authCheck, isAuthChecking} = userAuthStore();
 
@@ -47,22 +51,22 @@ function App() {
     <Suspense fallback={<LoadingFallback />}>
       <Routes>
          <Route path="/" element={<Home/>} />
-         <Route path="/login" element={<Login/>} />
-         <Route path="/signin" element={<SignIn/>} />
+         <Route path="/login" element={noindex(<Login/>)} />
+         <Route path="/signin" element={noindex(<SignIn/>)} />
          <Route path="/movie-details/:id" element={<MovieDetails/>} />
-         <Route path="/myprofile" element={<MyProfile/>} />
-         <Route path="/watch-movie/:id" element={<MovieWatch />} />
+         <Route path="/myprofile" element={noindex(<MyProfile/>)} />
+         <Route path="/watch-movie/:id" element={noindex(<MovieWatch />)} />
          <Route path="/tv-details/:id" element={<TVDetails />} />
-         <Route path="/tv-watch/:id/:season_number" element={<TVWatch />} />
+         <Route path="/tv-watch/:id/:season_number" element={noindex(<TVWatch />)} />
          <Route path="/search" element={<SearchContent/>} />
-         <Route path="/watchlater/:contentType" element={<WatchLater/>} />
-         <Route path="/watched/:contentType" element={<WatchedList/>} />
-         <Route path="/favorites/:contentType" element={<Favorites/>} />
+         <Route path="/watchlater/:contentType" element={noindex(<WatchLater/>)} />
+         <Route path="/watched/:contentType" element={noindex(<WatchedList/>)} />
+         <Route path="/favorites/:contentType" element={noindex(<Favorites/>)} />
          <Route path="/movie-page/:movieType" element={<MoviePage/>} />
          <Route path="/tv-page/:seriesType" element={<TVPage/>} />
          <Route path="/ai-recommendation" element={<AIRecommendation/>} />
-         <Route path="/forgot-pass" element={<ForgotPass/>} />
-         <Route path="/reset-password" element={<ResetPass/>} />
+         <Route path="/forgot-pass" element={noindex(<ForgotPass/>)} />
+         <Route path="/reset-password" element={noindex(<ResetPass/>)} />
       </Routes>
     </Suspense>
   )

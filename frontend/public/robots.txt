@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /myprofile
+Disallow: /watchlater/
+Disallow: /watched/
+Disallow: /favorites/
+Disallow: /forgot-pass
+Disallow: /reset-password
+Disallow: /api/
+
+Sitemap: https://cinebai.vercel.app/sitemap.xml

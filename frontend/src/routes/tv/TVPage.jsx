@@ -13,6 +13,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import TVPageCard from "../../components/tv/TVPageCard";
 import api from "../../lib/axios";
+import Seo from "../../components/Seo";
 
 function TVPage() {
   const [series, setSeries] = useState([]);
@@ -106,6 +107,11 @@ function TVPage() {
 
   return (
     <>
+      <Seo
+        title={renderTitle().replace("Series", "TV Shows")}
+        description={`Browse ${renderTitle().toLowerCase().replace("series", "TV shows")} on CineBai and get AI-powered TV show recommendations.`}
+        path={`/tv-page/${seriesType}`}
+      />
       <Navbar />
 
       <section className="relative min-h-screen bg-[#070707] pt-28 pb-16 overflow-hidden text-white">

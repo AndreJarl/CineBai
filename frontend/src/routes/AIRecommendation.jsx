@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { userAuthStore } from "../store/authUser";
 import toast from "react-hot-toast";
 import api from "../lib/axios";
+import Seo from "../components/Seo";
 
 function AIRecommendation() {
   const navigate = useNavigate();
@@ -96,6 +97,11 @@ function AIRecommendation() {
 
   return (
     <>
+      <Seo
+        title="AI Movie & TV Show Recommendation"
+        description="Get AI movie and TV show recommendations from CineBai. Describe your mood, favorite actors, or a scene and CineBai AI finds what to watch next."
+        path="/ai-recommendation"
+      />
       <Navbar />
 
       <div className="relative min-h-screen pt-10 text-white overflow-hidden">

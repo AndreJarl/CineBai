@@ -13,6 +13,7 @@ import Navbar from "../../components/Navbar";
 import MoviePageCard from "../../components/movie/MoviePageCard";
 import Footer from "../../components/Footer";
 import api from "../../lib/axios";
+import Seo from "../../components/Seo";
 
 function MoviePage() {
   const [movies, setMovies] = useState([]);
@@ -106,6 +107,11 @@ function MoviePage() {
 
   return (
     <>
+      <Seo
+        title={renderTitle()}
+        description={`Browse ${renderTitle().toLowerCase()} on CineBai and get AI-powered movie recommendations.`}
+        path={`/movie-page/${movieType}`}
+      />
       <Navbar />
 
       <section className="relative min-h-screen bg-[#070707] pt-28 pb-16 overflow-hidden text-white">
