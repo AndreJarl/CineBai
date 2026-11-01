@@ -89,5 +89,24 @@
     <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Ko-fi floating "Support me" button (bottom-left, all pages) -->
+    <style>
+      .floatingchat-container-wrap,
+      .floatingchat-container-wrap-mobi {
+        bottom: 24px !important; /* same row as the feedback button (bottom-6) */
+        transform: translateX(3vw) scale(0.6);
+        transform-origin: bottom left;
+      }
+    </style>
+    <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+    <script>
+      kofiWidgetOverlay.draw('andrecinebai', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.background-color': '#00b9fe',
+        'floating-chat.donateButton.text-color': '#fff'
+      });
+    </script>
   </body>
 </html>

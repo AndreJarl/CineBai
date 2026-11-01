@@ -107,7 +107,7 @@ const FeedbackWidget = () => {
             onClick={() => setIsOpen(true)}
             onMouseEnter={() => setIsPillMinimized(false)}
             onMouseLeave={() => setIsPillMinimized(true)}
-            className="fixed bottom-6 right-6 z-[500] flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg shadow-red-900/40 transition-all duration-300 overflow-hidden cursor-pointer border-0"
+            className="fixed bottom-6 right-6 z-[500] flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg shadow-red-900/40 transition-all duration-300 overflow-hidden cursor-pointer border-0"
             style={{
               padding: isPillMinimized ? '10px 14px' : '10px 18px 10px 14px',
             }}
@@ -117,7 +117,7 @@ const FeedbackWidget = () => {
               animate={{
                 width: isPillMinimized ? 0 : 'auto',
                 opacity: isPillMinimized ? 0 : 1,
-                marginLeft: isPillMinimized ? 0 : undefined,
+                marginLeft: isPillMinimized ? 0 : 8,
               }}
               transition={{ duration: 0.25 }}
               className="text-sm font-medium whitespace-nowrap overflow-hidden"
