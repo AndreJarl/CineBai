@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ChevronDown } from 'lucide-react'
 import InfoPage from '../components/InfoPage'
 import Seo from '../components/Seo'
 
@@ -114,12 +115,20 @@ function About() {
 
       <section>
         <h2>Frequently Asked Questions</h2>
-        {faqs.map(({ q, a }) => (
-          <div key={q}>
-            <h3>{q}</h3>
-            <p>{a}</p>
-          </div>
-        ))}
+        <div className="mt-6 space-y-3">
+          {faqs.map(({ q, a }) => (
+            <details
+              key={q}
+              className="group rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 open:bg-white/[0.06] transition-colors"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-white [&::-webkit-details-marker]:hidden">
+                {q}
+                <ChevronDown className="h-5 w-5 shrink-0 text-red-400 transition-transform duration-300 group-open:rotate-180" />
+              </summary>
+              <p className="mt-3 text-gray-300">{a}</p>
+            </details>
+          ))}
+        </div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </section>
 
