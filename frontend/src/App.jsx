@@ -22,6 +22,8 @@ const TVPage = lazy(() => import("./routes/tv/TVPage"))
 const AIRecommendation = lazy(() => import("./routes/AIRecommendation"))
 const ForgotPass = lazy(() => import("./routes/ForgotPass"))
 const ResetPass = lazy(() => import("./routes/ResetPass"))
+const About = lazy(() => import("./routes/About"))
+const PrivacyPolicy = lazy(() => import("./routes/PrivacyPolicy"))
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -67,6 +69,8 @@ function App() {
          <Route path="/ai-recommendation" element={<AIRecommendation/>} />
          <Route path="/forgot-pass" element={noindex(<ForgotPass/>)} />
          <Route path="/reset-password" element={noindex(<ResetPass/>)} />
+         <Route path="/about" element={<About/>} />
+         <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
       </Routes>
     </Suspense>
   )

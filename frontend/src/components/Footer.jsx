@@ -1,4 +1,5 @@
 import { Github, Linkedin } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
@@ -18,6 +19,11 @@ function Footer() {
     </div>
 
     
+     <nav className='flex justify-center items-center gap-6 text-white text-xs mb-3'>
+        <Link to='/about' onClick={() => window.scrollTo(0, 0)} className='opacity-70 hover:opacity-100 hover:text-yellow-400 transition-colors'>About</Link>
+        <Link to='/privacy-policy' onClick={() => window.scrollTo(0, 0)} className='opacity-70 hover:opacity-100 hover:text-yellow-400 transition-colors'>Privacy Policy</Link>
+     </nav>
+
      <div className='flex justify-center items-center text-white mb-5 text-[10px] opacity-60 '>
         <p>© 2025 • Created by <a className=' font-medium ' >AJA for 3.14a🩷</a> • All rights reserved.</p>
      </div>

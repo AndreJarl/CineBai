@@ -1,0 +1,90 @@
+import { Link } from 'react-router-dom'
+import InfoPage from '../components/InfoPage'
+import Seo from '../components/Seo'
+
+function About() {
+  return (
+    <InfoPage title="About CineBai" subtitle="AI Movie & TV Show Recommendations">
+      <Seo
+        title="About – AI Movie & TV Show Recommendation App"
+        description="Learn about CineBai, the AI movie and TV show recommendation app with AI-powered search for movies or shows. Describe your mood and get personalized picks."
+        path="/about"
+      />
+
+      <section>
+        <h2>What is CineBai?</h2>
+        <p>
+          CineBai is a free AI movie recommendation and AI TV show recommendation app. Instead of
+          endlessly scrolling through streaming catalogs, you simply describe what you feel like
+          watching and CineBai AI suggests movies and series that match.
+        </p>
+        <p>
+          Whether you want "a psychological thriller with a shocking twist", "hidden gem romance
+          movies from the 90s", or "a mind-bending series like Dark", CineBai turns your words into
+          personalized movie and TV show recommendations in seconds.
+        </p>
+      </section>
+
+      <section>
+        <h2>AI Movie / TV Show Recommendation</h2>
+        <p>
+          The <Link to="/ai-recommendation">CineBai AI recommendation</Link> tool understands moods,
+          genres, actors, plots, and even scenes you half-remember. It is built for the question
+          everyone asks every night: "What should I watch?" Pick movies or TV shows, type a prompt,
+          and get a curated list of titles with ratings, posters, and summaries.
+        </p>
+      </section>
+
+      <section>
+        <h2>AI-Powered Search for Movies or Shows</h2>
+        <p>
+          Looking for something specific? CineBai's <Link to="/search">AI-powered search for movies
+          or shows</Link> helps you find films and series fast. You can also browse trending movies,
+          popular movies, top rated movies, trending TV shows, popular series, and top rated TV
+          shows, all updated regularly.
+        </p>
+      </section>
+
+      <section>
+        <h2>Features</h2>
+        <ul>
+          <li>AI movie recommendations based on your mood or a short prompt</li>
+          <li>AI TV show and series recommendations</li>
+          <li>AI-powered search for movies and TV shows</li>
+          <li>Trending, popular, and top rated movies and series</li>
+          <li>Movie and TV show details, ratings, seasons, and similar titles</li>
+          <li>Personal Watch Later, Watched, and Favorites lists</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>How CineBai Works</h2>
+        <p>
+          CineBai combines a large language model (Google Gemini) with movie and TV data from The
+          Movie Database (TMDB). The AI interprets your request, and CineBai matches its suggestions
+          to real titles so every recommendation comes with accurate details.
+        </p>
+      </section>
+
+      <section>
+        <h2>Who Made CineBai?</h2>
+        <p>
+          CineBai is an independent project built by a solo developer who loves movies and wanted a
+          smarter way to discover what to watch. If you enjoy CineBai, you can support it with the
+          "Support me" button, or share your thoughts with the Feedback button.
+        </p>
+      </section>
+
+      <section>
+        <h2>Attribution</h2>
+        <p>
+          This product uses the TMDB API but is not endorsed or certified by TMDB. CineBai does not
+          host any media files. See our <Link to="/privacy-policy">Privacy Policy</Link> for how we
+          handle your data.
+        </p>
+      </section>
+    </InfoPage>
+  )
+}
+
+export default About
