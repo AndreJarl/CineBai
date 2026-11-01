@@ -189,29 +189,29 @@ function SearchContent() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-4">
                 {search.map((item) => (
                   <Link
                     key={item.id}
                     to={contentType === 'movie' ? `/movie-details/${item.id}` : `/tv-details/${item.id}`}
-                    className="group"
+                    className="group min-w-0"
                   >
-                    <div className="overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.05] shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-white/20 hover:bg-white/[0.08]">
+                    <div className="h-full overflow-hidden rounded-2xl sm:rounded-[24px] border border-white/10 bg-white/[0.05] shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-white/20 hover:bg-white/[0.08]">
                       <div className="relative overflow-hidden">
                         <img
-                          className="h-[190px] w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-[220px] lg:h-[240px]"
+                          className="aspect-[2/3] w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:aspect-auto sm:h-[220px] lg:h-[240px]"
                           src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                           alt={item.title || item.name}
                         />
                         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" />
                       </div>
 
-                      <div className="p-4">
-                        <h4 className="line-clamp-1 text-sm font-semibold text-white sm:text-base">
+                      <div className="p-3 sm:p-4">
+                        <h4 className="truncate text-sm font-semibold text-white sm:text-base">
                           {item.title || item.name}
                         </h4>
 
-                        <p className="mt-2 line-clamp-3 text-xs leading-5 text-slate-300">
+                        <p className="mt-1.5 line-clamp-2 break-words text-[11px] leading-4 text-slate-300 sm:mt-2 sm:line-clamp-3 sm:text-xs sm:leading-5">
                           {item.overview || 'No overview available.'}
                         </p>
 

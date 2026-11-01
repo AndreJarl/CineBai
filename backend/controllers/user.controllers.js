@@ -1,4 +1,19 @@
 import { User } from "../models/user.model.js";
+import Feedback from "../models/feedback.model.js";
+import { cookieOptions } from "../utils/generateTokenAndSetCookies.js";
+
+export async function deleteAccount(req, res) {
+    try {
+        await Feedback.deleteMany({ userId: req.user._id });
+        await User.findByIdAndDelete(req.user._id);
+
+        res.clearCookie("CineBai-token", cookieOptions);
+        res.json({ success: true, message: "Account deleted" });
+    } catch (error) {
+        console.log("Error in deleteAccount controller", error.message);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
 
 export async function myProfile(req, res) {
     try {

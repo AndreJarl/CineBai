@@ -2,6 +2,43 @@ import { Link } from 'react-router-dom'
 import InfoPage from '../components/InfoPage'
 import Seo from '../components/Seo'
 
+const faqs = [
+  {
+    q: 'What is CineBai?',
+    a: 'CineBai is a free AI movie and TV show recommendation app. You describe what you feel like watching and CineBai AI suggests movies and series that match your mood, favorite genres, or a plot you have in mind.',
+  },
+  {
+    q: 'How does AI movie and TV show recommendation work?',
+    a: 'CineBai uses Google Gemini to understand your prompt, such as "a psychological thriller with a twist", and matches the AI suggestions to real titles from The Movie Database (TMDB), so every recommendation comes with ratings, posters, and summaries.',
+  },
+  {
+    q: 'Is CineBai free?',
+    a: 'Yes. CineBai is completely free to use. You can optionally support the project with the "Support me" button.',
+  },
+  {
+    q: 'Can I search for movies or shows with AI?',
+    a: 'Yes. CineBai offers AI-powered search for movies or shows, plus browsing for trending, popular, and top rated movies and TV series.',
+  },
+  {
+    q: 'Do I need an account to use CineBai?',
+    a: 'You can browse and search without an account. A free account lets you use CineBai AI recommendations and save titles to your Watch Later, Watched, and Favorites lists.',
+  },
+  {
+    q: 'Does CineBai host movies or TV shows?',
+    a: 'No. CineBai does not host or upload any media files. Movie and TV information comes from publicly available third-party APIs such as TMDB.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}
+
 function About() {
   return (
     <InfoPage title="About CineBai" subtitle="AI Movie & TV Show Recommendations">
@@ -73,6 +110,17 @@ function About() {
           smarter way to discover what to watch. If you enjoy CineBai, you can support it with the
           "Support me" button, or share your thoughts with the Feedback button.
         </p>
+      </section>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+        {faqs.map(({ q, a }) => (
+          <div key={q}>
+            <h3>{q}</h3>
+            <p>{a}</p>
+          </div>
+        ))}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </section>
 
       <section>

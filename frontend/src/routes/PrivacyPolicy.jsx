@@ -95,9 +95,10 @@ function PrivacyPolicy() {
       <section>
         <h2>Your Choices</h2>
         <p>
-          You can view and remove titles from your lists at any time. To request a copy of your
-          data or deletion of your account, contact us using the Feedback button and we will
-          handle your request promptly.
+          You can view and remove titles from your lists at any time. You can also delete your
+          account whenever you like from <strong>My Profile → Delete account</strong>, which
+          permanently removes your account, lists, and feedback. To request a copy of your data,
+          contact us using the Feedback button.
         </p>
       </section>
 

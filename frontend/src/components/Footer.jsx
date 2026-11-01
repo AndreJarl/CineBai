@@ -19,9 +19,10 @@ function Footer() {
     </div>
 
     
-     <nav className='flex justify-center items-center gap-6 text-white text-xs mb-3'>
+     <nav className='flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-white text-xs mb-3'>
         <Link to='/about' onClick={() => window.scrollTo(0, 0)} className='opacity-70 hover:opacity-100 hover:text-yellow-400 transition-colors'>About</Link>
         <Link to='/privacy-policy' onClick={() => window.scrollTo(0, 0)} className='opacity-70 hover:opacity-100 hover:text-yellow-400 transition-colors'>Privacy Policy</Link>
+        <Link to='/terms' onClick={() => window.scrollTo(0, 0)} className='opacity-70 hover:opacity-100 hover:text-yellow-400 transition-colors'>Terms of Service</Link>
      </nav>
 
      <div className='flex justify-center items-center text-white mb-5 text-[10px] opacity-60 '>

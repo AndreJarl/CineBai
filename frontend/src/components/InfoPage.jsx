@@ -21,7 +21,7 @@ function InfoPage({ title, subtitle, children }) {
         <article className="relative max-w-3xl mx-auto text-center">
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white">{title}</h1>
           {subtitle && <p className="mt-3 text-sm text-red-400">{subtitle}</p>}
-          <div className="mt-12 space-y-10 text-sm md:text-base leading-7 text-justify hyphens-auto [&_h2]:text-center [&_h2]:text-xl [&_h2]:md:text-2xl [&_h2]:font-semibold [&_h2]:text-white [&_h2]:mb-3 [&_p+p]:mt-3 [&_ul]:mt-3 [&_ul]:space-y-1 [&_ul]:list-disc [&_ul]:pl-5 [&_li::marker]:text-red-500 [&_strong]:text-white [&_a]:text-yellow-400 [&_a]:underline">
+          <div className="mt-12 space-y-10 text-sm md:text-base leading-7 text-justify hyphens-auto [&_h2]:text-center [&_h2]:text-xl [&_h2]:md:text-2xl [&_h2]:font-semibold [&_h2]:text-white [&_h2]:mb-3 [&_h3]:text-center [&_h3]:font-semibold [&_h3]:text-white [&_h3]:mt-6 [&_h3]:mb-1 [&_p+p]:mt-3 [&_ul]:mt-3 [&_ul]:space-y-1 [&_ul]:list-disc [&_ul]:pl-5 [&_li::marker]:text-red-500 [&_strong]:text-white [&_a]:text-yellow-400 [&_a]:underline">
             {children}
           </div>
         </article>

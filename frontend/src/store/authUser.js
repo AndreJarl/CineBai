@@ -59,6 +59,18 @@ export const userAuthStore = create((set, get) => ({
              }
     },
 
+    deleteAccount: async () => {
+        try {
+            await api.delete("/api/user/account");
+            set({ user: null });
+            toast.success("Your account has been deleted.");
+            return true;
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to delete account");
+            return false;
+        }
+    },
+
     authCheck: async () =>{
           set({isCheckingAuth:true});
           try {

@@ -5,18 +5,33 @@ import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import person from "../assets/person.webp";
 import Navbar from "../components/Navbar";
-import { Mail, Heart, Bookmark, CheckCircle, Trash } from "lucide-react";
+import { Mail, Heart, Bookmark, CheckCircle, Trash, AlertTriangle } from "lucide-react";
 import { useContentStore } from "../store/contentType";
 import Skeleton from "../components/Skeleton";
 import api from "../lib/axios";
 
 function MyProfile() {
   const [profile, setProfile] = useState({});
-  const { user } = userAuthStore();
+  const { user, deleteAccount } = userAuthStore();
   const navigate = useNavigate();
   const { contentType, setContentType } = useContentStore();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("favorites");
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleteText, setDeleteText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    const ok = await deleteAccount();
+    setDeleting(false);
+    if (ok) navigate("/");
+  };
+
+  const cancelDelete = () => {
+    setConfirmDelete(false);
+    setDeleteText("");
+  };
 
   const profilePic = user?.image || profile?.image || person;
 
@@ -309,6 +324,62 @@ function MyProfile() {
 
             {/* CONTENT */}
             {renderGrid(currentItems, currentType)}
+          </div>
+
+          {/* DANGER ZONE */}
+          <div className="mt-6 rounded-[28px] border border-white/10 bg-white/[0.04] backdrop-blur-xl p-5 md:p-8 shadow-2xl shadow-black/40">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h2 className="flex items-center gap-2 text-base md:text-lg font-semibold text-red-400">
+                  <AlertTriangle size={18} />
+                  Danger zone
+                </h2>
+                <p className="mt-1 text-xs md:text-sm text-gray-400">
+                  Permanently delete your account, lists, and feedback.
+                </p>
+              </div>
+
+              {!confirmDelete && (
+                <button
+                  onClick={() => setConfirmDelete(true)}
+                  className="self-start sm:self-auto rounded-full border border-red-500/40 px-5 py-2 text-sm font-medium text-red-400 transition-colors duration-200 hover:bg-red-600 hover:text-white"
+                >
+                  Delete account
+                </button>
+              )}
+            </div>
+
+            {confirmDelete && (
+              <div className="mt-5 rounded-2xl border border-red-500/30 bg-red-950/20 p-4 md:p-5">
+                <p className="text-sm text-gray-300">
+                  This permanently deletes your account, lists, and feedback. This cannot be undone.
+                  Type <span className="font-semibold text-white">DELETE</span> to confirm.
+                </p>
+                <input
+                  type="text"
+                  value={deleteText}
+                  onChange={(e) => setDeleteText(e.target.value)}
+                  placeholder="DELETE"
+                  className="mt-3 w-full sm:w-64 rounded-xl border border-white/10 bg-black/30 px-4 py-2 text-sm text-white outline-none focus:border-red-500/60"
+                />
+                <div className="mt-4 flex gap-3">
+                  <button
+                    onClick={cancelDelete}
+                    disabled={deleting}
+                    className="rounded-full bg-white/10 px-5 py-2 text-sm text-white transition-colors duration-200 hover:bg-white/15"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleDeleteAccount}
+                    disabled={deleteText !== "DELETE" || deleting}
+                    className="rounded-full bg-red-600 px-5 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-red-500 disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    {deleting ? "Deleting..." : "Delete my account"}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -24,6 +24,7 @@ const ForgotPass = lazy(() => import("./routes/ForgotPass"))
 const ResetPass = lazy(() => import("./routes/ResetPass"))
 const About = lazy(() => import("./routes/About"))
 const PrivacyPolicy = lazy(() => import("./routes/PrivacyPolicy"))
+const Terms = lazy(() => import("./routes/Terms"))
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -71,6 +72,7 @@ function App() {
          <Route path="/reset-password" element={noindex(<ResetPass/>)} />
          <Route path="/about" element={<About/>} />
          <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
+         <Route path="/terms" element={<Terms/>} />
       </Routes>
     </Suspense>
   )
